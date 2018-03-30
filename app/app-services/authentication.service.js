@@ -35,8 +35,8 @@
 
             /* Use this for real authentication
              ----------------------------------------------*/
-            //$http.post('http://home.zivkovic.si/api/api-token-auth/', { username: username, password: password })
-            $http.post(' http://127.0.0.1:8000/api-token-auth/', { email: username, password: password })
+            $http.post('https://home.zivkovic.si/api/api-token-auth/', { username: username, password: password })
+            //$http.post(' http://127.0.0.1:8000/api-token-auth/', { email: username, password: password })
             .then(function (response) {
                 authdata = response.token;
                 console.log(response.data.token);

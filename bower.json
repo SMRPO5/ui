@@ -1,16 +1,19 @@
 {
-    "name": "SMPO5",
-    "description": "A starter project for AngularJS",
-    "version": "0.0.0",
-    "license": "MIT",
-    "private": true,
-    "dependencies": {
-      "angular": "1.5.x",
-      "angular-animate": "1.5.x",
-      "angular-mocks": "1.5.x",
-      "angular-resource": "1.5.x",
-      "angular-route": "1.5.x",
-      "bootstrap": "3.3.x",
-      "jquery": "2.2.x"
-    }
+  "name": "smrpo5",
+  "description": "A starter project for AngularJS",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.6.x",
+    "angular-animate": "1.6.x",
+    "angular-mocks": "1.6.x",
+    "angular-resource": "1.6.x",
+    "angular-route": "1.6.x",
+    "bootstrap": "3.3.x",
+    "jquery": "2.2.x"
+  },
+  "resolutions": {
+    "angular": "1.6.x"
   }
+}
