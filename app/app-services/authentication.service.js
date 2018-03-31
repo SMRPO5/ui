@@ -31,8 +31,7 @@
         }
 
         function SetCredentials(username, authdata) {
-          console.log(authdata);
-                
+
             $rootScope.globals = {
                 currentUser: {
                     username: username,
