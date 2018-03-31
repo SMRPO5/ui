@@ -18,8 +18,8 @@
 
             /* Use this for real authentication
              ----------------------------------------------*/
-            //$http.post('http://home.zivkovic.si/api/api-token-auth/', { email: username, password: password })
-            $http.post(' http://127.0.0.1:8000/api-token-auth/', { email: username, password: password })
+            $http.post('https://home.zivkovic.si/api/api-token-auth/', { email: username, password: password })
+            //$http.post(' http://127.0.0.1:8000/api-token-auth/', { email: username, password: password })
            .then(function (response) {
                 //console.log(response);
                 callback(response);
@@ -32,8 +32,7 @@
         }
 
         function SetCredentials(username, authdata) {
-          console.log(authdata);
-                
+
             $rootScope.globals = {
                 currentUser: {
                     username: username,
