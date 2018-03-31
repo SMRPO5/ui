@@ -2,12 +2,34 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngCookies'])
+        .module('app', ['ngRoute', 'ngCookies', 'environment'])
         .config(config)
         .run(run);
 
-    config.$inject = ['$routeProvider', '$locationProvider'];
-    function config($routeProvider, $locationProvider) {
+    config.$inject = ['$routeProvider', '$locationProvider', 'envServiceProvider'];
+    function config($routeProvider, $locationProvider, envServiceProvider) {
+        envServiceProvider.config({
+            domains: {
+                development: ['localhost', 'main.local', 'laptop.local', '127.0.0.1'],
+                production: ['home.zivkovic.si', '192.168.42.4', 'server.local']
+            },
+            vars: {
+                development: {
+                    apiUrl: 'http://localhost:8000/'
+                },
+                production: {
+                    apiUrl: 'https://home.zivkovic.si/api/'
+                }
+            }
+        });
+
+        envServiceProvider.check();
+
+        // Uncomment bottom line to connect to production server.
+        //envServiceProvider.set('production');
+
+        console.log("ApiUrl: " + envServiceProvider.read('apiUrl'));
+
         $routeProvider
             .when('/', {
                 controller: 'HomeController',

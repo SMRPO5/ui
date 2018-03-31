@@ -5,8 +5,8 @@
         .module('app')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService'];
-    function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService) {
+    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService', 'envService'];
+    function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService, envService) {
         var service = {};
         service.Login = Login;
         service.SetCredentials = SetCredentials;
@@ -18,9 +18,8 @@
 
             /* Use this for real authentication
              ----------------------------------------------*/
-            //$http.post('http://home.zivkovic.si/api/api-token-auth/', { email: username, password: password })
-            $http.post(' http://127.0.0.1:8000/api-token-auth/', { email: username, password: password })
-           .then(function (response) {
+            $http.post(envService.read('apiUrl') + 'api-token-auth/', { email: username, password: password })
+            .then(function (response) {
                 //console.log(response);
                 callback(response);
                 
