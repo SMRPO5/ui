@@ -24,7 +24,7 @@
                     AuthenticationService.SetCredentials(vm.username, response.data.token);
                     $location.path('/');
                 } else {
-                    FlashService.Error("lost");//response.message);
+                    FlashService.Error(response.data.non_field_errors[0]);//response.message);
                     vm.dataLoading = false;
                 }
             });

@@ -18,14 +18,14 @@
 
             /* Use this for real authentication
              ----------------------------------------------*/
-            //$http.post('http://home.zivkovic.si/api/api-token-auth/', { username: username, password: password })
+            //$http.post('http://home.zivkovic.si/api/api-token-auth/', { email: username, password: password })
             $http.post(' http://127.0.0.1:8000/api-token-auth/', { email: username, password: password })
             .then(function (response) {
-                console.log(response);
+                //console.log(response);
                 callback(response);
                 
 			}, function (error) {
-                console.log(error);
+                //console.log(error);
                 callback(error);           
             });
 
