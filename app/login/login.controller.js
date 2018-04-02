@@ -10,6 +10,7 @@
         var vm = this;
 
         vm.login = login;
+        vm.popoverTemplate = 'app-popovers/login-help.popover.html';
 
         (function initController() {
             // reset login status

@@ -11,6 +11,8 @@
     <script src="//code.angularjs.org/1.6.9/angular-route.min.js"></script>
     <script src="//code.angularjs.org/1.6.9/angular-cookies.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/angular-environment@1.0.8/dist/angular-environment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
 
     <script src="app.js"></script>
     <script src="app-services/authentication.service.js"></script>
@@ -28,8 +30,8 @@
 </head>
 <body>
     <div class="jumbotron">
-        <div class="container">
-            <div class="col-sm-8 col-sm-offset-2">
+        <div class="container-fluid">
+            <div class="col-sm-12">
                 <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
                 <div ng-view></div>
             </div>
