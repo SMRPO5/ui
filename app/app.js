@@ -49,6 +49,24 @@
                 controllerAs: 'vm'
             })
 
+            .when('/board', {
+                controller: 'BoardController',
+                templateUrl: 'board/board.view.html',
+                controllerAs: 'vm'
+            })
+
+            .when('/devgrps', {
+                controller: 'DevGrpsController',
+                templateUrl: 'devgrps/devgrps.view.html',
+                controllerAs: 'vm'
+            })
+
+            .when('/projects', {
+                controller: 'ProjectsController',
+                templateUrl: 'projects/projects.view.html',
+                controllerAs: 'vm'
+            })
+
             .otherwise({ redirectTo: '/login' });
     }
 

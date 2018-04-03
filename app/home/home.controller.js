@@ -5,13 +5,16 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['UserService', '$rootScope'];
-    function HomeController(UserService, $rootScope) {
+    HomeController.$inject = ['UserService', '$rootScope', '$location'];
+
+    function HomeController(UserService, $rootScope, $location) {
         var vm = this;
 
         vm.user = null;
         vm.allUsers = [];
         vm.deleteUser = deleteUser;
+
+        vm.isActive = isActive;
 
         initController();
 
@@ -36,9 +39,13 @@
 
         function deleteUser(id) {
             UserService.Delete(id)
-            .then(function () {
-                loadAllUsers();
-            });
+                .then(function () {
+                    loadAllUsers();
+                });
+        }
+
+        function isActive(viewLocation) {
+            return viewLocation === $location.path();
         }
     }
 

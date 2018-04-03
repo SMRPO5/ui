@@ -21,7 +21,7 @@
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 //if (response.success) {
-                  if(response.status == 200){
+                if (response.status == 200) {
                     AuthenticationService.SetCredentials(vm.username, response.data.token);
                     $location.path('/');
                 } else {
@@ -29,7 +29,7 @@
                     vm.dataLoading = false;
                 }
             });
-        };
+        }
     }
 
 })();
