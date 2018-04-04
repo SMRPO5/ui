@@ -5,17 +5,17 @@
         .module('app')
         .factory('ProjectsService', ProjectsService);
 
-    ProjectsService.$inject = ['$http'];
-    function ProjectsService($http) {
+    ProjectsService.$inject = ['$http', 'envService'];
+    function ProjectsService($http, envService) {
         var service = {};
 
         service.GetAll = GetAll;
 
         return service;
 
-
+        // Samo za testiranje je /users/users/, ker /project/project/ API-ja še ni
         function GetAll() {
-            return $http.get('http://localhost:8000/projects/projects/').then(handleSuccess, handleError('Error getting all groups'));
+            return $http.get(envService.read('apiUrl') + 'users/users/').then(handleSuccess, handleError('Error getting all groups'));
         }
 
         // private functions

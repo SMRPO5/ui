@@ -5,8 +5,8 @@
         .module('app')
         .factory('DevGrpsService', DevGrpsService);
 
-    DevGrpsService.$inject = ['$http'];
-    function DevGrpsService($http) {
+    DevGrpsService.$inject = ['$http', 'envService'];
+    function DevGrpsService($http, envService) {
         var service = {};
 
         service.GetAll = GetAll;
@@ -15,7 +15,7 @@
 
 
         function GetAll() {
-            return $http.get('http://localhost:8000/dev_groups/dev_groups/').then(handleSuccess, handleError('Error getting all groups'));
+            return $http.get(envService.read('apiUrl') + 'dev_groups/dev_groups/').then(handleSuccess, handleError('Error getting all groups'));
         }
 
         // private functions

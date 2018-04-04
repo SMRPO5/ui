@@ -79,6 +79,42 @@
         }
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
+
+
+
+            // ZAČASNO : Potrebno spremeniti (Klemen)
+            var location = $location.path();
+
+            if (location === '/login'){
+                document.getElementById("board").setAttribute("class", "ng-hide");
+                document.getElementById("devgrps").setAttribute("class", "ng-hide");
+                document.getElementById("projects").setAttribute("class", "ng-hide");
+                document.getElementById("logout").setAttribute("class", "ng-hide");
+                document.getElementById("brand").setAttribute("href", "");
+            } else if (location === '/') {
+                document.getElementById("board").setAttribute("class", "");
+                document.getElementById("devgrps").setAttribute("class", "");
+                document.getElementById("projects").setAttribute("class", "");
+                document.getElementById("logout").setAttribute("class", "");
+            } else if (location === '/board') {
+                document.getElementById("board").setAttribute("class", "active");
+                document.getElementById("devgrps").setAttribute("class", "");
+                document.getElementById("projects").setAttribute("class", "");
+                document.getElementById("logout").setAttribute("class", "");
+            } else if (location === '/devgrps') {
+                document.getElementById("board").setAttribute("class", "");
+                document.getElementById("devgrps").setAttribute("class", "active");
+                document.getElementById("projects").setAttribute("class", "");
+                document.getElementById("logout").setAttribute("class", "");
+            } else if (location === '/projects') {
+                document.getElementById("board").setAttribute("class", "");
+                document.getElementById("devgrps").setAttribute("class", "");
+                document.getElementById("projects").setAttribute("class", "active");
+                document.getElementById("logout").setAttribute("class", "");
+            }
+            //END ZAČASNO
+
+
             // redirect to login page if not logged in and trying to access a restricted page
             var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
             var loggedIn = $rootScope.globals.currentUser;
