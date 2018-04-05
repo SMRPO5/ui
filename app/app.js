@@ -43,12 +43,6 @@
                 controllerAs: 'vm'
             })
 
-            .when('/register', {
-                controller: 'RegisterController',
-                templateUrl: 'register/register.view.html',
-                controllerAs: 'vm'
-            })
-
             .when('/board', {
                 controller: 'BoardController',
                 templateUrl: 'board/board.view.html',

@@ -20,12 +20,11 @@
         function login() {
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
-                //if (response.success) {
                 if (response.status == 200) {
                     AuthenticationService.SetCredentials(vm.username, response.data.token);
                     $location.path('/');
                 } else {
-                    FlashService.Error(response.data.non_field_errors[0]);//response.message);
+                    FlashService.Error(response.data.non_field_errors[0]);
                     vm.dataLoading = false;
                 }
             });
