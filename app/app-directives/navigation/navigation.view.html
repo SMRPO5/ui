@@ -1,0 +1,20 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a id="brand" class="navbar-brand" href="#!/">KanBan</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li id="board"><a href="#!/board">Board</a></li>
+            <li id="devgrps"><a href="#!/devgrps">DevGroup Management</a></li>
+            <li id="projects"><a href="#!/projects">Project Management</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a popover-append-to-body="true" uib-popover-template="popoverTemplate" popover-placement="bottom-right" popover-trigger="'outsideClick'" popover-title="Login Help">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                </a>
+            </li>
+            <li id="logout" ng-show="false"><a href="#!/login"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+        </ul>
+    </div>
+</nav>

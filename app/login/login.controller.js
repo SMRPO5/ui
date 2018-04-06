@@ -22,6 +22,7 @@
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 if (response.status == 200) {
                     AuthenticationService.SetCredentials(vm.username, response.data.token);
+                    AuthenticationService.saveJwtToken(response.data.token);
                     $location.path('/');
                 } else {
                     FlashService.Error(response.data.non_field_errors[0]);

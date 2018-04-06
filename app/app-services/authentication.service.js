@@ -5,12 +5,14 @@
         .module('app')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService', 'envService'];
-    function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService, envService) {
+    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$window', '$timeout', 'UserService', 'envService'];
+    function AuthenticationService($http, $cookies, $rootScope, $window, $timeout, UserService, envService) {
         var service = {};
         service.Login = Login;
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
+        service.saveJwtToken = saveJwtToken;
+        service.getJwtToken = getJwtToken;
 
         return service;
 
@@ -20,18 +22,13 @@
              ----------------------------------------------*/
             $http.post(envService.read('apiUrl') + 'api-token-auth/', { email: username, password: password })
             .then(function (response) {
-                //console.log(response);
                 callback(response);
-                
 			}, function (error) {
-                //console.log(error);
-                callback(error);           
+                callback(error);
             });
-
         }
 
         function SetCredentials(username, authdata) {
-
             $rootScope.globals = {
                 currentUser: {
                     username: username,
@@ -53,6 +50,30 @@
             $cookies.remove('globals');
             $http.defaults.headers.common.Authorization = 'JWT';
         }
+
+        function saveJwtToken(jwtToken) {
+            $window.localStorage.setItem('jwtToken', jwtToken);
+            $rootScope.username = getJwtTokenData().email;
+        }
+
+        function getJwtToken() {
+            return $window.localStorage.getItem('jwtToken');
+        }
+
+        function getJwtTokenData(){
+            var token = getJwtToken();
+            if(!token) {
+                return null;
+            }
+            return JSON.parse(b64Utf8(getJwtToken().split('.')[1]));
+        }
+
+        function b64Utf8(string) {
+            return decodeURIComponent(Array.prototype.map.call($window.atob(string), function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+            }).join(''));
+        }
+
     }
 
 })();
