@@ -9,18 +9,12 @@
 
     function ProjectsController(ProjectsService, $rootScope, $scope, $location) {
         var vm = this;
-        getProjects();
 
-
-        vm.isActive = isActive;
-        function isActive(viewLocation) {
-            return viewLocation === $location.path();
-        }
-
-        vm.getProjects = getProjects;
-        function getProjects(){
-            ProjectsService.GetAll().then(function(data) {$scope.projects = data;}, function() {console.log('error')});
-        }
+        ProjectsService.getProjects().then(function(response) {
+            if(response === 200) {
+                vm.projects = response.data;
+            }
+        });
 
         vm.openProjectModal = openProjectModal;
 

@@ -5,32 +5,32 @@
         .module('app')
         .factory('CardsService', CardsService);
 
-    CardsService.$inject = ['$http', 'envService'];
-    function CardsService($http, envService) {
-        var service = {};
-
-        service.getCards = getCards;
-        service.getCard = getCard;
-        service.createCard = createCard;
-
-        return service;
+    CardsService.$inject = ['$http', 'envService', 'AuthenticationService'];
+    function CardsService($http, envService, AuthenticationService) {
 
         function getCards() {
-            return $http.get(envService.read('apiUrl') + 'cards/cards/').then(handleSuccess, handleError('Error getting all cards'));
+            return $http.get(envService.read('apiUrl') + 'projects/cards/', AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting all cards'));
         }
 
         function getCard(id) {
-            return $http.get(envService.read('apiUrl') + 'cards/cards/' + id).then(handleSuccess, handleError('Error getting card'));
+            return $http.get(envService.read('apiUrl') + 'projects/cards/' + id, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting card'));
         }
 
         function createCard(cardData) {
-            return $http.post(envService.read('apiUrl') + 'cards/cards/', cardData).then(handleSuccess, handleError('Error creating card'));
+            return $http.post(envService.read('apiUrl') + 'projects/cards/', cardData, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error creating card'));
+        }
+
+        function getCardTypes() {
+            return $http.get(envService.read('apiUrl') + 'projects/card_types/', AuthenticationService.getHeaders());
         }
 
         // private functions
 
         function handleSuccess(res) {
-            return res.data;
+            return res;
         }
 
         function handleError(error) {
@@ -38,6 +38,13 @@
                 return { success: false, message: error };
             };
         }
+
+        return {
+            getCard: getCard,
+            getCards: getCards,
+            createCard: createCard,
+            getCardTypes: getCardTypes
+        };
     }
 
 })();

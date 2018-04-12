@@ -3,18 +3,15 @@
     function navigation() {
 
         return {
-            popoverTemplate: 'app-popovers/login-help.popover.html',
             templateUrl: "app-directives/navigation/navigation.view.html",
             link: function(scope, element, attrs, controllers) {
-                var vm = this;
-                scope.popoverTemplate = 'app-popovers/login-help.popover.html';
+                // $rootScope.helpTemplate must be set in controllers...
+                // Example:
+                // $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
+                //console.log("2", scope.helpTemplate);
+                //console.log("3", scope.$root.helpTemplate)
             }
         }
-        /*
-        vm.popoverTemplate = 'app-popovers/login-help.popover.html';
-        vm.templateUrl = "app-directives/navigation/navigation.view.html";
-        return vm;
-        */
     }
 
     angular

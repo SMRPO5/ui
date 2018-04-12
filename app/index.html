@@ -3,8 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <title>KanBan</title>
+    <base href="/">
+
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-    <link href="app-content/app.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="app-content/css/datetimepicker.css"/>
+    <link href="app-content/css/app.css" rel="stylesheet" />
 
     <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="//code.angularjs.org/1.6.9/angular.min.js"></script>
@@ -13,6 +17,11 @@
     <script src="https://cdn.jsdelivr.net/npm/angular-environment@1.0.8/dist/angular-environment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.1/js/bootstrap-select.min.js"></script>
+    <script src="app-content/script/datetimepicker.js"></script>
+    <script src="app-content/script/ng-bootstrap-select.min.js"></script>
+
 
     <script src="app.js"></script>
     <script src="app-directives/navigation/navigation.directive.js"></script>
@@ -20,6 +29,7 @@
     <script src="app-services/flash.service.js"></script>
     <script src="app-services/projects.service.js"></script>
     <script src="app-services/devgrps.service.js"></script>
+    <script src="app-services/cards.service.js"></script>
 
     <!-- Real user service that uses an api -->
     <script src="app-services/user.service.js"></script> 
@@ -32,6 +42,7 @@
     <script src="board/board.controller.js"></script>
     <script src="projects/projects.controller.js"></script>
     <script src="devgrps/devgrps.controller.js"></script>
+    <script src="card/create/create-card.controller.js"></script>
 </head>
 <body>
     <div class="jumbotron">

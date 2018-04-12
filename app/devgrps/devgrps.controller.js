@@ -9,22 +9,12 @@
 
     function DevGrpsController(DevGrpsService, $rootScope, $scope, $location) {
         var vm = this;
-        getGroups();
 
-
-
-
-
-
-        vm.isActive = isActive;
-        function isActive(viewLocation) {
-            return viewLocation === $location.path();
-        }
-
-        vm.getGroups = getGroups;
-        function getGroups(){
-            DevGrpsService.GetAll().then(function(data) {$scope.groups = data;}, function() {console.log('error')});
-        }
+        DevGrpsService.getDevelopmentGroups().then(function(response) {
+            if(response.status === 200) {
+                vm.groups = response.data;
+            }
+        });
 
         vm.openDevGrpModal = openDevGrpModal;
 

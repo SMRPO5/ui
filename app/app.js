@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngCookies', 'environment', 'ui.bootstrap'])
+        .module('app', ['ngRoute', 'ngCookies', 'environment', 'ui.bootstrap', 'ui.bootstrap.datetimepicker'])
         .config(config)
         .run(run);
 
@@ -26,96 +26,82 @@
         envServiceProvider.check();
 
         // Uncomment bottom line to connect to production server.
-        //envServiceProvider.set('production');
+        envServiceProvider.set('production');
 
         console.log("ApiUrl: " + envServiceProvider.read('apiUrl'));
+
+        var onlyLoggedIn = function($location, $q, AuthenticationService) {
+            var deferred = $q.defer();
+            if (AuthenticationService.isLoggedIn()) {
+                deferred.resolve();
+            } else {
+                deferred.reject();
+                AuthenticationService.logoutUser();
+                $location.path('/login');
+            }
+            return deferred.promise;
+        };
 
         $routeProvider
             .when('/', {
                 controller: 'HomeController',
                 templateUrl: 'home/home.view.html',
-                controllerAs: 'vm'
-            })
-
-            .when('/login', {
+                controllerAs: 'vm',
+                resolve: {
+                    onlyLoggedIn: ['$location', '$q', 'AuthenticationService', onlyLoggedIn]
+                }
+            }).when('/login', {
                 controller: 'LoginController',
                 templateUrl: 'login/login.view.html',
                 controllerAs: 'vm'
-            })
-
-            .when('/board', {
+            }).when('/board', {
                 controller: 'BoardController',
                 templateUrl: 'board/board.view.html',
-                controllerAs: 'vm'
-            })
-
-            .when('/devgrps', {
+                controllerAs: 'vm',
+                resolve: {
+                    onlyLoggedIn: ['$location', '$q', 'AuthenticationService', onlyLoggedIn]
+                }
+            }).when('/devgrps', {
                 controller: 'DevGrpsController',
                 templateUrl: 'devgrps/devgrps.view.html',
-                controllerAs: 'vm'
-            })
-
-            .when('/projects', {
+                controllerAs: 'vm',
+                resolve: {
+                    onlyLoggedIn: ['$location', '$q', 'AuthenticationService', onlyLoggedIn]
+                }
+            }).when('/projects', {
                 controller: 'ProjectsController',
                 templateUrl: 'projects/projects.view.html',
-                controllerAs: 'vm'
-            })
+                controllerAs: 'vm',
+                resolve: {
+                    onlyLoggedIn: ['$location', '$q', 'AuthenticationService', onlyLoggedIn]
+                }
+            }).when('/card/create', {
+                controller: 'CreateCardController',
+                templateUrl: 'card/create/create-card.view.html',
+                controllerAs: 'vm',
+                resolve: {
+                    onlyLoggedIn: ['$location', '$q', 'AuthenticationService', onlyLoggedIn]
+                }
+            }).otherwise({
+                redirectTo: '/login'
+            });
 
-            .otherwise({ redirectTo: '/login' });
+            $locationProvider.html5Mode(true);
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookies', '$http'];
-    function run($rootScope, $location, $cookies, $http) {
-        // keep user logged in after page refresh
-        $rootScope.globals = $cookies.getObject('globals') || {};
-        if ($rootScope.globals.currentUser) {
-            $http.defaults.headers.common.Authorization = 'JWT ' + $rootScope.globals.currentUser.authdata;
-        }
-
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
-
-
-
-            // ZAČASNO : Potrebno spremeniti (Klemen)
-            var location = $location.path();
-
-            if (location === '/login'){
-                document.getElementById("board").setAttribute("class", "ng-hide");
-                document.getElementById("devgrps").setAttribute("class", "ng-hide");
-                document.getElementById("projects").setAttribute("class", "ng-hide");
-                document.getElementById("logout").setAttribute("class", "ng-hide");
-                document.getElementById("brand").setAttribute("href", "");
-            } else if (location === '/') {
-                document.getElementById("board").setAttribute("class", "");
-                document.getElementById("devgrps").setAttribute("class", "");
-                document.getElementById("projects").setAttribute("class", "");
-                document.getElementById("logout").setAttribute("class", "");
-            } else if (location === '/board') {
-                document.getElementById("board").setAttribute("class", "active");
-                document.getElementById("devgrps").setAttribute("class", "");
-                document.getElementById("projects").setAttribute("class", "");
-                document.getElementById("logout").setAttribute("class", "");
-            } else if (location === '/devgrps') {
-                document.getElementById("board").setAttribute("class", "");
-                document.getElementById("devgrps").setAttribute("class", "active");
-                document.getElementById("projects").setAttribute("class", "");
-                document.getElementById("logout").setAttribute("class", "");
-            } else if (location === '/projects') {
-                document.getElementById("board").setAttribute("class", "");
-                document.getElementById("devgrps").setAttribute("class", "");
-                document.getElementById("projects").setAttribute("class", "active");
-                document.getElementById("logout").setAttribute("class", "");
-            }
-            //END ZAČASNO
-
-
-            // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['/login', '/register']) === -1;
-            var loggedIn = $rootScope.globals.currentUser;
-            if (restrictedPage && !loggedIn) {
-                $location.path('/login');
-            }
-        });
+    run.$inject = ['$rootScope', '$location', 'AuthenticationService'];
+    function run($rootScope, $location, AuthenticationService) {
+        $rootScope.isPathActive = function(path) {
+            console.log($location.path());
+            return $location.path() === path;
+        };
+        $rootScope.isLoggedIn = function() {
+            return AuthenticationService.isLoggedIn();
+        };
+        $rootScope.logoutUser = function() {
+            AuthenticationService.logoutUser();
+            $location.path('/login');
+        };
     }
 
 })();

@@ -5,23 +5,17 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', 'AuthenticationService', 'FlashService'];
-    function LoginController($location, AuthenticationService, FlashService) {
+    LoginController.$inject = ['$rootScope', '$location', 'AuthenticationService', 'FlashService'];
+    function LoginController($rootScope, $location, AuthenticationService, FlashService) {
         var vm = this;
 
         vm.login = login;
-        vm.popoverTemplate = 'app-popovers/login-help.popover.html';
-
-        (function initController() {
-            // reset login status
-            AuthenticationService.ClearCredentials();
-        })();
+        $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
 
         function login() {
             vm.dataLoading = true;
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.status == 200) {
-                    AuthenticationService.SetCredentials(vm.username, response.data.token);
+            AuthenticationService.loginUser(vm.username, vm.password, function (response) {
+                if (response.status === 200) {
                     AuthenticationService.saveJwtToken(response.data.token);
                     $location.path('/');
                 } else {
