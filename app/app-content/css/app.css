@@ -1,0 +1,17 @@
+﻿a {
+    cursor: pointer;
+}
+
+.active {
+    color: #fff !important;
+    background-color: transparent !important;
+}
+
+.popover {
+    max-width: 500px;
+    width: 500px;
+}
+
+.button-wrapper .btn {
+    margin-bottom: 10px;
+}
