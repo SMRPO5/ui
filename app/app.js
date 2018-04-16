@@ -26,7 +26,7 @@
         envServiceProvider.check();
 
         // Uncomment bottom line to connect to production server.
-        //envServiceProvider.set('production');
+        envServiceProvider.set('production');
 
         console.log("ApiUrl: " + envServiceProvider.read('apiUrl'));
 
@@ -85,8 +85,6 @@
             }).otherwise({
                 redirectTo: '/login'
             });
-
-            $locationProvider.html5Mode(true);
     }
 
     run.$inject = ['$rootScope', '$location', 'AuthenticationService'];
