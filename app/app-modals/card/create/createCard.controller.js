@@ -14,6 +14,17 @@
             $uibModalInstance.dismiss('cancel');
         };
 
+        vm.cardData = {
+            name: '',
+            description: '',
+            type: '',
+            assignee: '',
+            priority: '',
+            deadline: '',
+            size: '',
+            lane: 'TODO REPLACE WITH LANE ID'
+        };
+
         vm.dataLoading = false;
         vm.deadline_options = {
             minDate: new Date()
@@ -50,6 +61,7 @@
         $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
 
         function createCard() {
+            /*
             var cardData = {
                 name: vm.name,
                 description: vm.description === undefined ? '': vm.description,
@@ -59,7 +71,8 @@
                 lane: vm.lane,// TODO replace this..
                 deadline: vm.deadline,
                 size: vm.size
-            };
+            };*/
+            debugger;
             vm.dataLoading = true;
             CardsService.createCard();
             $uibModalInstance.close();
