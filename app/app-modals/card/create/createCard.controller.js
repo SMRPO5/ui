@@ -5,8 +5,8 @@
         .module('app')
         .controller('CreateCardController', CreateCardController);
 
-    CreateCardController.$inject = ['$rootScope', '$location', 'FlashService', 'CardsService', 'UserService'];
-    function CreateCardController($rootScope, $location, FlashService, CardsService, UserService) {
+    CreateCardController.$inject = ['$rootScope', 'CardsService', 'UserService', '$uibModalInstance'];
+    function CreateCardController($rootScope, CardsService, UserService, $uibModalInstance) {
         var vm = this;
 
         vm.createCard = createCard;
@@ -49,7 +49,7 @@
         function createCard() {
             var cardData = {
                 name: vm.name,
-                description: vm.description ==,
+                description: vm.description === undefined ? '': vm.description,
                 priority: vm.priority,
                 assignee: vm.assignee,
                 type: vm.type,
@@ -58,9 +58,9 @@
                 size: vm.size
             };
             vm.dataLoading = true;
-            debugger;
             CardsService.createCard();
-    }
+            $uibModalInstance.close();
+        }
 
     }
 
