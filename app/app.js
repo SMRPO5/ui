@@ -26,7 +26,7 @@
         envServiceProvider.check();
 
         // Uncomment bottom line to connect to production server.
-        envServiceProvider.set('production');
+        //envServiceProvider.set('production');
 
         console.log("ApiUrl: " + envServiceProvider.read('apiUrl'));
 
@@ -90,7 +90,7 @@
     run.$inject = ['$rootScope', '$location', 'AuthenticationService'];
     function run($rootScope, $location, AuthenticationService) {
         $rootScope.isPathActive = function(path) {
-            console.log($location.path());
+            //console.log($location.path());
             return $location.path() === path;
         };
         $rootScope.isLoggedIn = function() {

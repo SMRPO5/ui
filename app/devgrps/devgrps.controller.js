@@ -5,33 +5,29 @@
         .module('app')
         .controller('DevGrpsController', DevGrpsController);
 
-    DevGrpsController.$inject = ['DevGrpsService', '$rootScope', '$scope', '$location'];
+    DevGrpsController.$inject = ['DevGrpsService', '$rootScope', '$scope', '$location', 'ModalProvider'];
 
-    function DevGrpsController(DevGrpsService, $rootScope, $scope, $location) {
+    function DevGrpsController(DevGrpsService, $rootScope, $scope, $location, ModalProvider) {
         var vm = this;
 
-        DevGrpsService.getDevelopmentGroups().then(function(response) {
+        DevGrpsService.getDeveloperGroups().then(function(response) {
             if(response.status === 200) {
                 vm.groups = response.data;
             }
         });
 
-        vm.openDevGrpModal = openDevGrpModal;
+        vm.openGroupModal = openGroupModal;
+        vm.createGroupModal = createGroupModal;
 
-        function openDevGrpModal(index){
-            alert("ToDo: Open dialog for DevGroup with id: " + index);
+        function openGroupModal(ev, index){
+            vm.editGroup = vm.groups[index];
+            console.log(vm.editGroup);
+            ModalProvider.openEditGroupModal(ev);
         }
 
-        vm.createGroup = createGroup;
-
-        function createGroup(){
-            alert("ToDo: Open dialog for creation of a new DevGroup");
+        function createGroupModal(ev) {
+            ModalProvider.openAddGroupModal(ev);
         }
-
-        // TODO
-
-
-
     }
 
 })();

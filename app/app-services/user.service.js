@@ -1,4 +1,4 @@
-﻿(function () {
+﻿﻿(function () {
     'use strict';
 
     angular
@@ -9,6 +9,21 @@
     function UserService($http, envService, AuthenticationService) {
 
         function getUsers() {
+            return $http.get(envService.read('apiUrl') + 'users/users/', AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting all users'));
+        }
+
+        function getOwners() {
+            return $http.get(envService.read('apiUrl') + 'users/users/', AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting all users'));
+        }
+
+        function getMasters() {
+            return $http.get(envService.read('apiUrl') + 'users/users/', AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting all users'));
+        }
+
+        function getDevelopers() {
             return $http.get(envService.read('apiUrl') + 'users/users/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting all users'));
         }

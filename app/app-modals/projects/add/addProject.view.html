@@ -1,0 +1,66 @@
+<div class="modal-header">
+    <h3 class="modal-title">Create a new project</h3>
+</div>
+<div class="modal-body">
+    <form name="form" ng-submit="vm.addProject()" role="form">
+        <div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+            <label for="name">Project name</label>
+            <input type="text" name="name" id="name" class="form-control" ng-model="vm.name" required />
+            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Project name is required</span>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.customer.$dirty && form.customer.$error.required }">
+            <label for="customer">Customer</label>
+            <input type="text" name="customer" id="customer" class="form-control" ng-model="vm.customer" required />
+            <span ng-show="form.customer.$dirty && form.customer.$error.required" class="help-block">Customer is required</span>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group" ng-class="{ 'has-error': form.startDate.$dirty && form.startDate.$error.required }">
+                        <label for="startDate">Start date</label></br>
+                        <datetimepicker name="startDate" id="startDate"
+                                        ng-model="vm.startDate"
+                                        date-format="dd.MM.yyyy"
+                                        date-options="dateOptions"
+                                        date-disabled="isDisabledDate(date, mode)"
+                                        show-meridian="false"
+                                        show-spinners="true"
+                                        required>
+                        </datetimepicker>
+                        <span ng-show="form.startDate.$dirty && form.startDate.$error.required" class="help-block">Start date is required</span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group" ng-class="{ 'has-error': form.deadline.$dirty && form.deadline.$error.required }">
+                        <label for="deadline">Deadline</label></br>
+                        <datetimepicker name="deadline" id="deadline"
+                                        ng-model="vm.deadline"
+                                        date-format="dd.MM.yyyy"
+                                        date-options="dateOptions"
+                                        date-disabled="isDisabledDate(date, mode)"
+                                        show-meridian="false"
+                                        show-spinners="true"
+                                        required>
+                        </datetimepicker>
+                        <span ng-show="form.deadline.$dirty && form.deadline.$error.required" class="help-block">Deadline is required</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.devGroup.$dirty  && form.devGroup.$error.required }">
+            <label for="devGroup">Developer Group</label>
+            <select required class="form-control" ng-model="vm.devGroup" id="devGroup">
+                <option disabled value=""></option>
+                <option value="{{ group.id }}" ng-repeat="group in vm.devGroups">{{ group.name }}</option>
+            </select>
+            <span ng-show="form.devGroup.$dirty && form.devGroup.$error.required " class="help-block">Developer group is required</span>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" ng-disabled="vm.dataLoading" class="btn btn-primary">Create</button>
+            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        </div>
+    </form>
+</div>

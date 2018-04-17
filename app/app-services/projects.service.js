@@ -13,6 +13,11 @@
                 .then(handleSuccess, handleError('Error getting all groups'));
         }
 
+        function addProject(json) {
+            $http.post(envService.read('apiUrl') + 'projects/projects/', json, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error creating card'));
+        }
+
         // private functions
 
         function handleSuccess(res) {
@@ -26,7 +31,8 @@
         }
 
         return {
-            getProjects: getProjects
+            getProjects: getProjects,
+            addProject: addProject
         }
     }
 

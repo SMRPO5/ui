@@ -1,11 +1,11 @@
 ﻿<h1>Development groups</h1>
-<p>Click on a development group to view and edit the group. You can add a new group <button type="button" class="btn btn-default" ng-click="vm.createGroup()">here</button>.</p>
+<p>Click on a development group to view and edit the group. You can add a new group <button type="button" class="btn btn-default" ng-click="vm.createGroupModal($event)">here</button>.</p>
 
 
-<div class="button-wrapper row" ng-repeat="group in groups">
+<div class="button-wrapper row" ng-repeat="group in vm.groups">
 
     <span class="col-xs-3">
-        <button type="button" class="btn btn-default btn-block" ng-click="vm.openDevGrpModal($index)">{{group.name}}</button>
+        <button type="button" class="btn btn-default btn-block" ng-click="vm.openGroupModal($event, $index)">{{group.name}}</button>
     </span>
     <span class="col-xs-9"/>
 

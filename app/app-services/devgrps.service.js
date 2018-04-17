@@ -8,9 +8,14 @@
     DevGrpsService.$inject = ['$http', 'envService', 'AuthenticationService'];
     function DevGrpsService($http, envService, AuthenticationService) {
 
-        function getDevelopmentGroups() {
+        function getDeveloperGroups() {
             return $http.get(envService.read('apiUrl') + 'dev_groups/dev_groups/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting all groups'));
+        }
+
+        function addDeveloperGroup(json) {
+            $http.post(envService.read('apiUrl') + 'dev_groups/dev_groups/', json, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error creating card'));
         }
 
         // private functions
@@ -25,7 +30,9 @@
             };
         }
         return {
-            getDevelopmentGroups: getDevelopmentGroups
+            getDeveloperGroups: getDeveloperGroups,
+            addDeveloperGroup: addDeveloperGroup
+
         }
     }
 

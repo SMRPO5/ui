@@ -54,7 +54,7 @@
                 size: vm.site
             };
             CardsService.createCard();
-        }
+    }
 
     }
 

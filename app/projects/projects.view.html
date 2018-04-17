@@ -1,11 +1,9 @@
 ﻿<h1>Projects</h1>
-<p>Click on a project to view and edit the project. You can add a new project <button type="button" class="btn btn-default" ng-click="vm.createProject()">here</button>.</p>
+<p>Click on a project to view and edit the project. You can add a new project <button type="button" class="btn btn-default" ng-click="vm.createProject($event)">here</button>.</p>
 
-<p>(Comment: Dokler ni baze za projekte, so tukaj prikazani uporabniki)</p>
-
-<div class="button-wrapper row" ng-repeat="project in projects">
+<div class="button-wrapper row" ng-repeat="project in vm.projects">
     <span class="col-xs-3">
-        <button type="button" class="btn btn-default btn-block" ng-click="vm.openProjectModal($index)">{{project.email}}</button>
+        <button type="button" class="btn btn-default btn-block" ng-click="vm.openProjectModal($event, $index)">{{project.name}}</button>
     </span>
     <span class="col-xs-9"/>
 </div>
