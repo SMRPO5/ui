@@ -1,3 +1,7 @@
 ﻿<h1>Hello!</h1>
 <p>This is where the board is supposed to be! ;)</p>
 <button type="button" class="btn btn-default" ng-click="vm.openCreateCardModal()">Create card</button>
+
+<div ng-repeat="card in vm.cards">
+    <button ng-click="vm.editCard(card)"> {{ card.name }} </button>
+</div>

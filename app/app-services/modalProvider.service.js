@@ -46,9 +46,7 @@
                 appendTo: angular.element(document.body),
                 targetEvent: ev,
                 templateUrl: 'app-modals/projects/add/addProject.view.html',
-
-
-                size: 'lg',
+                size: 'lg'
                 /*
                 resolve: {
                     items: function () {
@@ -77,6 +75,20 @@
             });
         }
 
+        function openEditCard(card) {
+            return $uibModal.open({
+                controller: 'EditCardController',
+                controllerAs: 'vm',
+                appendTo: angular.element(document.body),
+                templateUrl: 'app-modals/card/edit/editCard.view.html',
+                resolve: {
+                    card: function () {
+                        return card;
+                    }
+                }
+            });
+        }
+
         function openCreateCardModal() {
             return $uibModal.open({
                 templateUrl: 'app-modals/card/create/createCard.view.html',
@@ -91,7 +103,8 @@
             openEditGroupModal: openEditGroupModal,
             openAddProjectModal: openAddProjectModal,
             openEditProjectModal: openEditProjectModal,
-            openCreateCardModal: openCreateCardModal
+            openCreateCardModal: openCreateCardModal,
+            openEditCard: openEditCard
         }
     }
 

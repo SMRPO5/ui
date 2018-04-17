@@ -23,6 +23,11 @@
                 .then(handleSuccess, handleError('Error creating card'));
         }
 
+        function editCard(id, cardData) {
+            return $http.patch(envService.read('apiUrl') + 'projects/cards/' + id + '/', cardData, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error updating card'));
+        }
+
         function getCardTypes() {
             return $http.get(envService.read('apiUrl') + 'projects/card_types/', AuthenticationService.getHeaders());
         }
@@ -43,7 +48,8 @@
             getCard: getCard,
             getCards: getCards,
             createCard: createCard,
-            getCardTypes: getCardTypes
+            getCardTypes: getCardTypes,
+            editCard: editCard
         };
     }
 

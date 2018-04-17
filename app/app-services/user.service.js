@@ -1,13 +1,12 @@
 ﻿(function() {
-    "use strict";
+    'use strict';
 
     angular
         .module('app')
         .factory('UserService', UserService);
 
     UserService.$inject = ['$http', 'envService', 'AuthenticationService'];
-    function UserService($http, envService, AuthenticationService) {
-
+        function UserService($http, envService, AuthenticationService) {
         function getUsers() {
             return $http.get(envService.read('apiUrl') + 'users/users/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting all users'));
