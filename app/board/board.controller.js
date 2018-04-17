@@ -9,9 +9,12 @@
 
     function BoardController(UserService, $rootScope, $location, ModalProvider) {
         var vm = this;
+
         vm.openCreateCardModal = function() {
             ModalProvider.openCreateCardModal();
         }
+
+
 
     }
 

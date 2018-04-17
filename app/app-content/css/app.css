@@ -19,3 +19,32 @@ textarea {
 .button-wrapper .btn {
     margin-bottom: 10px;
 }
+
+.board label {
+    margin-right: 10px;
+}
+
+.board select {
+    min-width: 200px;
+}
+
+.board .column {
+    min-height: 500px;
+    min-width: 200px;
+    float: left;
+}
+
+.board .column .column_header {
+    height: 20px;
+}
+
+.board .column .column_header_big {
+    height: 40px;
+    margin: 10px 0px;
+}
+
+.board .subcolumn {
+    min-height: 450px;
+    min-width: 200px;
+    float: left;
+}

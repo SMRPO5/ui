@@ -1,3 +1,50 @@
-﻿<h1>Hello!</h1>
+﻿<div class="row board">
+    <div class="board_buttons col-xs-12">
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label for="project">Project: </label>
+                        <select id="project" class="form-control" >
+                            <option>Projekt a</option>
+                            <option>Projekt b</option>
+                            <option>Projekt c</option>
+                            <option>Projekt d</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns col-xs-12">
+        <div class="column" style="background-color: red;">
+            <div class="column_header_big">
+                <div class="text-center">Test</div>
+            </div>
+        </div>
+        <div class="column" style="background-color: blue;">
+            <div class="column_header_big">
+                <div class="text-center">Test</div>
+            </div>
+        </div>
+        <div class="column" style="background-color: red;">
+            <div class="column_header">
+                <div class="text-center">Test</div>
+            </div>
+            <div class="subcolumn" style="background-color: green;">
+                <div class="column_header">
+                    <div class="text-center">Test</div>
+                </div>
+            </div>
+            <div class="subcolumn" style="background-color: pink;">
+                <div class="column_header">
+                    <div class="text-center">Test</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>Hello!</h1>
 <p>This is where the board is supposed to be! ;)</p>
 <button type="button" class="btn btn-default" ng-click="vm.openCreateCardModal()">Create card</button>
