@@ -9,9 +9,15 @@
     function CreateCardController($rootScope, CardsService, UserService, $uibModalInstance) {
         var vm = this;
 
-        vm.createCard = createCard;
+        vm.createCard = function createCard() {
+            CardsService.createCard(vm.cardData);
+            $uibModalInstance.close();
+        };
         vm.close = function() {
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss();
+        };
+        vm.openDeadlineDatePicker = function() {
+            vm.deadlineOpened = true;
         };
 
         vm.cardData = {
@@ -22,11 +28,10 @@
             priority: '',
             deadline: '',
             size: '',
-            lane: 'TODO REPLACE WITH LANE ID'
+            lane: 1
         };
 
-        vm.dataLoading = false;
-        vm.deadline_options = {
+        vm.deadlineOptions = {
             minDate: new Date()
         };
         vm.priorities = [
@@ -59,25 +64,6 @@
         });
 
         $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
-
-        function createCard() {
-            /*
-            var cardData = {
-                name: vm.name,
-                description: vm.description === undefined ? '': vm.description,
-                priority: vm.priority,
-                assignee: vm.assignee,
-                type: vm.type,
-                lane: vm.lane,// TODO replace this..
-                deadline: vm.deadline,
-                size: vm.size
-            };*/
-            debugger;
-            vm.dataLoading = true;
-            CardsService.createCard();
-            $uibModalInstance.close();
-        }
-
     }
 
 })();

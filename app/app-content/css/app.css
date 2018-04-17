@@ -6,7 +6,7 @@ textarea {
     resize: vertical;
 }
 
-.active {
+.nav .active {
     color: #fff !important;
     background-color: transparent !important;
 }

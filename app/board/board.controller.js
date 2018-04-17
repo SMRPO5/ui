@@ -12,11 +12,9 @@
         CardsService.getCards().then(function(cards){
             vm.cards = cards.data;
         });
-        vm.openCreateCardModal = openCreateCardModal;
-
-        function openCreateCardModal() {
+        vm.openCreateCardModal = function() {
             ModalProvider.openCreateCardModal();
-        }
+        };
         vm.editCard = function(card, index) {
             ModalProvider.openEditCard(card).result.then(function(data){
                 vm.cards[index] = data;

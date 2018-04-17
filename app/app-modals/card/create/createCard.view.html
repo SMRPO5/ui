@@ -39,9 +39,9 @@
         <div class="form-group col-xs-6" ng-class="{ 'has-error': form.deadline.$dirty && form.deadline.$error.required }">
             <label for="deadline">Deadline</label></br>
             <p class="input-group">
-                <input type="text" id="deadline" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.cardData.deadline" is-open="vm.deadline_opened" datepicker-options="vm.deadline_options" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                <input ng-click="vm.openDeadlineDatePicker()" type="text" id="deadline" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.cardData.deadline" is-open="vm.deadlineOpened" datepicker-options="vm.deadlineOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="vm.deadline_opened = true;">
+                    <button type="button" class="btn btn-default" ng-click="vm.openDeadlineDatePicker()">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </button>
                 </span>
@@ -56,6 +56,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.close()">Close</button>
-        <button type="submit" class="btn btn-primary" >Create</button>
+        <button type="submit" class="btn btn-primary">Create</button>
     </div>
 </form>
