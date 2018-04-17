@@ -5,16 +5,15 @@
         .module('app')
         .controller('BoardController', BoardController);
 
-    BoardController.$inject = ['UserService', '$rootScope', '$location'];
+    BoardController.$inject = ['UserService', '$rootScope', '$location', 'ModalProvider'];
 
-    function BoardController(UserService, $rootScope, $location) {
+    function BoardController(UserService, $rootScope, $location, ModalProvider) {
         var vm = this;
-        vm.isActive = isActive;
+        vm.openCreateCardModal = openCreateCardModal;
 
-        // TODO
-
-        function isActive(viewLocation) {
-            return viewLocation === $location.path();
+        function openCreateCardModal() {
+            debugger;
+            ModalProvider.openCreateCardModal();
         }
 
     }

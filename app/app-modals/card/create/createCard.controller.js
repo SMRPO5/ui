@@ -10,6 +10,9 @@
         var vm = this;
 
         vm.createCard = createCard;
+        vm.close = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
 
         vm.dataLoading = false;
         vm.deadline_options = {

@@ -1,6 +1,6 @@
 (function() {
     /* global angular */
-    function modalProvider($uibModal) {
+    function modalProvider($uibModal, $document) {
         function openAddGroupModal(ev) {
             return $uibModal.open({
                 controller: 'AddGroupController',
@@ -76,38 +76,13 @@
                 }*/
             });
         }
-        
-        function openEditExamModal(ev, exam) {
-            return $mdDialog.show({
-                controller: 'EditExamController',
+
+        function openCreateCardModal() {
+            return $uibModal.open({
+                templateUrl: 'app-modals/card/create/createCard.view.html',
+                controller: 'CreateCardController',
                 controllerAs: 'vm',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                templateUrl: '../common/modals/editExam/editExam.view.html',
-                clickOutsideToClose: true,
-                locals: { exam: exam },
-                bindToController: true,
-            });
-        }
-        
-        function openRemoveExamModal(ev, exam) {
-            // return $mdDialog.show($mdDialog.confirm()
-            // .title('Ali Res želiš izbrisata izpitni rok?')
-            // .textContent('Vsi študetnje bodo odjavljeni iz izpita')
-            // .ariaLabel('Delete Exam')
-            // .targetEvent(ev)
-            // .clickOutsideToClose(true)
-            // .ok('DA')
-            // .cancel('NE'));
-            return $mdDialog.show({
-                controller: 'RemoveExamController',
-                controllerAs: 'vm',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                templateUrl: '../common/modals/removeExam/removeExam.view.html',
-                clickOutsideToClose: true,
-                locals: { exam: exam },
-                bindToController: true,
+                appendTo: angular.element($document[0].querySelector('.modal_container'))
             });
         }
 
@@ -115,12 +90,13 @@
             openAddGroupModal: openAddGroupModal,
             openEditGroupModal: openEditGroupModal,
             openAddProjectModal: openAddProjectModal,
-            openEditProjectModal: openEditProjectModal
+            openEditProjectModal: openEditProjectModal,
+            openCreateCardModal: openCreateCardModal
         }
     }
 
 
     angular
         .module('app')
-        .service('ModalProvider', ['$uibModal', modalProvider]);
+        .service('ModalProvider', ['$uibModal', '$document', modalProvider]);
 })();

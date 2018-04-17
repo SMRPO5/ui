@@ -26,7 +26,7 @@
         envServiceProvider.check();
 
         // Uncomment bottom line to connect to production server.
-        //envServiceProvider.set('production');
+        envServiceProvider.set('production');
 
         console.log("ApiUrl: " + envServiceProvider.read('apiUrl'));
 
@@ -71,13 +71,6 @@
             }).when('/projects', {
                 controller: 'ProjectsController',
                 templateUrl: 'projects/projects.view.html',
-                controllerAs: 'vm',
-                resolve: {
-                    onlyLoggedIn: ['$location', '$q', 'AuthenticationService', onlyLoggedIn]
-                }
-            }).when('/card/create', {
-                controller: 'CreateCardController',
-                templateUrl: 'app-modals/create-card/create-card.view.html',
                 controllerAs: 'vm',
                 resolve: {
                     onlyLoggedIn: ['$location', '$q', 'AuthenticationService', onlyLoggedIn]
