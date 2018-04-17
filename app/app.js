@@ -77,13 +77,13 @@
                 }
             }).when('/card/create', {
                 controller: 'CreateCardController',
-                templateUrl: 'card/create/create-card.view.html',
+                templateUrl: 'app-modals/create-card/create-card.view.html',
                 controllerAs: 'vm',
                 resolve: {
                     onlyLoggedIn: ['$location', '$q', 'AuthenticationService', onlyLoggedIn]
                 }
             }).otherwise({
-                redirectTo: '/login'
+                redirectTo: '/'
             });
     }
 

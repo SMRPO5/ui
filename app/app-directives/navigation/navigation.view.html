@@ -3,7 +3,7 @@
         <div class="navbar-header">
             <a id="brand" class="navbar-brand" href="/" ng-class="{active: isPathActive('/')}">KanBan</a>
         </div>
-        <ul class="nav navbar-nav">
+        <ul ng-if="isLoggedIn()" class="nav navbar-nav">
             <li id="board">
                 <a href="#!/board" ng-class="{active: isPathActive('/board')}">Board</a>
             </li>

@@ -10,6 +10,11 @@
         var vm = this;
 
         vm.createCard = createCard;
+
+        vm.dataLoading = false;
+        vm.deadline_options = {
+            minDate: new Date()
+        };
         vm.priorities = [
             {
                 number: 4,
@@ -36,7 +41,6 @@
         UserService.getUsers().then(function(result) {
             if(result.status === 200) {
                 vm.users = result.data;
-                console.log("Users: ", vm.users);
             }
         });
 
@@ -45,14 +49,16 @@
         function createCard() {
             var cardData = {
                 name: vm.name,
-                description: vm.description,
+                description: vm.description ==,
                 priority: vm.priority,
                 assignee: vm.assignee,
                 type: vm.type,
-                lane: vm.lane,
+                lane: vm.lane,// TODO replace this..
                 deadline: vm.deadline,
-                size: vm.site
+                size: vm.size
             };
+            vm.dataLoading = true;
+            debugger;
             CardsService.createCard();
     }
 

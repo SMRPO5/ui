@@ -12,43 +12,39 @@
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.type.$dirty && form.type.$error.required }">
             <label for="type">Card type</label>
-            <select selectpicker class="selectpicker" ng-model="vm.type" id="type" required>
-                <option value="{{ cardType.id }}" ng-repeat="cardType in vm.cardTypes" data-content="<span class='label label-success'>{{ cardType.name }}</span>">
-                </option>
+            <select ng-model="vm.type" id="type" class="form-control" required>
+                <option></option>
+                <option value="{{ cardType.id }}" ng-repeat="cardType in vm.cardTypes">{{ cardType.name }}</option>
             </select>
             <span ng-show="form.type.$dirty && form.type.$error.required" class="help-block">Type error</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.assignee.$dirty }">
             <label for="assignee">Assignee</label>
-            <select class="form-control" ng-model="vm.assignee" id="assignee">
+            <select class="form-control" ng-model="vm.assignee" id="assignee" required>
+                <option>Unassigned</option>
                 <option value="{{ user.id }}" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
             </select>
             <span ng-show="form.assignee.$dirty" class="help-block">Type error</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.priority.$dirty && form.priority.$error.required }">
             <label for="priority">Priority</label>
-            <select class="form-control" ng-model="vm.priority" id="priority">
+            <select class="form-control" ng-model="vm.priority" id="priority" required>
+                <option></option>
                 <option value="{{ priority.number }}" ng-repeat="priority in vm.priorities">{{ priority.name }}</option>
             </select>
             <span ng-show="form.priority.$dirty && form.priority.$error.required" class="help-block">Priority is required</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.deadline.$dirty && form.deadline.$error.required }">
             <label for="deadline">Deadline</label></br>
-            <datetimepicker name="deadline" id="deadline"
-                            ng-model="vm.deadline"
-                            date-format="dd.MM.yyyy"
-                            date-options="dateOptions"
-                            date-disabled="isDisabledDate(date, mode)"
-                            show-meridian="false"
-                            show-spinners="true"
-                            required>
-            </datetimepicker>
+            <p class="input-group">
+                <input type="text" id="deadline" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.deadline" is-open="vm.deadline_opened" datepicker-options="vm.deadline_options" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="vm.deadline_opened = true;">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
             <span ng-show="form.deadline.$dirty && form.deadline.$error.required" class="help-block">Deadline is required</span>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error': form.lane.$dirty && form.lane.$error.required }">
-            <label for="lane">Lane</label>
-            <input type="text" name="lane" id="lane" class="form-control" ng-model="vm.lane" required />
-            <span ng-show="form.lane.$dirty && form.lane.$error.required" class="help-block">Lane is required</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.size.$dirty && form.size.$error.required }">
             <label for="size">Size</label>
