@@ -124,6 +124,12 @@ table.lane thead tr th {
     text-align: center;
     min-width: 200px;
     border: 1px solid #e6ebf4;
+    padding: 2px;
+}
+
+table.lane thead tr th.color-header {
+    border: 2px solid;
+    padding: 0px;
 }
 
 table.lane tbody tr td {
@@ -136,4 +142,8 @@ table.lane tbody tr td {
 table.lane .lane-cell-header {
     height: 20px;
     line-height: 20px;
+}
+
+table.lane .lane-column-content {
+    padding: 5px;
 }

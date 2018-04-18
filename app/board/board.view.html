@@ -26,7 +26,7 @@
         <table class="lane">
             <thead>
                 <tr>
-                    <th colspan="{{ parentColumnSize }}" style="border: 2px solid blue;" ng-repeat="parentColumnSize in vm.parentColumnSizes track by $index"></th>
+                    <th class="color-header" colspan="{{ parentColumnSize }}" style="border-color: blue;" ng-repeat="parentColumnSize in vm.parentColumnSizes track by $index"></th>
                 </tr>
                 <tr>
                     <th rowspan="{{ parentColumn.rowSpan }}" colspan="{{ parentColumn.colSpan }}" ng-repeat="parentColumn in vm.parentColumns">{{ parentColumn.name }}</th>
@@ -37,7 +37,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td ng-repeat="columnCards in vm.cardsForColumns">
+                    <td class="lane-column-content" ng-repeat="columnCards in vm.cardsForColumns">
                         <div class="lane-cell-header">HEADER</div>
                         <div class="lane-card-container">
                             <div ng-repeat="card in columnCards.cards">{{ card.name }}</div>
