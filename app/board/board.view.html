@@ -1,37 +1,67 @@
-﻿<div class="row board">
-    <div class="board_top_menu col-xs-12">
-        <div class="row">
-            <div class="col-xs-4">
-                <div class="form-inline">
-                    <div class="form-group">
-                        <label for="project">Project: </label>
-                        <select id="project" class="form-control" ng-model="vm.selectedProject" ng-change="vm.onProjectChange()">
-                            <option value="{{ project.id }}" ng-repeat="project in vm.projects">{{ project.name }}</option>
-                        </select>
+﻿<div class="board">
+    <div class="row">
+        <div class="board_top_menu col-xs-12">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <label for="project">Project: </label>
+                            <select id="project" class="form-control" ng-model="vm.selectedProject" ng-change="vm.onProjectChange()">
+                                <option value="{{ project.id }}" ng-repeat="project in vm.projects">{{ project.name }}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-8">
-                <div class="button_container">
-                    <button type="button" class="btn btn-default" ng-click="vm.openCreateCardModal()">Create card</button>
-                    <button type="button" class="btn btn-default">Edit board</button>
+                <div class="col-xs-8">
+                    <div class="button_container">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCreateCardModal()">Create card</button>
+                        <button type="button" class="btn btn-default">Edit board</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="lane-container">
+        <table class="lane">
+            <thead>
+                <tr>
+                    <th colspan="{{ parentColumnSize }}" style="border: 2px solid blue;" ng-repeat="parentColumnSize in vm.parentColumnSizes track by $index"></th>
+                </tr>
+                <tr>
+                    <th rowspan="{{ parentColumn.rowSpan }}" colspan="{{ parentColumn.colSpan }}" ng-repeat="parentColumn in vm.parentColumns">{{ parentColumn.name }}</th>
+                </tr>
+                <tr>
+                    <th rowspan="1" colspan="1" ng-repeat="childColumn in vm.childColumns">{{ childColumn.name }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td ng-repeat="columnCards in vm.cardsForColumns">
+                        <div class="lane-cell-header">HEADER</div>
+                        <div class="lane-card-container">
+                            <div ng-repeat="card in columnCards.cards">{{ card.name }}</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--
     <div class="columns">
-        <div ng-class="vm.getColumnClass(column)" ng-repeat="column in vm.columns">
+        <div ng-class="vm.getColumnClass(column)" ng-repeat="column in vm.columns" style="background-color: {{vm.getColor(column)}}">
             <div ng-class="vm.getColumnHeaderClass(column)">
                 <div class="text-center">{{ column.name }}</div>
             </div>
-            <div ng-if="column.subcolumns" class="subcolumn small" ng-repeat="subcolumn in column.subcolumns">
+            <div ng-if="column.subcolumns" class="subcolumn small" ng-repeat="subcolumn in column.subcolumns" style="background-color: {{vm.getColor(subcolumn)}}">
                 <div class="column_header">
                     <div class="text-center">{{ subcolumn.name }}</div>
                 </div>
             </div>
         </div>
     </div>
+    -->
     <!--
     <div class="columns">
         <div class="column small" style="background-color: red; width: 20%;">

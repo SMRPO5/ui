@@ -57,7 +57,7 @@ textarea {
     min-height: 500px;
     min-width: 200px;
     display: inline-block;
-    margin-right: -4px;
+    /*margin-right: -4px;*/
     vertical-align: top;
 }
 
@@ -102,4 +102,38 @@ textarea {
     width: 1200px;
     background-color: #ccc;
     margin: 10px auto 0px auto;
+}
+
+
+/* Table for lane */
+.lane-container {
+    overflow: auto;
+    width: 100%;
+}
+
+table.lane {
+    border-collapse: separate;
+    border-spacing: 4px;
+    min-width: 100%;
+    min-height: 600px;
+}
+
+table.lane thead tr th {
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    text-align: center;
+    min-width: 200px;
+    border: 1px solid #e6ebf4;
+}
+
+table.lane tbody tr td {
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    vertical-align: top;
+    border: 1px solid #e6ebf4;
+}
+
+table.lane .lane-cell-header {
+    height: 20px;
+    line-height: 20px;
 }
