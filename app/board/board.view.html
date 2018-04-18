@@ -1,54 +1,84 @@
 ﻿<div class="row board">
-    <div class="board_buttons col-xs-12">
+    <div class="board_top_menu col-xs-12">
         <div class="row">
             <div class="col-xs-4">
                 <div class="form-inline">
                     <div class="form-group">
                         <label for="project">Project: </label>
-                        <select id="project" class="form-control" >
-                            <option>Projekt a</option>
-                            <option>Projekt b</option>
-                            <option>Projekt c</option>
-                            <option>Projekt d</option>
+                        <select id="project" class="form-control" ng-model="vm.selectedProject" ng-change="vm.onProjectChange()">
+                            <option value="{{ project.id }}" ng-repeat="project in vm.projects">{{ project.name }}</option>
                         </select>
                     </div>
                 </div>
             </div>
+            <div class="col-xs-8">
+                <div class="button_container">
+                    <button type="button" class="btn btn-default" ng-click="vm.openCreateCardModal()">Create card</button>
+                    <button type="button" class="btn btn-default">Edit board</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="columns col-xs-12">
-        <div class="column" style="background-color: red;">
+
+    <div class="columns">
+        <div ng-class="vm.getColumnClass(column)" ng-repeat="column in vm.columns">
+            <div ng-class="vm.getColumnHeaderClass(column)">
+                <div class="text-center">{{ column.name }}</div>
+            </div>
+            <div ng-if="column.subcolumns" class="subcolumn small" ng-repeat="subcolumn in column.subcolumns">
+                <div class="column_header">
+                    <div class="text-center">{{ subcolumn.name }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="columns">
+        <div class="column small" style="background-color: red; width: 20%;">
             <div class="column_header_big">
                 <div class="text-center">Test</div>
             </div>
         </div>
-        <div class="column" style="background-color: blue;">
+        <div class="column small" style="background-color: blue; width: 20%;">
             <div class="column_header_big">
                 <div class="text-center">Test</div>
             </div>
         </div>
-        <div class="column" style="background-color: red;">
+        <div class="column small" style="background-color: red; width: 20%;">
+            <div class="column_header_big">
+                <div class="text-center">Test</div>
+            </div>
+        </div>
+        <div class="column small" style="background-color: blue; width: 20%;">
+            <div class="column_header_big">
+                <div class="text-center">Test</div>
+            </div>
+        </div>
+        <div class="column big" style="background-color: red; width: 40%;">
             <div class="column_header">
                 <div class="text-center">Test</div>
             </div>
-            <div class="subcolumn" style="background-color: green;">
+            <div class="subcolumn small" style="background-color: green; width: 50%;">
                 <div class="column_header">
                     <div class="text-center">Test</div>
                 </div>
             </div>
-            <div class="subcolumn" style="background-color: pink;">
+            <div class="subcolumn small" style="background-color: pink; width: 50%;">
                 <div class="column_header">
                     <div class="text-center">Test</div>
                 </div>
             </div>
         </div>
+        <div class="column small" style="background-color: blue; width: 20%;">
+            <div class="column_header_big">
+                <div class="text-center">Test</div>
+            </div>
+        </div>
     </div>
+
+    -->
 </div>
 
-<h1>Hello!</h1>
-<p>This is where the board is supposed to be! ;)</p>
-<button type="button" class="btn btn-default" ng-click="vm.openCreateCardModal()">Create card</button>
-
 <div ng-repeat="card in vm.cards">
-    <button ng-click="vm.editCard(card)"> {{ card.name }} </button>
+    <button ng-click="vm.editCard(card)">{{ card.name }}</button>
 </div>

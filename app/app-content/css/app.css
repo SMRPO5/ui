@@ -1,4 +1,8 @@
-﻿a {
+﻿body {
+    background-color: #eee;
+}
+
+a {
     cursor: pointer;
 }
 
@@ -9,6 +13,11 @@ textarea {
 .nav .active {
     color: #fff !important;
     background-color: transparent !important;
+}
+
+.main_container {
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .popover {
@@ -28,10 +37,35 @@ textarea {
     min-width: 200px;
 }
 
+.board .board_top_menu {
+    margin-bottom: 10px;
+}
+
+.board .board_top_menu .button_container {
+    float: right;
+}
+
+.board .columns {
+    min-width: 1200px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin: 0px 15px;
+    white-space: nowrap;
+}
+
 .board .column {
     min-height: 500px;
     min-width: 200px;
-    float: left;
+    display: inline-block;
+    margin-right: -4px;
+    vertical-align: top;
+}
+
+.board .column.small, .board .subcolumn {
+    max-width: 300px;
+}
+.board .column.big {
+    max-width: 600px;
 }
 
 .board .column .column_header {
@@ -44,7 +78,28 @@ textarea {
 }
 
 .board .subcolumn {
-    min-height: 450px;
+    min-height: 480px;
     min-width: 200px;
-    float: left;
+    display: inline-block;
+    margin-right: -4px;
+    vertical-align: top;
+}
+
+.jumbotron {
+    margin-bottom: 0px;
+}
+
+.credits {
+    background-color: #eee;
+}
+
+.credits p {
+    padding: 10px 0px;
+}
+
+.credits hr {
+    height: 1px;
+    width: 1200px;
+    background-color: #ccc;
+    margin: 10px auto 0px auto;
 }

@@ -13,6 +13,11 @@
                 .then(handleSuccess, handleError('Error getting all cards'));
         }
 
+        function getCardsForProject(projectId) {
+            // TODO
+            return getCards();
+        }
+
         function getCard(id) {
             return $http.get(envService.read('apiUrl') + 'projects/cards/' + id, AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting card'));
@@ -47,6 +52,7 @@
         return {
             getCard: getCard,
             getCards: getCards,
+            getCardsForProject: getCardsForProject,
             createCard: createCard,
             getCardTypes: getCardTypes,
             editCard: editCard

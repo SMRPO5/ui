@@ -51,18 +51,19 @@
 </head>
 <body>
     <div class="jumbotron">
-        <div class="container-fluid">
-            <div class="col-sm-12">
-                <navigation></navigation>
-                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-                <div ng-view></div>
+        <div class="container-fluid main_container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <navigation></navigation>
+                    <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+                    <div ng-view></div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="credits text-center">
-        <p>
-            SMRPO5
-        </p>
+    <div class="credits text-center navbar-fixed-bottom">
+        <hr>
+        <p>SMRPO5</p>
     </div>
     <div class="modal_container"></div>
 </body>

@@ -10,12 +10,22 @@
 
         function getProjects() {
             return $http.get(envService.read('apiUrl') + 'projects/projects/', AuthenticationService.getHeaders())
-                .then(handleSuccess, handleError('Error getting all groups'));
+                .then(handleSuccess, handleError('Error getting all projects'));
+        }
+
+        function getProjectsForUser(userId) {
+            // TODO
+            return getProjects();
         }
 
         function addProject(json) {
             $http.post(envService.read('apiUrl') + 'projects/projects/', json, AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error creating card'));
+        }
+
+        function getColumnsForProject(projectId) {
+            return $http.get(envService.read('apiUrl') + 'projects/columns/?lane__project=' + projectId, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting columns'));
         }
 
         // private functions
@@ -32,7 +42,9 @@
 
         return {
             getProjects: getProjects,
-            addProject: addProject
+            getProjectsForUser: getProjectsForUser,
+            addProject: addProject,
+            getColumnsForProject: getColumnsForProject
         }
     }
 
