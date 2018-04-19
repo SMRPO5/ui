@@ -1,6 +1,6 @@
 <div class="card">
     <div class="header clickable" ng-click="editCard(card)">
-        <span >{{ card.name }}</span>
+        <span ng-mouseover="">{{ card.name }}</span>
     </div>
 
     <div class="row">
@@ -9,6 +9,10 @@
         </div>
         <div class="col-xs-6">
             Assignee: {{card.assignee.first_name }}
+        </div>
+
+        <div class="col-xs-12 task" ng-repeat="task in card.tasks">
+            {{task.name}}
         </div>
     </div>
 </div>

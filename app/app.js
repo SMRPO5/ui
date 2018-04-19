@@ -1,6 +1,5 @@
-﻿(function () {
-    'use strict';
-
+﻿"use strict";
+(function () {
     angular
         .module('app', ['ngRoute', 'ngCookies', 'environment', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'angularMoment', 'dndLists'])
         .config(config)

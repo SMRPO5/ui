@@ -166,8 +166,16 @@ table.lane .lane-column-content {
     padding: 5px;
 }
 
+.card .header :hover {
+    text-decoration: underline;
+}
+
 .card .body {
     padding: 5px;
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
+}
+
+.task {
+    padding: 5px;
 }
