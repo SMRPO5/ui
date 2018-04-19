@@ -115,6 +115,7 @@ table.lane {
     border-spacing: 4px;
     min-width: 100%;
     min-height: 600px;
+    margin-left: -4px;
 }
 
 table.lane thead tr th {
