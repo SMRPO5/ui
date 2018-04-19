@@ -34,16 +34,10 @@
         };
 
         vm.onProjectChange = function() {
-            //loadCards(vm.selectedProject);
             loadColumns(vm.selectedProject);
         };
         vm.openCreateCardModal = function() {
             ModalProvider.openCreateCardModal();
-        };
-        vm.editCard = function(card, index) {
-            ModalProvider.openEditCard(card).result.then(function(data){
-                vm.cards[index] = data;
-            });
         };
 
         vm.getColumnClass = function(column) {
@@ -102,7 +96,7 @@
 
         function loadCards(projectId) {
             CardsService.getCardsForProject(projectId).then(function(response) {
-                if(response === 200) {
+                if(response.status === 200) {
                     vm.cards = response.data;
                 }
             });
