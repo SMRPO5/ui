@@ -60,13 +60,17 @@
                         var subcolumn = column.subcolumns[j];
                         cardsForColumns.push({
                             column: subcolumn,
-                            cards: subcolumn.cards
+                            cards: subcolumn.cards,
+                            numberOfCardsInColumn: subcolumn.cards.length,
+                            maxNumberOfCardsInColumn: 0// Force 0 as parent controls this.
                         });
                     }
                 } else {
                     cardsForColumns.push({
                         column: column,
-                        cards: column.cards
+                        cards: column.cards,
+                        numberOfCardsInColumn: column.cards.length,
+                        maxNumberOfCardsInColumn: column.card_limit
                     });
                 }
             }
