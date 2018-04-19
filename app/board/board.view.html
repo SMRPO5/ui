@@ -1,4 +1,4 @@
-﻿<div class="board">
+﻿﻿<div class="board">
     <div class="row">
         <div class="board_top_menu col-xs-12">
             <div class="row">
@@ -40,7 +40,7 @@
                     <td class="lane-column-content" ng-repeat="columnCards in vm.cardsForColumns">
                         <div class="lane-cell-header">HEADER</div>
                         <div class="lane-card-container">
-                            <div ng-repeat="card in columnCards.cards">{{ card.name }}</div>
+                            <card ng-repeat="card in columnCards.cards" card="card">{{ card.name }}</card>
                         </div>
                     </td>
                 </tr>

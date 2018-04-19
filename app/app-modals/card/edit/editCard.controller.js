@@ -47,8 +47,10 @@
         $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
 
         vm.editCard = function() {
-            CardsService.editCard(card.id, vm.cardData);
-            $uibModalInstance.close(vm.cardData);
+            vm.cardData.assignee = vm.cardData.assignee.id;
+            CardsService.editCard(card.id, vm.cardData).then(function(response) {
+                $uibModalInstance.close(response.data);
+            });
         };
 
         vm.close = function() {

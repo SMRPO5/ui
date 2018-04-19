@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="header clickable" ng-click="editCard(card)">
+        <span >{{ card.name }}</span>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6">
+            Priority: {{ card.priority | toPriorityText }}
+        </div>
+        <div class="col-xs-6">
+            Assignee: {{card.assignee.first_name }}
+        </div>
+    </div>
+</div>
