@@ -38,7 +38,7 @@
             <tbody>
                 <tr>
                     <td class="lane-column-content" ng-repeat="columnCards in vm.cardsForColumns">
-                        <div class="lane-cell-header">HEADER</div>
+                        <div class="lane-cell-header">{{ columnCards.numberOfCardsInColumn }}<span class="slash-separator">/</span>{{ columnCards.maxNumberOfCardsInColumn }}</div>
                         <div class="lane-card-container">
                             <card ng-repeat="card in columnCards.cards" card="card">{{ card.name }}</card>
                         </div>
