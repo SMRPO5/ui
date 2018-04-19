@@ -80,7 +80,7 @@
         function loadColumns(projectId) {
             ProjectsService.getColumnsForProject(projectId).then(function(response) {
                if(response.status === 200) {
-                   preProcessColumns(vm.columns);
+                   preProcessColumns(response.data);
                }
             });
         }
