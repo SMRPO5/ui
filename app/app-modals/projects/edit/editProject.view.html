@@ -15,34 +15,32 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
-                <div class="col-xs-6">
-                    <div class="form-group col-xs-12" ng-class="{ 'has-error': form.startDate.$dirty && form.startDate.$error.required }">
-                        <label for="startDate">Start date</label></br>
-                        <p class="input-group">
-                            <input ng-click="vm.openStartDateDatePicker()" ng-change="vm.startDateChanged()" type="text" id="startDate" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.startDate" is-open="vm.startDateOpened" datepicker-options="vm.startDateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                            <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="vm.openStartDateDatePicker()">
-                        <i class="glyphicon glyphicon-calendar"></i>
-                    </button>
-                </span>
-                        </p>
-                        <span ng-show="form.startDate.$dirty && form.startDate.$error.required" class="help-block">Start date is required</span>
-                    </div>
+            <div class="col-xs-6">
+                <div class="form-group" ng-class="{ 'has-error': form.startDate.$dirty && form.startDate.$error.required }">
+                    <label for="startDate">Start date</label></br>
+                    <p class="input-group">
+                        <input ng-click="vm.openStartDateDatePicker()" ng-change="vm.startDateChanged()" type="text" id="startDate" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.startDate" is-open="vm.startDateOpened" datepicker-options="vm.startDateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openStartDateDatePicker()">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                    </p>
+                    <span ng-show="form.startDate.$dirty && form.startDate.$error.required" class="help-block">Start date is required</span>
                 </div>
-                <div class="col-xs-6">
-                    <div class="form-group col-xs-12" ng-class="{ 'has-error': form.deadline.$dirty && form.deadline.$error.required }">
-                        <label for="deadline">Deadline</label></br>
-                        <p class="input-group">
-                            <input ng-click="vm.openDeadlineDatePicker()" ng-change="vm.deadlineChanged()" type="text" id="deadline" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.deadline" is-open="vm.deadlineOpened" datepicker-options="vm.deadlineOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                            <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="vm.openDeadlineDatePicker()">
-                        <i class="glyphicon glyphicon-calendar"></i>
-                    </button>
-                </span>
-                        </p>
-                        <span ng-show="form.deadline.$dirty && form.deadline.$error.required" class="help-block">Deadline is required</span>
-                    </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group" ng-class="{ 'has-error': form.deadline.$dirty && form.deadline.$error.required }">
+                    <label for="deadline">Deadline</label></br>
+                    <p class="input-group">
+                        <input ng-click="vm.openDeadlineDatePicker()" ng-change="vm.deadlineChanged()" type="text" id="deadline" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.deadline" is-open="vm.deadlineOpened" datepicker-options="vm.deadlineOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="vm.openDeadlineDatePicker()">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                    <span ng-show="form.deadline.$dirty && form.deadline.$error.required" class="help-block">Deadline is required</span>
                 </div>
             </div>
         </div>
