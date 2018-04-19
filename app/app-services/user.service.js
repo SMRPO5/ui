@@ -5,16 +5,28 @@
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http', 'envService', 'AuthenticationService'];
-        function UserService($http, envService, AuthenticationService) {
+    UserService.$inject = ['$http', '$q', 'envService', 'LocalStorage', 'AuthenticationService'];
+    function UserService($http, $q, envService, LocalStorage, AuthenticationService) {
+
         function getUsers() {
             return $http.get(envService.read('apiUrl') + 'users/users/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting all users'));
         }
 
         function getMe() {
+            var me = LocalStorage.getUser();
+            if(me !== null) {
+                return $q.when(me);
+            }
             return $http.get(envService.read('apiUrl') + 'users/me/', AuthenticationService.getHeaders())
-                .then(handleSuccess, handleError('Error getting all users'));
+                .then(function(result) {
+                    if(result.status === 200) {
+                        var user = result.data[0];
+                        LocalStorage.saveUser(user);
+                        return user;
+                    }
+                }
+            );
         }
 
         function getUserById(id) {

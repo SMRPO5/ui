@@ -5,9 +5,9 @@
         .module('app')
         .controller('BoardController', BoardController);
 
-    BoardController.$inject = ['$rootScope', '$location', 'UserService', 'CardsService', 'ProjectsService', 'ModalProvider'];
+    BoardController.$inject = ['ProjectsService', 'ModalProvider'];
 
-    function BoardController($rootScope, $location, UserService, CardsService, ProjectsService, ModalProvider) {
+    function BoardController(ProjectsService, ModalProvider) {
         var vm = this;
 
         ProjectsService.getProjectsForUser(1).then(function(response) {
@@ -38,13 +38,6 @@
         };
         vm.openCreateCardModal = function() {
             ModalProvider.openCreateCardModal();
-        };
-
-        vm.getColumnClass = function(column) {
-            return 'column ' + (column.subcolumns.length === 0 ? 'small': 'big');
-        };
-        vm.getColumnHeaderClass = function(column) {
-            return column.subcolumns.length === 0 ? 'column_header_big': 'column_header';
         };
 
         function preProcessColumns(columns) {
@@ -87,18 +80,8 @@
         function loadColumns(projectId) {
             ProjectsService.getColumnsForProject(projectId).then(function(response) {
                if(response.status === 200) {
-                   vm.columns = response.data;
-                   console.log(vm.columns);
                    preProcessColumns(vm.columns);
                }
-            });
-        }
-
-        function loadCards(projectId) {
-            CardsService.getCardsForProject(projectId).then(function(response) {
-                if(response.status === 200) {
-                    vm.cards = response.data;
-                }
             });
         }
     }

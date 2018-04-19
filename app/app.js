@@ -5,8 +5,8 @@
         .config(config)
         .run(run);
 
-    config.$inject = ['$routeProvider', '$locationProvider', 'envServiceProvider'];
-    function config($routeProvider, $locationProvider, envServiceProvider) {
+    config.$inject = ['$routeProvider', 'envServiceProvider'];
+    function config($routeProvider, envServiceProvider) {
         envServiceProvider.config({
             domains: {
                 development: ['localhost', 'main.local', 'laptop.local', '127.0.0.1'],
@@ -79,10 +79,9 @@
             });
     }
 
-    run.$inject = ['$rootScope', '$location', 'AuthenticationService', 'UserService'];
-    function run($rootScope, $location, AuthenticationService, UserService) {
+    run.$inject = ['$rootScope', '$location', 'AuthenticationService', 'LocalStorage'];
+    function run($rootScope, $location, AuthenticationService, LocalStorage) {
         $rootScope.isPathActive = function(path) {
-            //console.log($location.path());
             return $location.path() === path;
         };
         $rootScope.isLoggedIn = function() {
@@ -92,22 +91,19 @@
             AuthenticationService.logoutUser();
             $location.path('/login');
         };
-
-        $rootScope.hasRole = function (string) {
-            var roles = $rootScope.currentUser.allowed_roles;
+        $rootScope.hasRole = function(role) {
+            if(!$rootScope.isLoggedIn()){
+                return false;
+            }
+            var user = LocalStorage.getUser();
+            var roles = user.allowed_roles;
 
             for (var i = 0 ; i < roles.length ; i++){
-                if (roles[i].name === string){
+                if (roles[i].name === role){
                     return true;
                 }
             }
             return false;
-        };
-
-        $rootScope.saveCurrentUser = function () {
-            UserService.getMe().then(function (result) {
-                $rootScope.currentUser = result.data[0];
-            });
         };
     }
 
