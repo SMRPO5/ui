@@ -18,6 +18,49 @@
             //$mdDialog.cancel();
         };
 
+        vm.openDeadlineDatePicker = function() {
+            vm.deadlineOpened = true;
+        };
+
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        vm.deadlineOptions = {
+            minDate: tomorrow
+        };
+
+        vm.openStartDateDatePicker = function() {
+            vm.startDateOpened = true;
+        };
+
+        vm.startDateOptions = {
+            minDate: new Date()
+        };
+
+        vm.startDateChanged = function() {
+
+            //console.log(vm.deadline);
+
+            if (typeof vm.deadline === 'undefined'){
+                // uporabnik še ni izbral deadline-a
+
+            } else {
+                // uporabnik je izbral deadline in je sedaj spremenil še start date
+                if (vm.deadline <= vm.startDate) {
+                    vm.deadline = null;
+                }
+            }
+
+            var currentDate = new Date(vm.startDate);
+            currentDate.setDate(currentDate.getDate() + 1);
+
+            vm.deadlineOptions.minDate = currentDate;
+        };
+
+        vm.deadlineChanged = function() {
+            //console.log(vm.deadline);
+        };
+
         vm.addProject = function() {
 
             var projectData = {
