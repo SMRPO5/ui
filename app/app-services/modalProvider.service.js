@@ -11,16 +11,16 @@
 
 
                 size: 'lg',
-                /*
-                resolve: {
-                    items: function () {
-                        return $ctrl.items;
+
+                /*resolve: {
+                    group: function () {
+                        return groupData;
                     }
                 }*/
             });
         }
 
-        function openEditGroupModal(ev) {
+        function openEditGroupModal(ev, groupData) {
             return $uibModal.open({
                 controller: 'EditGroupController',
                 controllerAs: 'vm',
@@ -32,8 +32,8 @@
                 size: 'lg',
 
                 resolve: {
-                    items: function () {
-                        return "asd";
+                    group: function () {
+                        return groupData;
                     }
                 }
             });
@@ -56,7 +56,7 @@
             });
         }
 
-        function openEditProjectModal(ev) {
+        function openEditProjectModal(ev, projectData) {
             return $uibModal.open({
                 controller: 'EditProjectController',
                 controllerAs: 'vm',
@@ -66,12 +66,12 @@
 
 
                 size: 'lg',
-                /*
+
                 resolve: {
-                    items: function () {
-                        return $ctrl.items;
+                    project: function () {
+                        return projectData;
                     }
-                }*/
+                }
             });
         }
 

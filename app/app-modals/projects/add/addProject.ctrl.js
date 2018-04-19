@@ -28,13 +28,14 @@
                 dev_group: vm.devGroup,
                 is_active: true
             };
-            console.log("Add project!");
-            console.log(projectData);
+            //console.log("Add project!");
+            //console.log(projectData);
 
-
-            ProjectsService.addProject(projectData);
-
-            $uibModalInstance.close(projectData);
+            ProjectsService.addProject(projectData).then(function (result) {
+                if (result.status === 201) {
+                    $uibModalInstance.close(result.data);
+                }
+            });
 
         };
     }

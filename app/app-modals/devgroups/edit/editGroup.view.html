@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">Edit group</h3>
+    <h3 class="modal-title">Edit developer group</h3>
 </div>
 <div class="modal-body">
     <form name="form" ng-submit="vm.editGroup()" role="form">
@@ -12,7 +12,7 @@
             <label for="owner">Product Owner</label>
             <select required class="form-control" ng-model="vm.owner" id="owner">
                 <option disabled value=""></option>
-                <option value="{{ owner.id }}" ng-repeat="owner in vm.productOwners">{{ owner.first_name }} {{ owner.last_name }}</option>
+                <option ng-selected="owner.email == vm.owner" ng-value="owner.email" ng-repeat="owner in vm.productOwners">{{ owner.first_name }} {{ owner.last_name }}</option>
             </select>
             <span ng-show="form.owner.$dirty && form.owner.$error.required " class="help-block">Type error</span>
         </div>
@@ -20,7 +20,7 @@
             <label for="kbMaster">KanBan Master</label>
             <select required class="form-control" ng-model="vm.kbMaster" id="kbMaster">
                 <option disabled value=""></option>
-                <option value="{{ kbMaster.id }}" ng-repeat="kbMaster in vm.kbMasters">{{ kbMaster.first_name }} {{ kbMaster.last_name }}</option>
+                <option ng-selected="kbMaster.email == vm.kbMaster" ng-value="kbMaster.email" ng-repeat="kbMaster in vm.kbMasters">{{ kbMaster.first_name }} {{ kbMaster.last_name }}</option>
             </select>
             <span ng-show="form.kbMaster.$dirty" class="help-block">Type error</span>
         </div>
@@ -29,13 +29,15 @@
             <label for="developer">Developers</label>
             <select required multiple class="form-control" ng-model="vm.developer" id="developer">
                 <option disabled value=""></option>
-                <option value="{{ developer.id }}" ng-repeat="developer in vm.developers">{{ developer.first_name }} {{ developer.last_name }}</option>
+                <option ng-value="developer.email" ng-repeat="developer in vm.developers">{{ developer.first_name }} {{ developer.last_name }}</option>
             </select>
             <span ng-show="form.developer.$dirty" class="help-block">Type error</span>
         </div>
 
         <div class="form-actions">
             <button type="submit" ng-disabled="vm.dataLoading" class="btn btn-primary">Submit changes</button>
+            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <button type="button" ng-click="vm.deleteGroup()" ng-disabled="vm.dataLoading" class="btn btn-primary">Remove group</button>
             <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
         </div>
     </form>

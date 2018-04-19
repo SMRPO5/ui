@@ -6,6 +6,7 @@
         .factory('DevGrpsService', DevGrpsService);
 
     DevGrpsService.$inject = ['$http', 'envService', 'AuthenticationService'];
+
     function DevGrpsService($http, envService, AuthenticationService) {
 
         function getDeveloperGroups() {
@@ -14,8 +15,18 @@
         }
 
         function addDeveloperGroup(json) {
-            $http.post(envService.read('apiUrl') + 'dev_groups/dev_groups/', json, AuthenticationService.getHeaders())
+            return $http.post(envService.read('apiUrl') + 'dev_groups/dev_groups/', json, AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error creating card'));
+        }
+
+        function removeDeveloperGroup(id) {
+            return $http.delete(envService.read('apiUrl') + 'dev_groups/dev_groups/' + id + '/', AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error removing group'));
+        }
+
+        function editDeveloperGroup(id, json) {
+            return $http.patch(envService.read('apiUrl') + 'dev_groups/dev_groups/' + id + '/', json, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error editing group'));
         }
 
         // private functions
@@ -31,7 +42,9 @@
         }
         return {
             getDeveloperGroups: getDeveloperGroups,
-            addDeveloperGroup: addDeveloperGroup
+            addDeveloperGroup: addDeveloperGroup,
+            removeDeveloperGroup: removeDeveloperGroup,
+            editDeveloperGroup: editDeveloperGroup
 
         }
     }

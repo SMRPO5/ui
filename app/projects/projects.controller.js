@@ -20,17 +20,29 @@
 
         function openProjectModal(ev, index){
             vm.editProject = vm.projects[index];
-            console.log(vm.editProject);
-            ModalProvider.openEditProjectModal(ev);
+            //console.log(vm.editProject);
+            ModalProvider.openEditProjectModal(ev, vm.projects[index]).result.then(function(data){
+                if (data === 'del') { // Modal se je zaprl ker se projekt briše
+                    vm.projects.splice(index, 1);
+                }else { // Modal se je zaprl ker se projekt ureja
+                    vm.projects[index] = data;
+                }
+            }, function(error) {
+
+            });
         }
 
         vm.createProject = createProject;
 
         function createProject(ev){
-            ModalProvider.openAddProjectModal(ev);
+            ModalProvider.openAddProjectModal(ev).result.then(function(data){
+                vm.projects[vm.projects.length] = data;
+            }, function(error) {
+
+            });
         }
 
-        // TODO
+
 
     }
 

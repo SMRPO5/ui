@@ -19,9 +19,20 @@
         }
 
         function addProject(json) {
-            $http.post(envService.read('apiUrl') + 'projects/projects/', json, AuthenticationService.getHeaders())
+            return $http.post(envService.read('apiUrl') + 'projects/projects/', json, AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error creating card'));
         }
+
+        function removeProject(id) {
+            return $http.delete(envService.read('apiUrl') + 'projects/projects/' + id + '/', AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error removing project'));
+        }
+
+        function editProject(id, json) {
+            return $http.patch(envService.read('apiUrl') + 'projects/projects/' + id + '/', json, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error editing group'));
+        }
+
 
         function getColumnsForProject(projectId) {
             return $http.get(envService.read('apiUrl') + 'projects/columns/?lane__project=' + projectId, AuthenticationService.getHeaders())
@@ -44,8 +55,11 @@
             getProjects: getProjects,
             getProjectsForUser: getProjectsForUser,
             addProject: addProject,
-            getColumnsForProject: getColumnsForProject
+            getColumnsForProject: getColumnsForProject,
+            removeProject: removeProject,
+            editProject: editProject
         }
     }
 
 })();
+

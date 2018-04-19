@@ -40,6 +40,8 @@
 
             var members = [];
 
+            //console.log(vm.owner);
+
             if (vm.owner === vm.kbMaster) {
                 members.push({
                     user: vm.owner,
@@ -56,11 +58,11 @@
                 });
             }
 
-            for (var i = 0; i < vm.developers.length; i++) {
+            for (var i = 0; i < vm.developer.length; i++) {
                 var existing = false;
                 for (var j = 0; j < members.length; j++) {
                     var member = members[j];
-                    if (member.user === vm.developers[i].email) {
+                    if (member.user === vm.developer[i]) {
                         existing = true;
                         members[j].role.push(vm.developerID);
                         continue;
@@ -68,7 +70,7 @@
                 }
                 if (!existing) {
                     members.push({
-                        user: vm.developers[i].email,
+                        user: vm.developer[i],
                         role: [vm.developerID]
                     });
                 }
@@ -79,13 +81,18 @@
                 members: members
             };
 
-
-            DevGrpsService.addDeveloperGroup(groupData);
-
-            $uibModalInstance.close(groupData);
+            //console.log("Ustvarjam novo devGroupo... Podatki:")
+            //console.log(groupData);
 
 
-            // ToDo: Alert user that the group was created, refresh the page so the new group is displayed, and show the group.
+
+            DevGrpsService.addDeveloperGroup(groupData).then(function (result) {
+                if (result.status === 201) {
+                    $uibModalInstance.close(result.data);
+                }
+            });
+
+            // ToDo: Alert user that the group was created.
         };
     }
 
