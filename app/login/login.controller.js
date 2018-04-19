@@ -18,6 +18,8 @@
                 if (response.status === 200) {
                     AuthenticationService.saveJwtToken(response.data.token);
                     $location.path('/');
+
+                    $rootScope.saveCurrentUser();
                 } else {
                     FlashService.Error(response.data.non_field_errors[0]);
                     vm.dataLoading = false;

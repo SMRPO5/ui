@@ -79,8 +79,8 @@
             });
     }
 
-    run.$inject = ['$rootScope', '$location', 'AuthenticationService'];
-    function run($rootScope, $location, AuthenticationService) {
+    run.$inject = ['$rootScope', '$location', 'AuthenticationService', 'UserService'];
+    function run($rootScope, $location, AuthenticationService, UserService) {
         $rootScope.isPathActive = function(path) {
             //console.log($location.path());
             return $location.path() === path;
@@ -91,6 +91,23 @@
         $rootScope.logoutUser = function() {
             AuthenticationService.logoutUser();
             $location.path('/login');
+        };
+
+        $rootScope.hasRole = function (string) {
+            var roles = $rootScope.currentUser.allowed_roles;
+
+            for (var i = 0 ; i < roles.length ; i++){
+                if (roles[i].name === string){
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        $rootScope.saveCurrentUser = function () {
+            UserService.getMe().then(function (result) {
+                $rootScope.currentUser = result.data[0];
+            });
         };
     }
 

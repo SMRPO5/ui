@@ -1,6 +1,6 @@
 (function() {
 
-    function editProjectController(DevGrpsService, ProjectsService, $uibModalInstance, project) {
+    function editProjectController(DevGrpsService, ProjectsService, $uibModalInstance, $rootScope, project) {
         var vm = this;
 
         vm.name = project.name;
@@ -106,5 +106,5 @@
 
     angular
         .module('app')
-        .controller('EditProjectController', ['DevGrpsService', 'ProjectsService', '$uibModalInstance', 'project', editProjectController]);
+        .controller('EditProjectController', ['DevGrpsService', 'ProjectsService', '$uibModalInstance', '$rootScope', 'project', editProjectController]);
 })();

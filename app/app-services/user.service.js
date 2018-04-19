@@ -12,18 +12,8 @@
                 .then(handleSuccess, handleError('Error getting all users'));
         }
 
-        function getOwners() {
-            return $http.get(envService.read('apiUrl') + 'users/users/', AuthenticationService.getHeaders())
-                .then(handleSuccess, handleError('Error getting all users'));
-        }
-
-        function getMasters() {
-            return $http.get(envService.read('apiUrl') + 'users/users/', AuthenticationService.getHeaders())
-                .then(handleSuccess, handleError('Error getting all users'));
-        }
-
-        function getDevelopers() {
-            return $http.get(envService.read('apiUrl') + 'users/users/', AuthenticationService.getHeaders())
+        function getMe() {
+            return $http.get(envService.read('apiUrl') + 'users/me/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting all users'));
         }
 
@@ -66,6 +56,7 @@
 
         return {
             getUsers: getUsers,
+            getMe: getMe,
             getUserById: getUserById,
             getUserByUsername: getUserByUsername,
             createUser: createUser,
