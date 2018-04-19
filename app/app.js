@@ -1,7 +1,7 @@
 ﻿"use strict";
 (function () {
     angular
-        .module('app', ['ngRoute', 'ngCookies', 'environment', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'angularMoment', 'dndLists'])
+        .module('app', ['ngRoute', 'ngCookies', 'environment', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'angularMoment', 'dndLists', 'btorfs.multiselect'])
         .config(config)
         .run(run);
 
@@ -25,7 +25,7 @@
         envServiceProvider.check();
 
         // Uncomment bottom line to connect to production server.
-        envServiceProvider.set('production');
+        //envServiceProvider.set('production');
 
         console.log("ApiUrl: " + envServiceProvider.read('apiUrl'));
 

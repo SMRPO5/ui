@@ -27,10 +27,8 @@
 
         <div class="form-group" ng-class="{ 'has-error': form.developer.$dirty }">
             <label for="developer">Developers</label>
-            <select required multiple class="form-control" ng-model="vm.developer" id="developer">
-                <option disabled value=""></option>
-                <option ng-value="developer.email" ng-repeat="developer in vm.developers">{{ developer.first_name }} {{ developer.last_name }}</option>
-            </select>
+            <multiselect ng-required="true" required class="form-control" ng-model="vm.developer" id="developer" options="vm.developers" id-prop="id" display-prop="email">
+            </multiselect>
             <span ng-show="form.developer.$dirty" class="help-block">Type error</span>
         </div>
 

@@ -1,6 +1,6 @@
 (function () {
 
-    function addGroupController(UserService, DevGrpsService, ModalProvider, $uibModalInstance) {
+    function addGroupController(UserService, DevGrpsService, ModalProvider, $uibModalInstance, $scope) {
         var vm = this;
 
         UserService.getUsers().then(function (result) {
@@ -34,72 +34,74 @@
                 vm.developers = developersList;
                 vm.productOwners = productOwnersList;
             }
+
         });
 
         vm.addGroup = function () {
+            if (typeof vm.developer != 'undefined') {
 
-            var members = [];
+                var members = [];
 
-            //console.log(vm.owner);
+                //console.log(vm.owner);
 
-            if (vm.owner === vm.kbMaster) {
-                members.push({
-                    user: vm.owner,
-                    role: [vm.productOwnerID, vm.kbMasterID]
-                });
-            } else {
-                members.push({
-                    user: vm.owner,
-                    role: [vm.productOwnerID]
-                });
-                members.push({
-                    user: vm.kbMaster,
-                    role: [vm.kbMasterID]
-                });
-            }
-
-            for (var i = 0; i < vm.developer.length; i++) {
-                var existing = false;
-                for (var j = 0; j < members.length; j++) {
-                    var member = members[j];
-                    if (member.user === vm.developer[i]) {
-                        existing = true;
-                        members[j].role.push(vm.developerID);
-                        continue;
-                    }
-                }
-                if (!existing) {
+                if (vm.owner === vm.kbMaster) {
                     members.push({
-                        user: vm.developer[i],
-                        role: [vm.developerID]
+                        user: vm.owner,
+                        role: [vm.productOwnerID, vm.kbMasterID]
+                    });
+                } else {
+                    members.push({
+                        user: vm.owner,
+                        role: [vm.productOwnerID]
+                    });
+                    members.push({
+                        user: vm.kbMaster,
+                        role: [vm.kbMasterID]
                     });
                 }
-            }
 
-            var groupData = {
-                name: vm.name,
-                members: members
-            };
-
-            //console.log("Ustvarjam novo devGroupo... Podatki:")
-            //console.log(groupData);
-
-
-
-            DevGrpsService.addDeveloperGroup(groupData).then(function (result) {
-                if (result.status === 201) {
-                    $uibModalInstance.close(result.data);
+                for (var i = 0; i < vm.developer.length; i++) {
+                    var existing = false;
+                    for (var j = 0; j < members.length; j++) {
+                        var member = members[j];
+                        if (member.user === vm.developer[i].email) {
+                            existing = true;
+                            members[j].role.push(vm.developerID);
+                            continue;
+                        }
+                    }
+                    if (!existing) {
+                        members.push({
+                            user: vm.developer[i].email,
+                            role: [vm.developerID]
+                        });
+                    }
                 }
-            });
 
-            // ToDo: Alert user that the group was created.
+                var groupData = {
+                    name: vm.name,
+                    members: members
+                };
+
+                console.log("Ustvarjam novo devGroupo... Podatki:")
+                console.log(groupData);
+
+
+                DevGrpsService.addDeveloperGroup(groupData).then(function (result) {
+                    if (result.status === 201) {
+                        $uibModalInstance.close(result.data);
+                    }
+                });
+
+                // ToDo: Alert user that the group was created.
+            }
         };
     }
 
 
     angular
         .module('app')
-        .controller('AddGroupController', ['UserService', 'DevGrpsService', 'ModalProvider', '$uibModalInstance', addGroupController]);
+        .controller('AddGroupController', ['UserService', 'DevGrpsService', 'ModalProvider', '$uibModalInstance', '$scope', addGroupController]);
 
 
 })();

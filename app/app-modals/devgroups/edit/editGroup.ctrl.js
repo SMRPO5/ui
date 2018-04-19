@@ -61,74 +61,76 @@
                             } else if (member.role[j] === vm.developerID) {
                                 for (var k = 0; k < allUsers.length; k++) {
                                     if (member.user === allUsers[k].email) {
-                                        devList.push(allUsers[k].email);
+                                        devList.push(allUsers[k]);
                                     }
                                 }
                             }
                         }
                     }
-                    //console.log(devList); // Seznam developerjev na projektu (ToDO: Preloadat te podatke v formo)
+                    console.log(devList); // Seznam developerjev na projektu (ToDO: Preloadat te podatke v formo)
+                    vm.developer = devList;
                 }
             });
 
 
             vm.editGroup = function () {
+                if (typeof vm.developer != 'undefined') {
 
 
+                    var members = [];
 
-                var members = [];
+                    //console.log(vm.owner);
 
-                //console.log(vm.owner);
-
-                if (vm.owner === vm.kbMaster) {
-                    members.push({
-                        user: vm.owner,
-                        role: [vm.productOwnerID, vm.kbMasterID]
-                    });
-                } else {
-                    members.push({
-                        user: vm.owner,
-                        role: [vm.productOwnerID]
-                    });
-                    members.push({
-                        user: vm.kbMaster,
-                        role: [vm.kbMasterID]
-                    });
-                }
-
-                for (var i = 0; i < vm.developer.length; i++) {
-                    var existing = false;
-                    for (var j = 0; j < members.length; j++) {
-                        var member = members[j];
-                        if (member.user === vm.developer[i]) {
-                            existing = true;
-                            members[j].role.push(vm.developerID);
-                            continue;
-                        }
-                    }
-                    if (!existing) {
+                    if (vm.owner === vm.kbMaster) {
                         members.push({
-                            user: vm.developer[i],
-                            role: [vm.developerID]
+                            user: vm.owner,
+                            role: [vm.productOwnerID, vm.kbMasterID]
+                        });
+                    } else {
+                        members.push({
+                            user: vm.owner,
+                            role: [vm.productOwnerID]
+                        });
+                        members.push({
+                            user: vm.kbMaster,
+                            role: [vm.kbMasterID]
                         });
                     }
-                }
 
-                var groupData = {
-                    name: vm.name,
-                    members: members
-                };
-
-                //console.log("Urejam devGroupo (id \'" + group.id + "\')... Podatki:")
-                //console.log(groupData);
-
-                DevGrpsService.editDeveloperGroup(group.id, groupData).then(function (result) {
-                    $uibModalInstance.close(result.data);
-                    if (result.status === 201) {
+                    for (var i = 0; i < vm.developer.length; i++) {
+                        var existing = false;
+                        for (var j = 0; j < members.length; j++) {
+                            var member = members[j];
+                            if (member.user === vm.developer[i].email) {
+                                existing = true;
+                                members[j].role.push(vm.developerID);
+                                continue;
+                            }
+                        }
+                        if (!existing) {
+                            members.push({
+                                user: vm.developer[i].email,
+                                role: [vm.developerID]
+                            });
+                        }
                     }
-                });
 
-                //$uibModalInstance.close(groupData);
+                    var groupData = {
+                        name: vm.name,
+                        members: members
+                    };
+
+                    console.log("Urejam devGroupo (id \'" + group.id + "\')... Podatki:")
+                    console.log(groupData);
+
+                    DevGrpsService.editDeveloperGroup(group.id, groupData).then(function (result) {
+                        $uibModalInstance.close(result.data);
+                        if (result.status === 201) {
+                        }
+                    });
+
+                    //$uibModalInstance.close(groupData);
+                }
             };
 
             vm.deleteGroup = function () {
