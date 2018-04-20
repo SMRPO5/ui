@@ -67,7 +67,7 @@
                             }
                         }
                     }
-                    console.log(devList); // Seznam developerjev na projektu (ToDO: Preloadat te podatke v formo)
+                    //console.log(devList); // Seznam developerjev na projektu
                     vm.developer = devList;
                 }
             });
