@@ -1,184 +1,184 @@
-﻿body {
-    background-color: #eee;
+body {
+  background-color: #eee;
 }
 
 a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
 .nav .active {
-    color: #fff !important;
-    background-color: transparent !important;
+  color: #fff !important;
+  background-color: transparent !important;
 }
 
 .main_container {
-    padding-left: 0px;
-    padding-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 .popover {
-    max-width: 500px;
-    width: 500px;
+  max-width: 500px;
+  width: 500px;
 }
 
 .button-wrapper .btn {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .board label {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .board select {
-    min-width: 200px;
+  min-width: 200px;
 }
 
 .board .board_top_menu {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .board .board_top_menu .button_container {
-    float: right;
+  float: right;
 }
 
 .board .columns {
-    min-width: 1200px;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    margin: 0px 15px;
-    white-space: nowrap;
+  min-width: 1200px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin: 0px 15px;
+  white-space: nowrap;
 }
 
 .board .column {
-    min-height: 500px;
-    min-width: 200px;
-    display: inline-block;
-    /*margin-right: -4px;*/
-    vertical-align: top;
-}
-
-.board .column.small, .board .subcolumn {
-    max-width: 300px;
-}
-.board .column.big {
-    max-width: 600px;
+  min-height: 500px;
+  min-width: 200px;
+  display: inline-block;
+  /*margin-right: -4px;*/
+  vertical-align: top;
 }
 
 .board .column .column_header {
-    height: 20px;
+  height: 20px;
 }
 
 .board .column .column_header_big {
-    height: 40px;
-    margin: 10px 0px;
+  height: 40px;
+  margin: 10px 0px;
+}
+
+.board .column.small, .board .subcolumn {
+  max-width: 300px;
+}
+
+.board .column.big {
+  max-width: 600px;
 }
 
 .board .subcolumn {
-    min-height: 480px;
-    min-width: 200px;
-    display: inline-block;
-    margin-right: -4px;
-    vertical-align: top;
+  min-height: 480px;
+  min-width: 200px;
+  display: inline-block;
+  margin-right: -4px;
+  vertical-align: top;
 }
 
 .jumbotron {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 
 .credits {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .credits p {
-    padding: 10px 0px;
+  padding: 10px 0px;
 }
 
 .credits hr {
-    height: 1px;
-    width: 1200px;
-    background-color: #ccc;
-    margin: 10px auto 0px auto;
+  height: 1px;
+  width: 1200px;
+  background-color: #ccc;
+  margin: 10px auto 0px auto;
 }
 
 /* Table for lane */
 .lane-container {
-    overflow: auto;
-    width: 100%;
+  overflow: auto;
+  width: 100%;
 }
 
 table.lane {
-    border-collapse: separate;
-    border-spacing: 4px;
-    min-width: 100%;
-    min-height: 600px;
-    margin-left: -4px;
+  border-collapse: separate;
+  border-spacing: 4px;
+  min-width: 100%;
+  min-height: 600px;
+  margin-left: -4px;
 }
 
 table.lane thead tr th {
-    border-radius: 3px;
-    background-color: #f9f9f9;
-    text-align: center;
-    min-width: 200px;
-    border: 1px solid #e6ebf4;
-    padding: 2px;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+  text-align: center;
+  min-width: 200px;
+  border: 1px solid #e6ebf4;
+  padding: 2px;
 }
 
-table.lane thead tr th.color-header {
-    border: 2px solid;
-    padding: 0px;
+table.lane thead tr th .color-header {
+  border: 2px solid;
+  padding: 0px;
 }
 
 table.lane tbody tr td {
-    border-radius: 3px;
-    background-color: #f9f9f9;
-    vertical-align: top;
-    border: 1px solid #e6ebf4;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+  vertical-align: top;
+  border: 1px solid #e6ebf4;
 }
 
 table.lane .lane-cell-header {
-    height: 20px;
-    line-height: 20px;
-    text-align: right;
-    font-size: 12px;
+  height: 20px;
+  line-height: 20px;
+  text-align: right;
+  font-size: 12px;
 }
 
 table.lane .lane-column-content {
-    padding: 5px;
-
+  padding: 5px;
 }
 
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .card {
-    min-width: 200px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    text-align: center;
+  min-width: 200px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
 }
 
 .card .header {
-    background-color: #4CAF50;
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
-    font-weight: bold;
-    padding: 5px;
+  background-color: #4CAF50;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  font-weight: bold;
+  padding: 5px;
 }
 
-.card .header :hover {
-    text-decoration: underline;
+.card .header:hover {
+  text-decoration: underline;
 }
 
 .card .body {
-    padding: 5px;
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
+  padding: 5px;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
 }
 
 .task {
-    padding: 5px;
+  padding: 5px;
 }
