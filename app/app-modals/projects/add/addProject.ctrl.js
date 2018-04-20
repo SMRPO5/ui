@@ -50,11 +50,6 @@
                     vm.deadline = null;
                 }
             }
-
-            var currentDate = new Date(vm.startDate);
-            currentDate.setDate(currentDate.getDate() + 1);
-
-            vm.deadlineOptions.minDate = currentDate;
         };
 
         vm.deadlineChanged = function() {
