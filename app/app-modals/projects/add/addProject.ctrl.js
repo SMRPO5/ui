@@ -34,7 +34,7 @@
         };
 
         vm.startDateOptions = {
-            minDate: new Date()
+            maxDate: new Date()
         };
 
         vm.startDateChanged = function() {
