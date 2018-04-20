@@ -19,7 +19,7 @@
                 <div class="form-group" ng-class="{ 'has-error': form.startDate.$dirty && form.startDate.$error.required }">
                     <label for="startDate">Start date</label></br>
                     <p class="input-group">
-                        <input ng-click="vm.openStartDateDatePicker()" ng-change="vm.startDateChanged()" type="text" id="startDate" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.startDate" is-open="vm.startDateOpened" datepicker-options="vm.startDateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <input ng-disabled="vm.hasCards" ng-click="vm.openStartDateDatePicker()" ng-change="vm.startDateChanged()" type="text" id="startDate" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.startDate" is-open="vm.startDateOpened" datepicker-options="vm.startDateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
                         <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openStartDateDatePicker()">
                             <i class="glyphicon glyphicon-calendar"></i>

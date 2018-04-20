@@ -3,6 +3,8 @@
     function editProjectController(DevGrpsService, ProjectsService, $uibModalInstance, $rootScope, project) {
         var vm = this;
 
+        vm.hasCards = project.has_cards;
+
         vm.name = project.name;
         vm.customer = project.buyer_name;
         vm.devGroup = project.dev_group;
@@ -41,11 +43,13 @@
         };
 
         vm.openStartDateDatePicker = function() {
-            vm.startDateOpened = true;
+            if (!vm.hasCards){
+                vm.startDateOpened = true;
+            }
         };
 
         vm.startDateOptions = {
-            minDate: new Date()
+            maxDate: new Date()
         };
 
         vm.startDateChanged = function() {
