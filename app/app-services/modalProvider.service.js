@@ -1,6 +1,7 @@
 (function() {
     /* global angular */
     function modalProvider($uibModal, $document) {
+
         function openAddGroupModal(ev) {
             return $uibModal.open({
                 controller: 'AddGroupController',
@@ -8,16 +9,13 @@
                 appendTo: angular.element(document.body),
                 targetEvent: ev,
                 templateUrl: 'app-modals/devgroups/add/addGroup.view.html',
-
-
                 size: 'lg',
-
                 /*resolve: {
                     group: function () {
                         return groupData;
                     }
                 }*/
-            });
+            }).result.then(function(){}, function(res){});
         }
 
         function openEditGroupModal(ev, groupData) {
@@ -27,16 +25,13 @@
                 appendTo: angular.element(document.body),
                 targetEvent: ev,
                 templateUrl: 'app-modals/devgroups/edit/editGroup.view.html',
-
-
                 size: 'lg',
-
                 resolve: {
                     group: function () {
                         return groupData;
                     }
                 }
-            });
+            }).result.then(function(){}, function(res){});
         }
 
         function openAddProjectModal(ev) {
@@ -53,7 +48,7 @@
                         return $ctrl.items;
                     }
                 }*/
-            });
+            }).result.then(function(){}, function(res){});
         }
 
         function openEditProjectModal(ev, projectData) {
@@ -63,16 +58,13 @@
                 appendTo: angular.element(document.body),
                 targetEvent: ev,
                 templateUrl: 'app-modals/projects/edit/editProject.view.html',
-
-
                 size: 'lg',
-
                 resolve: {
                     project: function () {
                         return projectData;
                     }
                 }
-            });
+            }).result.then(function(){}, function(res){});
         }
 
         function openEditCard(card) {
@@ -86,7 +78,7 @@
                         return card;
                     }
                 }
-            });
+            }).result.then(function(){}, function(res){});
         }
 
         function openCreateCardModal() {
@@ -95,7 +87,7 @@
                 controller: 'CreateCardController',
                 controllerAs: 'vm',
                 appendTo: angular.element($document[0].querySelector('.modal_container'))
-            });
+            }).result.then(function(){}, function(res){});
         }
 
         return {
@@ -107,7 +99,6 @@
             openEditCard: openEditCard
         }
     }
-
 
     angular
         .module('app')
