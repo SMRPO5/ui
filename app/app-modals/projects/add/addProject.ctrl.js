@@ -65,6 +65,7 @@
 
             var projectData = {
                 name: vm.name,
+                codename: vm.code,
                 buyer_name: vm.customer,
                 start_date: vm.startDate,
                 estimated_end_date: vm.deadline,
