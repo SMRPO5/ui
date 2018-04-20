@@ -67,7 +67,7 @@
                             }
                         }
                     }
-                    console.log(devList); // Seznam developerjev na projektu (ToDO: Preloadat te podatke v formo)
+                    //console.log(devList); // Seznam developerjev na projektu
                     vm.developer = devList;
                 }
             });
@@ -120,8 +120,8 @@
                         members: members
                     };
 
-                    console.log("Urejam devGroupo (id \'" + group.id + "\')... Podatki:")
-                    console.log(groupData);
+                    //console.log("Urejam devGroupo (id \'" + group.id + "\')... Podatki:")
+                    //console.log(groupData);
 
                     DevGrpsService.editDeveloperGroup(group.id, groupData).then(function (result) {
                         $uibModalInstance.close(result.data);

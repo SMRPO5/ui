@@ -10,6 +10,7 @@
         vm.devGroup = project.dev_group;
         vm.startDate = new Date(project.start_date);
         vm.deadline = new Date(project.estimated_end_date);
+        vm.code = project.codename;
 
         //vm.startDate = project.start_date;
         //vm.deadline = project.end_date;
@@ -58,18 +59,12 @@
 
             if (typeof vm.deadline === 'undefined'){
                 // uporabnik še ni izbral deadline-a
-
             } else {
                 // uporabnik je izbral deadline in je sedaj spremenil še start date
                 if (vm.deadline <= vm.startDate) {
                     vm.deadline = null;
                 }
             }
-
-            var currentDate = new Date(vm.startDate);
-            currentDate.setDate(currentDate.getDate() + 1);
-
-            vm.deadlineOptions.minDate = currentDate;
         };
 
         vm.deadlineChanged = function() {
@@ -80,6 +75,7 @@
 
             var projectData = {
                 name: vm.name,
+                codename: vm.code,
                 buyer_name: vm.customer,
                 start_date: vm.startDate,
                 estimated_end_date: vm.deadline,
