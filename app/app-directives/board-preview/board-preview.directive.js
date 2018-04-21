@@ -1,6 +1,6 @@
 "use strict";
 (function() {
-    function boardDirective($rootScope, ModalProvider) {
+    function boardDirective($rootScope, $location, ModalProvider) {
         return {
             scope: {
                 board: '=board'
@@ -45,7 +45,7 @@
                 $scope.openBoard = function($event, board) {
                     $event.preventDefault();
                     $event.stopPropagation();
-                    console.log("Open board");
+                    $location.path('/board/' + board.id);
                 }
             }
         }
@@ -53,5 +53,5 @@
 
     angular
         .module('app')
-        .directive('boardPreview', ['$rootScope', 'ModalProvider', boardDirective]);
+        .directive('boardPreview', ['$rootScope', '$location', 'ModalProvider', boardDirective]);
 })();
