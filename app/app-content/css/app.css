@@ -32,19 +32,15 @@ textarea {
 .board label {
   margin-right: 10px;
 }
-
 .board select {
   min-width: 200px;
 }
-
 .board .board_top_menu {
   margin-bottom: 10px;
 }
-
 .board .board_top_menu .button_container {
   float: right;
 }
-
 .board .columns {
   min-width: 1200px;
   overflow-x: scroll;
@@ -52,7 +48,6 @@ textarea {
   margin: 0px 15px;
   white-space: nowrap;
 }
-
 .board .column {
   min-height: 500px;
   min-width: 200px;
@@ -60,24 +55,19 @@ textarea {
   /*margin-right: -4px;*/
   vertical-align: top;
 }
-
 .board .column .column_header {
   height: 20px;
 }
-
 .board .column .column_header_big {
   height: 40px;
   margin: 10px 0px;
 }
-
 .board .column.small, .board .subcolumn {
   max-width: 300px;
 }
-
 .board .column.big {
   max-width: 600px;
 }
-
 .board .subcolumn {
   min-height: 480px;
   min-width: 200px;
@@ -93,11 +83,9 @@ textarea {
 .credits {
   background-color: #eee;
 }
-
 .credits p {
   padding: 10px 0px;
 }
-
 .credits hr {
   height: 1px;
   width: 1200px;
@@ -118,7 +106,6 @@ table.lane {
   min-height: 600px;
   margin-left: -4px;
 }
-
 table.lane thead tr th {
   border-radius: 3px;
   background-color: #f9f9f9;
@@ -127,26 +114,22 @@ table.lane thead tr th {
   border: 1px solid #e6ebf4;
   padding: 2px;
 }
-
 table.lane thead tr th .color-header {
   border: 2px solid;
   padding: 0px;
 }
-
 table.lane tbody tr td {
   border-radius: 3px;
   background-color: #f9f9f9;
   vertical-align: top;
   border: 1px solid #e6ebf4;
 }
-
 table.lane .lane-cell-header {
   height: 20px;
   line-height: 20px;
   text-align: right;
   font-size: 12px;
 }
-
 table.lane .lane-column-content {
   padding: 5px;
 }
@@ -160,7 +143,6 @@ table.lane .lane-column-content {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
 }
-
 .card .header {
   background-color: #4CAF50;
   border-top-left-radius: 2px;
@@ -168,11 +150,9 @@ table.lane .lane-column-content {
   font-weight: bold;
   padding: 5px;
 }
-
 .card .header:hover {
   text-decoration: underline;
 }
-
 .card .body {
   padding: 5px;
   border-bottom-left-radius: 2px;

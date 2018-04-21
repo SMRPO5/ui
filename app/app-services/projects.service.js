@@ -35,7 +35,7 @@
 
 
         function getColumnsForProject(projectId) {
-            return $http.get(envService.read('apiUrl') + 'projects/columns/?lane__project=' + projectId, AuthenticationService.getHeaders())
+            return $http.get(envService.read('apiUrl') + 'projects/columns/?ordering=order&lane__project=' + projectId, AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting columns'));
         }
 
