@@ -90,13 +90,23 @@
             });
         }
 
+        function openWIPLimitExceededModal() {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/wipLimitExceeded/wipLimitExceeded.view.html',
+                controller: 'WIPLimitExceededBoardController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container'))
+            });
+        }
+
         return {
             openAddGroupModal: openAddGroupModal,
             openEditGroupModal: openEditGroupModal,
             openAddProjectModal: openAddProjectModal,
             openEditProjectModal: openEditProjectModal,
             openCreateCardModal: openCreateCardModal,
-            openEditCard: openEditCard
+            openEditCard: openEditCard,
+            openWIPLimitExceededModal: openWIPLimitExceededModal
         }
     }
 

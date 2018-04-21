@@ -44,15 +44,56 @@
             vm.cardPlaceholderHeight = cardElement.height();
         };
 
+        vm.getNumberOfCardsInColumn = function(column) {
+            if(vm.lanes === undefined){
+                return 0;
+            }
+            var numberOfCardsInColumn = 0;
+            var hasSubColumns = column.subcolumns !== undefined && column.subcolumns.length > 0;
+            var possibleColumnIds = [];
+
+            if(hasSubColumns) {
+                for(var i = 0; i < column.subcolumns.length; i++) {
+                    possibleColumnIds.push(column.subcolumns[i].id);
+                }
+            } else {
+                possibleColumnIds.push(column.id);
+            }
+            for(var j = 0; j < vm.lanes.length; j++) {
+                var lane = vm.lanes[j];
+                for(var k = 0; k < lane.cardsForColumns.length; k++) {
+                    var cardsForColumn = lane.cardsForColumns[k];
+                    if(possibleColumnIds.indexOf(cardsForColumn.column.id) !== -1){
+                        numberOfCardsInColumn += cardsForColumn.cards.length;
+                    }
+                }
+            }
+            return numberOfCardsInColumn;
+        };
+
+        vm.checkIfCardCanBeMoved = function(index, item, column) {
+            var parentColumn = column.parent !== null? vm.columns[column.parent]: undefined;
+            var numberOfCardsInColumn = vm.getNumberOfCardsInColumn(parentColumn !== undefined ? parentColumn: column);
+            var maxNumberOfCardsInColumn = parentColumn !== undefined ? parentColumn.card_limit: column.card_limit;
+            //console.log(numberOfCardsInColumn, '|', maxNumberOfCardsInColumn);
+            //console.log(index);
+            //console.log(item);
+            ModalProvider.openWIPLimitExceededModal();
+            // TODO move only if reason is sent from modal.
+            return maxNumberOfCardsInColumn === 0 || numberOfCardsInColumn < maxNumberOfCardsInColumn ? item: false;
+        };
+
         function preProcessBoardColumns(board) {
             var numberOfColumns = 0;
             var parentColumns = [];
             var childColumns = [];
-            var columnsForCards = new Map();
             var columnOrder = [];
+            var columns = {};
             for(var i = 0; i < board.columns.length; i++) {
                 var column = board.columns[i];
                 var hasSubColumns = column.subcolumns.length > 0;
+
+                columns[column.id] = column;
 
                 column.rowSpan = hasSubColumns ? 1: 2;
                 column.colSpan = hasSubColumns ? column.subcolumns.length: 1;
@@ -61,20 +102,12 @@
                 if(hasSubColumns) {
                     for (var j = 0; j < column.subcolumns.length; j++) {
                         var subcolumn = column.subcolumns[j];
-                        columnsForCards.set(subcolumn.id, {
-                            column: subcolumn,
-                            cards: [],
-                            maxNumberOfCardsInColumn: 0 // Parent controls this..
-                        });
+                        columns[subcolumn.id] = subcolumn;
+
                     }
                     columnOrder = columnOrder.concat(column.subcolumns);
                     numberOfColumns += column.subcolumns.length;
                 } else {
-                    columnsForCards.set(column.id, {
-                        column: column,
-                        cards: [],
-                        maxNumberOfCardsInColumn: column.card_limit
-                    });
                     columnOrder.push(column);
                     numberOfColumns++;
                 }
@@ -83,8 +116,8 @@
             vm.numberOfColumns = numberOfColumns;
             vm.parentColumns = parentColumns;
             vm.childColumns = childColumns;
-            vm.columnsForCards = columnsForCards;
             vm.columnOrder = columnOrder;
+            vm.columns = columns;
 
             generateColumnTypes(columnOrder);
         }

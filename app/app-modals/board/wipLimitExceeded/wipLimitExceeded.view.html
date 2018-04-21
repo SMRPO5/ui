@@ -1,0 +1,16 @@
+<form name="form" role="form" ng-submit="vm.sendReasonForViolatingWip()">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">WIP limit exceeded</h3>
+    </div>
+    <div class="modal-body row" id="modal-body">
+        <div class="form-group col-xs-12" ng-class="{ 'has-error': form.reason.$dirty && form.reason.$error.required }">
+            <label for="reason">Reason for violating the rule:</label>
+            <textarea name="reason" id="reason" class="form-control" ng-model="vm.reason" rows="5" cols="50" required></textarea>
+            <span ng-show="form.reason.$dirty && form.reason.$error.required" class="help-block">Reason is required</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.close()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Send reason</button>
+    </div>
+</form>
