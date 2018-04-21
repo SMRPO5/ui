@@ -106,20 +106,20 @@ textarea {
 }
 
 /* Table for lane */
-.lane-container {
+.board-container {
   overflow: auto;
   width: 100%;
 }
 
-table.lane {
+.board-container table.board {
   border-collapse: separate;
   border-spacing: 4px;
   min-width: 100%;
-  min-height: 600px;
+  min-height: 400px;
   margin-left: -4px;
 }
 
-table.lane thead tr th {
+.board-container table.board thead tr th {
   border-radius: 3px;
   background-color: #f9f9f9;
   text-align: center;
@@ -128,27 +128,47 @@ table.lane thead tr th {
   padding: 2px;
 }
 
-table.lane thead tr th .color-header {
+.board-container table.board thead tr th.color-header {
   border: 2px solid;
   padding: 0px;
 }
 
-table.lane tbody tr td {
+.board-container table.board tbody tr td {
   border-radius: 3px;
   background-color: #f9f9f9;
   vertical-align: top;
   border: 1px solid #e6ebf4;
 }
 
-table.lane .lane-cell-header {
+.board-container table.board .lane-header {
+  height: 30px;
+}
+
+.board-container table.board .lane-header td {
+  vertical-align: middle;
+}
+
+.board-container table.board .lane-header td span {
+  padding: 5px;
+  line-height: 20px;
+}
+
+.board-container table.board .lane-cell-header {
   height: 20px;
   line-height: 20px;
   text-align: right;
   font-size: 12px;
 }
 
-table.lane .lane-column-content {
+.board-container table.board .lane-column-content {
   padding: 5px;
+}
+
+.board-container table.board .lane-column-content ul.lane-card-container {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  min-height: 100px;
 }
 
 .clickable {
@@ -173,12 +193,22 @@ table.lane .lane-column-content {
   text-decoration: underline;
 }
 
-.card .body {
-  padding: 5px;
-  border-bottom-left-radius: 2px;
-  border-bottom-right-radius: 2px;
+.card .row {
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
-.task {
+.card .row .task {
   padding: 5px;
+}
+
+.card .row .col-xs-6, .card .row col-xs-12 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.card_placeholder {
+  background-color: #ccc;
+  border: 1px solid #bbb;
+  border-radius: 3px;
 }

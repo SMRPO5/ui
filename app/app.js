@@ -25,7 +25,7 @@
         envServiceProvider.check();
 
         // Uncomment bottom line to connect to production server.
-        envServiceProvider.set('production');
+        //envServiceProvider.set('production');
 
         console.log("ApiUrl: " + envServiceProvider.read('apiUrl'));
 
@@ -53,7 +53,7 @@
                 controller: 'LoginController',
                 templateUrl: 'login/login.view.html',
                 controllerAs: 'vm'
-            }).when('/board', {
+            }).when('/board/:boardId?', {
                 controller: 'BoardController',
                 templateUrl: 'board/board.view.html',
                 controllerAs: 'vm',

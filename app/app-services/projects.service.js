@@ -8,6 +8,20 @@
     ProjectsService.$inject = ['$http', 'envService', 'AuthenticationService'];
     function ProjectsService($http, envService, AuthenticationService) {
 
+        function getBoards() {
+            return $http.get(envService.read('apiUrl') + 'projects/boards/', AuthenticationService.getHeaders());
+        }
+
+        function getBoard(boardId) {
+            return $http.get(envService.read('apiUrl') + 'projects/boards/' + boardId, AuthenticationService.getHeaders());
+        }
+
+        function getLanesForBoard(boardId) {
+            return $http.get(envService.read('apiUrl') + 'projects/lanes/?project__board=' + boardId, AuthenticationService.getHeaders());
+        }
+
+        // OLD
+
         function getProjects() {
             return $http.get(envService.read('apiUrl') + 'projects/projects/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting all projects'));
@@ -52,6 +66,9 @@
         }
 
         return {
+            getBoards: getBoards,
+            getBoard: getBoard,
+            getLanesForBoard: getLanesForBoard,
             getProjects: getProjects,
             getProjectsForUser: getProjectsForUser,
             addProject: addProject,

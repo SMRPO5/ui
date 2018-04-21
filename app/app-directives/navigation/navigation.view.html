@@ -8,10 +8,10 @@
                 <a href="#!/board" ng-class="{active: isPathActive('/board')}">Board</a>
             </li>
             <li id="devgrps">
-                <a href="#!/devgrps" ng-class="{active: isPathActive('/devgrps')}" ng-hide="!hasRole('Kanban Master')">DevGroup Management</a>
+                <a href="#!/devgrps" ng-class="{active: isPathActive('/devgrps')}" ng-show="hasRole('Kanban Master')">DevGroup Management</a>
             </li>
             <li id="projects">
-                <a href="#!/projects" ng-class="{active: isPathActive('/projects')}" ng-hide="!hasRole('Kanban Master')">Project Management</a>
+                <a href="#!/projects" ng-class="{active: isPathActive('/projects')}" ng-show="hasRole('Kanban Master')">Project Management</a>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

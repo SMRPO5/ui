@@ -15,7 +15,7 @@
                         return groupData;
                     }
                 }*/
-            }).result.then(function(){}, function(res){});
+            });
         }
 
         function openEditGroupModal(ev, groupData) {
@@ -31,7 +31,7 @@
                         return groupData;
                     }
                 }
-            }).result.then(function(){}, function(res){});
+            });
         }
 
         function openAddProjectModal(ev) {
@@ -48,7 +48,7 @@
                         return $ctrl.items;
                     }
                 }*/
-            }).result.then(function(){}, function(res){});
+            });
         }
 
         function openEditProjectModal(ev, projectData) {
@@ -64,7 +64,7 @@
                         return projectData;
                     }
                 }
-            }).result.then(function(){}, function(res){});
+            });
         }
 
         function openEditCard(card) {
@@ -78,7 +78,7 @@
                         return card;
                     }
                 }
-            }).result.then(function(){}, function(res){});
+            });
         }
 
         function openCreateCardModal() {
@@ -87,7 +87,7 @@
                 controller: 'CreateCardController',
                 controllerAs: 'vm',
                 appendTo: angular.element($document[0].querySelector('.modal_container'))
-            }).result.then(function(){}, function(res){});
+            });
         }
 
         return {

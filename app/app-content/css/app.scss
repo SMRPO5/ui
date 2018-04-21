@@ -107,56 +107,78 @@ textarea {
   }
 }
 /* Table for lane */
-.lane-container {
+.board-container {
   overflow: auto;
   width: 100%;
-}
 
-table.lane {
-  border-collapse: separate;
-  border-spacing: 4px;
-  min-width: 100%;
-  min-height: 600px;
-  margin-left: -4px;
+  table.board {
+    border-collapse: separate;
+    border-spacing: 4px;
+    min-width: 100%;
+    min-height: 400px;
+    margin-left: -4px;
 
-  thead {
-    tr {
-      th {
-        border-radius: 3px;
-        background-color: #f9f9f9;
-        text-align: center;
-        min-width: 200px;
-        border: 1px solid #e6ebf4;
-        padding: 2px;
+    thead {
+      tr {
+        th {
+          border-radius: 3px;
+          background-color: #f9f9f9;
+          text-align: center;
+          min-width: 200px;
+          border: 1px solid #e6ebf4;
+          padding: 2px;
 
-        .color-header {
-          border: 2px solid;
-          padding: 0px;
+          &.color-header {
+            border: 2px solid;
+            padding: 0px;
+          }
         }
       }
     }
-  }
 
-  tbody {
-    tr {
-      td {
-        border-radius: 3px;
-        background-color: #f9f9f9;
-        vertical-align: top;
-        border: 1px solid #e6ebf4;
+    tbody {
+      tr {
+        td {
+          border-radius: 3px;
+          background-color: #f9f9f9;
+          vertical-align: top;
+          border: 1px solid #e6ebf4;
+        }
       }
     }
-  }
 
-  .lane-cell-header {
-    height: 20px;
-    line-height: 20px;
-    text-align: right;
-    font-size: 12px;
-  }
+    .lane-header {
+      height: 30px;
+       td {
+         vertical-align: middle;
 
-  .lane-column-content {
-    padding: 5px;
+         span {
+           padding: 5px;
+           line-height: 20px;
+         }
+       }
+    }
+
+    .lane-cell-header {
+      height: 20px;
+      line-height: 20px;
+      text-align: right;
+      font-size: 12px;
+    }
+
+    .lane-column-content {
+      padding: 5px;
+
+      ul {
+
+        &.lane-card-container {
+          list-style-type: none;
+          padding: 0px;
+          margin: 0px;
+          min-height: 100px;
+        }
+      }
+    }
   }
 }
 
@@ -181,13 +203,23 @@ table.lane {
     }
   }
 
-  .body {
-    padding: 5px;
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
+  .row {
+    margin-left: 0px;
+    margin-right: 0px;
+
+    .task {
+      padding: 5px;
+    }
+
+    .col-xs-6, col-xs-12 {
+      padding-left: 0px;
+      padding-right: 0px;
+    }
   }
 }
 
-.task {
-  padding: 5px;
+.card_placeholder {
+  background-color: #ccc;
+  border: 1px solid #bbb;
+  border-radius: 3px;
 }

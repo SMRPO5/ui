@@ -5,9 +5,9 @@
                 <div class="col-xs-4">
                     <div class="form-inline">
                         <div class="form-group">
-                            <label for="project">Project: </label>
-                            <select id="project" class="form-control" ng-model="vm.selectedProject" ng-change="vm.onProjectChange()">
-                                <option value="{{ project.id }}" ng-repeat="project in vm.projects">{{ project.name }}</option>
+                            <label for="board">Board: </label>
+                            <select id="board" class="form-control" ng-model="vm.selectedBoard" ng-change="vm.onBoardChange()"
+                                    ng-options="board.id as board.name for board in vm.boards">
                             </select>
                         </div>
                     </div>
@@ -22,26 +22,43 @@
         </div>
     </div>
 
-    <div class="lane-container">
-        <table class="lane">
+    <div class="board-container">
+        <table class="board">
             <thead>
                 <tr>
-                    <th class="color-header" colspan="{{ parentColumnSize }}" style="border-color: blue;" ng-repeat="parentColumnSize in vm.parentColumnSizes track by $index"></th>
+                    <th class="color-header" colspan="{{ parentColumn.colSpan }}" style="border-color: blue;" ng-repeat="parentColumn in vm.parentColumns"></th>
                 </tr>
                 <tr>
-                    <th rowspan="{{ parentColumn.rowSpan }}" colspan="{{ parentColumn.colSpan }}" ng-repeat="parentColumn in vm.parentColumns">{{ parentColumn.name }}</th>
+                    <th rowspan="{{ parentColumn.rowSpan }}" colspan="{{ parentColumn.colSpan }}" ng-repeat="parentColumn in vm.parentColumns">
+                        {{ parentColumn.name }}
+                    </th>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="1" ng-repeat="childColumn in vm.childColumns">{{ childColumn.name }}</th>
+                    <th rowspan="1" colspan="1" ng-repeat="childColumn in vm.childColumns">
+                        {{ childColumn.name }}
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="lane-column-content" ng-repeat="columnCards in vm.cardsForColumns">
-                        <div class="lane-cell-header">{{ columnCards.numberOfCardsInColumn }}<span class="slash-separator">/</span>{{ columnCards.maxNumberOfCardsInColumn }}</div>
-                        <div class="lane-card-container">
-                            <card ng-repeat="card in columnCards.cards" card="card">{{ card.name }}</card>
-                        </div>
+                <tr class="lane-header" ng-repeat-start="lane in vm.lanes">
+                    <td colspan="{{ vm.numberOfColumns }}">
+                        <span>
+                            <strong>{{ lane.project.name }}</strong> [{{ lane.project.start_date }} - {{ lane.project.estimated_end_date }}]
+                        </span>
+                    </td>
+                </tr>
+                <!-- TODO SILVER BULLET HERE -->
+                <tr ng-repeat-end>
+                    <td class="lane-column-content" ng-repeat="columnCards in lane.cardsForColumns">
+                        <div class="lane-cell-header">{{ columnCards.cards.length }}<span class="slash-separator">/</span>{{ columnCards.maxNumberOfCardsInColumn }}</div>
+                        <ul class="lane-card-container" dnd-list="columnCards.cards" dnd-allowed-types="vm.columnTypes[columnCards.column.id].allowedTypes">
+                            <li ng-repeat="card in columnCards.cards" dnd-draggable="card" dnd-type="vm.columnTypes[columnCards.column.id].type" dnd-moved="columnCards.cards.splice($index, 1)" dnd-dragstart="vm.cardDraggingStarted(card)">
+                                <card card="card">{{ card.name }}</card>
+                            </li>
+                            <li class="dndPlaceholder card_placeholder" style="height: {{ vm.cardPlaceholderHeight }}px;">
+                                Drop card here!
+                            </li>
+                        </ul>
                     </td>
                 </tr>
             </tbody>
