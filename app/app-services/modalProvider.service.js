@@ -1,3 +1,4 @@
+"use strict";
 (function() {
     /* global angular */
     function modalProvider($uibModal, $document) {
@@ -34,29 +35,49 @@
             });
         }
 
-        function openAddProjectModal(ev) {
+        function openAddProjectModal() {
             return $uibModal.open({
                 controller: 'AddProjectController',
                 controllerAs: 'vm',
                 appendTo: angular.element(document.body),
-                targetEvent: ev,
                 templateUrl: 'app-modals/projects/add/addProject.view.html',
                 size: 'lg'
-                /*
-                resolve: {
-                    items: function () {
-                        return $ctrl.items;
-                    }
-                }*/
             });
         }
 
-        function openEditProjectModal(ev, projectData) {
+        function createProject(board) {
+            return $uibModal.open({
+                controller: 'AddProjectController',
+                controllerAs: 'vm',
+                appendTo: angular.element(document.body),
+                templateUrl: 'app-modals/projects/add/addProject.view.html',
+                size: 'lg',
+                resolve: {
+                    board: function() {
+                        return board;
+                    }
+                }
+            });
+        }
+        function removeProjectModal(project) {
+            return $uibModal.open({
+                controller: 'RemoveProjectController',
+                controllerAs: 'vm',
+                appendTo: angular.element(document.body),
+                templateUrl: 'app-modals/projects/remove/removeProject.view.html',
+                resolve: {
+                    project: function() {
+                        return project;
+                    }
+                }
+            });
+        }
+
+        function openEditProjectModal(projectData) {
             return $uibModal.open({
                 controller: 'EditProjectController',
                 controllerAs: 'vm',
                 appendTo: angular.element(document.body),
-                targetEvent: ev,
                 templateUrl: 'app-modals/projects/edit/editProject.view.html',
                 size: 'lg',
                 resolve: {
@@ -99,6 +120,15 @@
             });
         }
 
+        function openAddBoard() {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/add/addBoard.view.html',
+                controller: 'AddBoardController',
+                controllerAs: 'vm',
+                appendTo: angular.element(document.body)
+            });
+        }
+
         return {
             openAddGroupModal: openAddGroupModal,
             openEditGroupModal: openEditGroupModal,
@@ -106,7 +136,10 @@
             openEditProjectModal: openEditProjectModal,
             openCreateCardModal: openCreateCardModal,
             openEditCard: openEditCard,
-            openWIPLimitExceededModal: openWIPLimitExceededModal
+            openWIPLimitExceededModal: openWIPLimitExceededModal,
+            openAddBoard: openAddBoard,
+            createProject: createProject,
+            removeProjectModal: removeProjectModal
         }
     }
 

@@ -1,2 +1,10 @@
-﻿<h1>Hello {{ globals.me.email}}!</h1>
-<p>You're logged in!!</p>
+﻿<div class="row">
+    <div class="col-xs-6" ng-repeat="board in vm.boards">
+        <board-preview board="board"></board-preview>
+    </div>
+    <div class="col-xs-6" ng-show="hasRole('Kanban Master')">
+        <div ng-click="vm.createBoard()" class="add-board-placeholder">
+            <i class="fas fa-plus fa-5x "></i>
+        </div>
+    </div>
+</div>

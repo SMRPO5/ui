@@ -1,5 +1,5 @@
+"use strict";
 (function () {
-    'use strict';
 
     angular
         .module('app')
@@ -19,8 +19,10 @@
         function getLanesForBoard(boardId) {
             return $http.get(envService.read('apiUrl') + 'projects/lanes/?project__board=' + boardId, AuthenticationService.getHeaders());
         }
-
-        // OLD
+        function createBoard(board) {
+            return $http.post(envService.read('apiUrl') + 'projects/boards/', board, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting boards'));
+        }
 
         function getProjects() {
             return $http.get(envService.read('apiUrl') + 'projects/projects/', AuthenticationService.getHeaders())
@@ -74,7 +76,8 @@
             addProject: addProject,
             getColumnsForProject: getColumnsForProject,
             removeProject: removeProject,
-            editProject: editProject
+            editProject: editProject,
+            createBoard: createBoard
         }
     }
 
