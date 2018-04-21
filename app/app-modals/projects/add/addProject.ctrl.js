@@ -1,6 +1,6 @@
 (function() {
 
-    function addProjectController(DevGrpsService, ProjectsService, $uibModalInstance) {
+    function addProjectController(DevGrpsService, ProjectsService, $uibModalInstance, board) {
         var vm = this;
 
         DevGrpsService.getDeveloperGroups().then(function(result) {
@@ -65,7 +65,8 @@
                 start_date: vm.startDate,
                 estimated_end_date: vm.deadline,
                 dev_group: vm.devGroup,
-                is_active: true
+                is_active: true,
+                board: board.id
             };
             //console.log("Add project!");
             //console.log(projectData);
@@ -82,5 +83,5 @@
 
     angular
         .module('app')
-        .controller('AddProjectController', ['DevGrpsService', 'ProjectsService', '$uibModalInstance', addProjectController]);
+        .controller('AddProjectController', ['DevGrpsService', 'ProjectsService', '$uibModalInstance', 'board', addProjectController]);
 })();

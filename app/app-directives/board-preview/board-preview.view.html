@@ -1,0 +1,39 @@
+<div class="board-preview">
+    <div class="header" ng-click="openBoard($event, board)">
+        <span>{{ board.name }}</span>
+        <div class="actions pull-right">
+            <span ng-click="openBoard($event, board)" class="open-board clickable">Open board</span>
+            <span class="edit clickable" ng-click="toggleActions($event)"><i class="fas fa-ellipsis-v"></i></span>
+            <div class="btn-group" uib-dropdown is-open="actionsOpened">
+              <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                <li role="menuitem"><a href="" ng-click="editBoard(board)">Edit board</a></li>
+                <li role="menuitem"><a href="" ng-click="createProject(board)">Add project</a></li>
+                <!--<li role="menuitem"><a href="" ng-click="deleteBoard(board)">Delete project</a></li>-->
+              </ul>
+            </div>
+        </div>
+    </div>
+    <div data-simplebar class="body simplebar-vertical-only">
+        <div class="row">
+            <div class="col-xs-6" ng-repeat="project in board.projects">
+                <div class="project-preview" ng-click="hasRole('Kanban Master') && editProject($index, project)">
+                    <div class="project-header" ng-class="{'clickable': hasRole('Kanban Master')}">
+                        {{ project.name }}
+                        <div class="actions pull-right">
+                            <i ng-show="hasRole('Kanban Master')" class="remove fas fa-times" ng-click="removeProject($event, $index, project)"></i>
+                        </div>
+                    </div>
+                    <div class="project-body row">
+                        <div class="col-xs-6">
+                            <span>Start date: {{ project.start_date | amDateFormat:'DD.MM.YYYY' }}</span>
+                        </div>
+                        <div class="col-xs-6">
+                            <span class="pull-right">End date: {{ project.estimated_end_date | amDateFormat:'DD.MM.YYYY' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
