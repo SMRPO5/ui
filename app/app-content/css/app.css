@@ -148,6 +148,10 @@ textarea {
   vertical-align: middle;
 }
 
+.board-container table.board .lane-header td .project-actions {
+  margin-right: 5px;
+}
+
 .board-container table.board .lane-header td span {
   padding: 5px;
   line-height: 20px;
@@ -162,6 +166,11 @@ textarea {
 
 .board-container table.board .lane-column-content {
   padding: 5px;
+  height: 1px;
+}
+
+.board-container table.board .lane-column-content ul {
+  height: 90%;
 }
 
 .board-container table.board .lane-column-content ul.lane-card-container {
@@ -261,7 +270,7 @@ textarea {
   min-width: 200px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .card .clickable {
@@ -298,7 +307,7 @@ textarea {
   background-color: #ccc;
   border: 1px solid #bbb;
   border-radius: 3px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .navbar-collapse.collapse {

@@ -1,17 +1,19 @@
+"use strict";
 (function () {
-    'use strict';
 
     angular
         .module('app')
         .controller('CreateCardController', CreateCardController);
 
-    CreateCardController.$inject = ['$rootScope', 'CardsService', 'UserService', '$uibModalInstance'];
-    function CreateCardController($rootScope, CardsService, UserService, $uibModalInstance) {
+    CreateCardController.$inject = ['$rootScope', 'CardsService', 'UserService', '$uibModalInstance', 'project'];
+    function CreateCardController($rootScope, CardsService, UserService, $uibModalInstance, project) {
         var vm = this;
 
         vm.createCard = function createCard() {
-            CardsService.createCard(vm.cardData);
-            $uibModalInstance.close();
+            CardsService.createCard(vm.cardData).then(function(result) {
+                $uibModalInstance.close(result.data);
+            });
+
         };
         vm.close = function() {
             $uibModalInstance.dismiss();
@@ -28,7 +30,7 @@
             priority: '',
             deadline: '',
             size: '',
-            lane: 1
+            project: project.id
         };
 
         vm.deadlineOptions = {
