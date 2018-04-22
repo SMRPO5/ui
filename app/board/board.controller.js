@@ -78,7 +78,7 @@
             var numberOfCardsInColumn = vm.getNumberOfCardsInColumn(parentColumn !== undefined ? parentColumn: column);
             var maxNumberOfCardsInColumn = parentColumn !== undefined ? parentColumn.card_limit: column.card_limit;
             var wipLimitExceeded = maxNumberOfCardsInColumn !== 0 && numberOfCardsInColumn >= maxNumberOfCardsInColumn;
-            if(wipLimitExceeded) {
+            if(wipLimitExceeded && item.column !== column.id) {
                 ModalProvider.openWIPLimitExceededModal(index, item, column, function() { moveCardToColumn(index, item, column)});
                 return false;
             }
@@ -146,8 +146,6 @@
             vm.childColumns = childColumns;
             vm.columnOrder = columnOrder;
             vm.columns = columns;
-
-            generateColumnTypes(columnOrder);
         }
 
         function loadLanes(boardId) {
@@ -155,6 +153,7 @@
                if(response.status === 200) {
                    vm.lanes = response.data;
                    console.log('Successfully fetched lanes!', vm.lanes);
+                   generateColumnTypesForLanes(vm.lanes);
                    filterCardsPerColumn(vm.lanes);
                }
             });
@@ -191,32 +190,40 @@
             vm.lanes = lanesWithFilteredCards;
         }
 
-        function getColumnForType(column) {
-            return 'card_draggable_column_' + column.id;
+        function generateColumnTypesForLanes(lanes) {
+            vm.columnTypes = {};
+            for(var i = 0; i < lanes.length; i++) {
+                var lane = lanes[i];
+                vm.columnTypes[lane.project.id] = {};
+                generateColumnTypes(lane, vm.columnOrder);
+            }
+            console.log('Processed columnTypes!', vm.columnTypes);
         }
 
-        function generateColumnTypes(columns) {
-            vm.columnTypes = {};
+        function getColumnForType(lane, column) {
+            return 'card_draggable_project_' + lane.project.id + '_column_' + column.id;
+        }
+
+        function generateColumnTypes(lane, columns) {
+
             for(var i = 0; i < columns.length; i++) {
                 var currentColumn = columns[i];
                 var previousColumn = i > 0 ? columns[i - 1]: undefined;
                 var nextColumn = i < columns.length ? columns[i + 1]: undefined;
-                var currentColumnType = getColumnForType(currentColumn);
+                var currentColumnType = getColumnForType(lane, currentColumn);
                 var allowedColumnTypes = [];
                 if(previousColumn !== undefined) {
-                    allowedColumnTypes.push(getColumnForType(previousColumn));
+                    allowedColumnTypes.push(getColumnForType(lane, previousColumn));
                 }
                 if(nextColumn !== undefined) {
-                    allowedColumnTypes.push(getColumnForType(nextColumn));
+                    allowedColumnTypes.push(getColumnForType(lane, nextColumn));
                 }
                 allowedColumnTypes.push(currentColumnType);
-                vm.columnTypes[currentColumn.id] = {
+                vm.columnTypes[lane.project.id][currentColumn.id] = {
                     type: currentColumnType,
                     allowedTypes: allowedColumnTypes
                 }
             }
-
-            console.log('Processed columnTypes!', vm.columnTypes);
         }
 
     }
