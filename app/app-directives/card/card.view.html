@@ -4,11 +4,13 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-6">
-            Priority: {{ card.priority | toPriorityText }}
+        <div class="col-sm-6 col-xs-12 card_block">
+            <label>Priority: </label>
+            <span>{{ card.priority | toPriorityText }}</span>
         </div>
-        <div class="col-xs-6">
-            Assignee: {{ card.assignee.first_name }}
+        <div class="col-sm-6 col-xs-12 card_block" >
+            <label>Assignee: </label>
+            <span>{{ card.assignee.first_name }}</span>
         </div>
 
         <div class="col-xs-12 task" ng-repeat="task in card.tasks">

@@ -316,6 +316,17 @@ textarea {
     margin-left: 0px;
     margin-right: 0px;
 
+    .card_block {
+      text-align: left;
+      padding: 0px 5px !important;
+
+      label {
+        font-size: 12px;
+        margin-bottom: 0px;
+        width: 100%;
+      }
+    }
+
     .task {
       padding: 5px;
     }

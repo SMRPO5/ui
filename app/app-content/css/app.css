@@ -294,6 +294,17 @@ textarea {
   margin-right: 0px;
 }
 
+.card .row .card_block {
+  text-align: left;
+  padding: 0px 5px !important;
+}
+
+.card .row .card_block label {
+  font-size: 12px;
+  margin-bottom: 0px;
+  width: 100%;
+}
+
 .card .row .task {
   padding: 5px;
 }
