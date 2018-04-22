@@ -8,6 +8,9 @@
     EditCardController.$inject = ['$rootScope', '$location', 'FlashService', 'CardsService', 'UserService', 'card', 'moment', '$uibModalInstance'];
     function EditCardController($rootScope, $location, FlashService, CardsService, UserService, card, moment, $uibModalInstance) {
         var vm = this;
+        vm.canEdit = (card.is_in_requested && ($rootScope.hasRole('Kanban Master') || $rootScope.hasRole('Product Owner'))) ||
+            (!card.is_in_requested && !$rootScope.hasRole('Product Owner')) &&
+            !card.is_in_done;
         vm.cardData = card;
         vm.cardData.deadline = moment(vm.cardData.deadline).toDate();
         vm.title = vm.cardData.name;
