@@ -5,15 +5,10 @@
         .module('app')
         .controller('BoardController', BoardController);
 
-    BoardController.$inject = ['$routeParams', 'ProjectsService', 'ModalProvider'];
+    BoardController.$inject = ['$routeParams', 'ProjectsService', 'CardsService', 'ModalProvider'];
 
-    function BoardController($routeParams, ProjectsService, ModalProvider) {
+    function BoardController($routeParams, ProjectsService, CardsService, ModalProvider) {
         var vm = this;
-
-        vm.cardDraggable = {
-            type: 'card_draggable',
-            allowedTypes: ['card_draggable']
-        };
 
         /*
          * Data calls
@@ -75,13 +70,39 @@
             var parentColumn = column.parent !== null? vm.columns[column.parent]: undefined;
             var numberOfCardsInColumn = vm.getNumberOfCardsInColumn(parentColumn !== undefined ? parentColumn: column);
             var maxNumberOfCardsInColumn = parentColumn !== undefined ? parentColumn.card_limit: column.card_limit;
-            //console.log(numberOfCardsInColumn, '|', maxNumberOfCardsInColumn);
-            //console.log(index);
-            //console.log(item);
-            ModalProvider.openWIPLimitExceededModal();
-            // TODO move only if reason is sent from modal.
-            return maxNumberOfCardsInColumn === 0 || numberOfCardsInColumn < maxNumberOfCardsInColumn ? item: false;
+            var wipLimitExceeded = maxNumberOfCardsInColumn !== 0 && numberOfCardsInColumn >= maxNumberOfCardsInColumn;
+            if(wipLimitExceeded) {
+                ModalProvider.openWIPLimitExceededModal(index, item, column, function() { moveCardToColumn(index, item, column)});
+                return false;
+            }
+            item.column = column.id;// Sets new column id
+            CardsService.updateCardColumn(item.id, column.id);
+            return item;
         };
+
+        function moveCardToColumn(newIndex, card, movedToColumn) {
+            for(var i = 0; i < vm.lanes.length; i++) {
+                var lane = vm.lanes[i];
+                var oldCardForColumn = lane.cardsForColumns.find(function(cardsForColumn) {
+                    return cardsForColumn.column.id === card.column;
+                });
+                var newCardForColumn = lane.cardsForColumns.find(function(cardsForColumn) {
+                    return cardsForColumn.column.id === movedToColumn.id;
+                });
+                var oldColumnCardIndex = -1;
+                for(var j = 0; j < oldCardForColumn.cards.length; j++) {
+                    var oldCard = oldCardForColumn.cards[j];
+                    if(oldCard.id === card.id){
+                        oldColumnCardIndex = j;
+                        break;
+                    }
+                }
+                card.column = movedToColumn.id;
+                oldCardForColumn.cards.splice(oldColumnCardIndex, 1);
+                newCardForColumn.cards.splice(newIndex, 0, card);
+                CardsService.updateCardColumn(card.id, movedToColumn.id);
+            }
+        }
 
         function preProcessBoardColumns(board) {
             var numberOfColumns = 0;

@@ -7,7 +7,7 @@
             return $uibModal.open({
                 controller: 'AddGroupController',
                 controllerAs: 'vm',
-                appendTo: angular.element(document.body),
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
                 targetEvent: ev,
                 templateUrl: 'app-modals/devgroups/add/addGroup.view.html',
                 size: 'lg',
@@ -23,7 +23,7 @@
             return $uibModal.open({
                 controller: 'EditGroupController',
                 controllerAs: 'vm',
-                appendTo: angular.element(document.body),
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
                 targetEvent: ev,
                 templateUrl: 'app-modals/devgroups/edit/editGroup.view.html',
                 size: 'lg',
@@ -39,7 +39,7 @@
             return $uibModal.open({
                 controller: 'AddProjectController',
                 controllerAs: 'vm',
-                appendTo: angular.element(document.body),
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
                 templateUrl: 'app-modals/projects/add/addProject.view.html',
                 size: 'lg'
             });
@@ -49,7 +49,7 @@
             return $uibModal.open({
                 controller: 'AddProjectController',
                 controllerAs: 'vm',
-                appendTo: angular.element(document.body),
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
                 templateUrl: 'app-modals/projects/add/addProject.view.html',
                 size: 'lg',
                 resolve: {
@@ -63,7 +63,7 @@
             return $uibModal.open({
                 controller: 'RemoveProjectController',
                 controllerAs: 'vm',
-                appendTo: angular.element(document.body),
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
                 templateUrl: 'app-modals/projects/remove/removeProject.view.html',
                 resolve: {
                     project: function() {
@@ -77,7 +77,7 @@
             return $uibModal.open({
                 controller: 'EditProjectController',
                 controllerAs: 'vm',
-                appendTo: angular.element(document.body),
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
                 templateUrl: 'app-modals/projects/edit/editProject.view.html',
                 size: 'lg',
                 resolve: {
@@ -92,7 +92,7 @@
             return $uibModal.open({
                 controller: 'EditCardController',
                 controllerAs: 'vm',
-                appendTo: angular.element(document.body),
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
                 templateUrl: 'app-modals/card/edit/editCard.view.html',
                 resolve: {
                     card: function () {
@@ -111,12 +111,20 @@
             });
         }
 
-        function openWIPLimitExceededModal() {
+        function openWIPLimitExceededModal(index, item, column, callback) {
             return $uibModal.open({
                 templateUrl: 'app-modals/board/wipLimitExceeded/wipLimitExceeded.view.html',
                 controller: 'WIPLimitExceededBoardController',
                 controllerAs: 'vm',
-                appendTo: angular.element($document[0].querySelector('.modal_container'))
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                resolve: {
+                    data: {
+                        index: index,
+                        item: item,
+                        movedToColumn: column,
+                        callback: callback
+                    }
+                }
             });
         }
 
@@ -125,7 +133,7 @@
                 templateUrl: 'app-modals/board/add/addBoard.view.html',
                 controller: 'AddBoardController',
                 controllerAs: 'vm',
-                appendTo: angular.element(document.body)
+                appendTo: angular.element($document[0].querySelector('.modal_container'))
             });
         }
 

@@ -24,6 +24,15 @@
                 .then(handleSuccess, handleError('Error getting boards'));
         }
 
+        function sendReasonForWipViolation(cardId, columnId, reason) {
+            var data = {
+                card: cardId,
+                column: columnId,
+                reason: reason
+            };
+            return $http.post(envService.read('apiUrl') + 'projects/wip_violations/', data, AuthenticationService.getHeaders());
+        }
+
         function getProjects() {
             return $http.get(envService.read('apiUrl') + 'projects/projects/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting all projects'));
@@ -71,6 +80,7 @@
             getBoards: getBoards,
             getBoard: getBoard,
             getLanesForBoard: getLanesForBoard,
+            sendReasonForWipViolation: sendReasonForWipViolation,
             getProjects: getProjects,
             getProjectsForUser: getProjectsForUser,
             addProject: addProject,

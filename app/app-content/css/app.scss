@@ -290,6 +290,7 @@ textarea {
   min-width: 200px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
+  margin-bottom: 5px;
 
   .clickable {
     cursor: pointer;
@@ -315,7 +316,7 @@ textarea {
       padding: 5px;
     }
 
-    .col-xs-6, col-xs-12 {
+    .col-xs-6, .col-xs-12 {
       padding-left: 0px;
       padding-right: 0px;
     }
@@ -326,4 +327,5 @@ textarea {
   background-color: #ccc;
   border: 1px solid #bbb;
   border-radius: 3px;
+  margin-bottom: 5px;
 }

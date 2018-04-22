@@ -8,14 +8,16 @@
     CardsService.$inject = ['$http', 'envService', 'AuthenticationService'];
     function CardsService($http, envService, AuthenticationService) {
 
+        function updateCardColumn(cardId, columnId) {
+            var data = {
+                column: columnId
+            };
+            return $http.patch(envService.read('apiUrl') + 'projects/cards/' + cardId + '/', data, AuthenticationService.getHeaders());
+        }
+
         function getCards() {
             return $http.get(envService.read('apiUrl') + 'projects/cards/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting all cards'));
-        }
-
-        function getCardsForProject(projectId) {
-            // TODO
-            return getCards();
         }
 
         function getCard(id) {
@@ -50,9 +52,9 @@
         }
 
         return {
+            updateCardColumn: updateCardColumn,
             getCard: getCard,
             getCards: getCards,
-            getCardsForProject: getCardsForProject,
             createCard: createCard,
             getCardTypes: getCardTypes,
             editCard: editCard

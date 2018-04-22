@@ -32,15 +32,19 @@ textarea {
 .board label {
   margin-right: 10px;
 }
+
 .board select {
   min-width: 200px;
 }
+
 .board .board_top_menu {
   margin-bottom: 10px;
 }
+
 .board .board_top_menu .button_container {
   float: right;
 }
+
 .board .columns {
   min-width: 1200px;
   overflow-x: scroll;
@@ -48,6 +52,7 @@ textarea {
   margin: 0px 15px;
   white-space: nowrap;
 }
+
 .board .column {
   min-height: 500px;
   min-width: 200px;
@@ -55,19 +60,24 @@ textarea {
   /*margin-right: -4px;*/
   vertical-align: top;
 }
+
 .board .column .column_header {
   height: 20px;
 }
+
 .board .column .column_header_big {
   height: 40px;
   margin: 10px 0px;
 }
+
 .board .column.small, .board .subcolumn {
   max-width: 300px;
 }
+
 .board .column.big {
   max-width: 600px;
 }
+
 .board .subcolumn {
   min-height: 480px;
   min-width: 200px;
@@ -83,9 +93,11 @@ textarea {
 .credits {
   background-color: #eee;
 }
+
 .credits p {
   padding: 10px 0px;
 }
+
 .credits hr {
   height: 1px;
   width: 1200px;
@@ -98,6 +110,7 @@ textarea {
   overflow: auto;
   width: 100%;
 }
+
 .board-container table.board {
   border-collapse: separate;
   border-spacing: 4px;
@@ -105,6 +118,7 @@ textarea {
   min-height: 400px;
   margin-left: -4px;
 }
+
 .board-container table.board thead tr th {
   border-radius: 3px;
   background-color: #f9f9f9;
@@ -113,35 +127,43 @@ textarea {
   border: 1px solid #e6ebf4;
   padding: 2px;
 }
+
 .board-container table.board thead tr th.color-header {
   border: 2px solid;
   padding: 0px;
 }
+
 .board-container table.board tbody tr td {
   border-radius: 3px;
   background-color: #f9f9f9;
   vertical-align: top;
   border: 1px solid #e6ebf4;
 }
+
 .board-container table.board .lane-header {
   height: 30px;
 }
+
 .board-container table.board .lane-header td {
   vertical-align: middle;
 }
+
 .board-container table.board .lane-header td span {
   padding: 5px;
   line-height: 20px;
 }
+
 .board-container table.board .lane-cell-header {
   height: 20px;
   line-height: 20px;
   text-align: right;
   font-size: 12px;
 }
+
 .board-container table.board .lane-column-content {
   padding: 5px;
 }
+
 .board-container table.board .lane-column-content ul.lane-card-container {
   list-style-type: none;
   padding: 0px;
@@ -167,13 +189,16 @@ textarea {
   max-height: 215px;
   margin-bottom: 15px;
 }
+
 .board-preview .actions .open-board {
   padding-right: 10px;
 }
+
 .board-preview .actions .edit {
   padding-left: 5px;
   padding-right: 5px;
 }
+
 .board-preview .header {
   cursor: pointer;
   text-align: center;
@@ -183,27 +208,34 @@ textarea {
   font-weight: bold;
   padding: 5px;
 }
+
 .board-preview .header:hover {
   text-decoration: underline;
 }
+
 .board-preview .header .open-board {
   border-right: 1px solid #ccc;
 }
+
 .board-preview .simplebar-vertical-only .simplebar-track.horizontal {
   display: none !important;
 }
+
 .board-preview .body .project-preview {
   margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   background-color: #e0e9f1;
   border-radius: 2px;
 }
+
 .board-preview .body .project-preview .clickable {
   cursor: pointer;
 }
+
 .board-preview .body .project-preview .clickable:hover {
   text-decoration: underline;
 }
+
 .board-preview .body .project-preview .project-header {
   text-align: center;
   background-color: #3f93af;
@@ -212,9 +244,11 @@ textarea {
   font-weight: bold;
   padding: 5px;
 }
+
 .board-preview .body .project-preview .project-header .actions {
   margin-right: 5px;
 }
+
 .board-preview .body .project-preview .project-body {
   padding: 10px;
 }
@@ -227,10 +261,13 @@ textarea {
   min-width: 200px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
+  margin-bottom: 5px;
 }
+
 .card .clickable {
   cursor: pointer;
 }
+
 .card .header {
   background-color: #4CAF50;
   border-top-left-radius: 2px;
@@ -238,16 +275,20 @@ textarea {
   font-weight: bold;
   padding: 5px;
 }
+
 .card .header:hover {
   text-decoration: underline;
 }
+
 .card .row {
   margin-left: 0px;
   margin-right: 0px;
 }
+
 .card .row .task {
   padding: 5px;
 }
+
 .card .row .col-xs-6, .card .row col-xs-12 {
   padding-left: 0px;
   padding-right: 0px;
@@ -257,4 +298,5 @@ textarea {
   background-color: #ccc;
   border: 1px solid #bbb;
   border-radius: 3px;
+  margin-bottom: 5px;
 }
