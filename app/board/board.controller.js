@@ -29,7 +29,7 @@
 
         vm.onBoardChange = function() {
             var board = vm.boards.find(function(board) {
-                return board.id === vm.selectedBoard
+                return board.id === parseInt(vm.selectedBoard);
             });
             preProcessBoardColumns(board);
             loadLanes(vm.selectedBoard);
