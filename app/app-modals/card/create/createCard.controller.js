@@ -11,7 +11,9 @@
 
         vm.createCard = function createCard() {
             CardsService.createCard(vm.cardData).then(function(result) {
-                $uibModalInstance.close(result.data);
+                if (result.status === 201) {
+                    $uibModalInstance.close(result.data);
+                }
             });
 
         };
