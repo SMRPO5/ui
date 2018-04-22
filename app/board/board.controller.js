@@ -30,8 +30,15 @@
             loadLanes(vm.selectedBoard);
         };
 
-        vm.openCreateCardModal = function() {
-            ModalProvider.openCreateCardModal();
+        vm.openCreateCardModal = function(project) {
+            ModalProvider.openCreateCardModal(project).result.then(function(card) {
+                vm.addCardToFirstColumn(card);
+            }, function() {});
+        };
+
+        vm.addCardToFirstColumn = function(card) {
+            var lane = _.find(vm.lanes, function(lane) {return lane.project.id === card.project});
+            lane.cardsForColumns[0].cards.push(card);
         };
 
         vm.cardDraggingStarted = function(card) {

@@ -14,7 +14,6 @@
                 </div>
                 <div class="col-xs-8">
                     <div class="button_container">
-                        <button type="button" class="btn btn-default" ng-click="vm.openCreateCardModal()">Create card</button>
                         <button type="button" class="btn btn-default">Edit board</button>
                     </div>
                 </div>
@@ -45,6 +44,9 @@
                         <span>
                             <strong>{{ lane.project.name }}</strong> [{{ lane.project.start_date | amDateFormat:'DD.MM.YYYY' }} - {{ lane.project.estimated_end_date | amDateFormat:'DD.MM.YYYY' }}]
                         </span>
+                        <div class="pull-right project-actions">
+                            <button class="btn btn-default btn-xs" ng-click="vm.openCreateCardModal(lane.project)"><i class="fas fa-plus"></i> NEW CARD</button>
+                        </div>
                     </td>
                 </tr>
                 <!-- TODO SILVER BULLET HERE -->

@@ -152,7 +152,9 @@ textarea {
       height: 30px;
        td {
          vertical-align: middle;
-
+         .project-actions {
+           margin-right: 5px;
+         }
          span {
            padding: 5px;
            line-height: 20px;
@@ -169,8 +171,10 @@ textarea {
 
     .lane-column-content {
       padding: 5px;
+      height: 1px;
 
       ul {
+        height: 90%;
 
         &.lane-card-container {
           list-style-type: none;
@@ -290,7 +294,7 @@ textarea {
   min-width: 200px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 
   .clickable {
     cursor: pointer;
@@ -327,5 +331,5 @@ textarea {
   background-color: #ccc;
   border: 1px solid #bbb;
   border-radius: 3px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
