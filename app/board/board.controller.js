@@ -74,11 +74,19 @@
         };
 
         vm.checkIfCardCanBeMoved = function(index, item, column) {
-            var parentColumn = column.parent !== null? vm.columns[column.parent]: undefined;
+            var parentColumn = column.parent !== null ? vm.columns[column.parent]: undefined;
+            var itemParentColumn = item.parent !== null ? vm.columns[vm.columns[item.column].parent]: undefined;
             var numberOfCardsInColumn = vm.getNumberOfCardsInColumn(parentColumn !== undefined ? parentColumn: column);
             var maxNumberOfCardsInColumn = parentColumn !== undefined ? parentColumn.card_limit: column.card_limit;
             var wipLimitExceeded = maxNumberOfCardsInColumn !== 0 && numberOfCardsInColumn >= maxNumberOfCardsInColumn;
-            if(wipLimitExceeded && item.column !== column.id) {
+            var movingToSameColumn = item.column === column.id;
+            var condition = true;
+            if(parentColumn !== undefined && itemParentColumn !== undefined) {
+                condition = wipLimitExceeded && parentColumn.id !== itemParentColumn.id;
+            } else {
+                condition = wipLimitExceeded && !movingToSameColumn;
+            }
+            if(condition) {
                 ModalProvider.openWIPLimitExceededModal(index, item, column, function() { moveCardToColumn(index, item, column)});
                 return false;
             }
