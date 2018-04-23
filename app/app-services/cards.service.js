@@ -35,8 +35,8 @@
                 .then(handleSuccess, handleError('Error updating card'));
         }
 
-        function getCardTypes() {
-            return $http.get(envService.read('apiUrl') + 'projects/card_types/', AuthenticationService.getHeaders());
+        function getCardTypes(project) {
+            return $http.get(envService.read('apiUrl') + 'projects/card_types/?project=' + project.id, AuthenticationService.getHeaders());
         }
 
         // private functions

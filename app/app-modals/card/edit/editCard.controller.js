@@ -36,7 +36,7 @@
                 name: 'Critical'
             }
         ];
-        CardsService.getCardTypes().then(function(result) {
+        CardsService.getCardTypes(card.project).then(function(result) {
             if(result.status === 200) {
                 vm.cardTypes = result.data;
             }
