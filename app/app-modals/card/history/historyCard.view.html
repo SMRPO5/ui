@@ -1,0 +1,60 @@
+
+    <div class="modal-header">
+        <button ng-click="vm.close()" type="button" class="close">&times;</button>
+        <h3 class="modal-title" id="modal-title">{{ vm.title }}</h3>
+    </div>
+    <div class="modal-body row" id="modal-body">
+           <!-- <div class="button-wrapper row" ng-repeat="history in vm.cardHistory">
+                    <span class="col-xs-3">
+                            <button type="button" class="btn btn-default btn-block" ng-click="vm.canEdit">{{history.revision.comment}}</button>
+                        </span>
+                        <span class="col-xs-9"/>
+                    </div>
+                        <table>
+                            <tr ng-repeat="history in  vm.cardHistory | orderBy : 'Country'">
+                                <td>{{ history.revision.comment }}</td>
+                                <td>{{ history.revision.date_created }}</td>
+                                <td>{{ history.revision.user.email }}</td>
+                            </tr>
+                        </table>-->
+                        <table class="table table-striped" >
+                                <thead>
+                                  <tr>
+                                    <th><button type="button" class="btn btn-link" ng-click="vm.setOrderByField(vm.comment_title)">EVENT</button></th>
+                                    <th><button type="button" class="btn btn-link" ng-click="vm.setOrderByField(vm.emai_titlel)">USER</button></th>
+                                    <th><button type="button" class="btn btn-link" ng-click="vm.setOrderByField(vm.date_created_title)">DATE</button></th>
+                                    </tr>
+                                    <!--<th>
+                                        <div class="header clickable" ng-click="editCard(card)">
+                                            <span>EVENT</span>
+                                        </div>
+                                    </th>
+                                    <th>
+                                    <a href="#" ng-click="vm.orderByField='email'; vm.reverseSort = !vm.reverseSort">
+                                            USER <span ng-show="vm.orderByField == 'email'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
+                                    </a>
+                                    </th>
+                                    <th>
+                                    <a href="#" ng-click=vm."orderByField='date_created'; rvm.everseSort = !vm.reverseSort">
+                                            DATE <span ng-show="vm.orderByField == 'date_created'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
+                                    </a>
+                                    </th>-->
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="history in  vm.cardHistory | orderBy:orderByField:reverseSort">
+                                        <td>{{ history.revision.comment }}</td>
+                                        <td>{{ history.revision.user.email }}</td>
+                                        <td>{{ history.revision.date_created | amDateFormat:'DD.MM.YYYY'}}</td>
+                                  </tr>
+                                  <tr ng-repeat="history in  vm.cardWipViolations | orderBy:orderByField:reverseSort">
+                                        <td>{{ history.revision.comment }}</td>
+                                        <td>{{ history.revision.user.email }}</td>
+                                        <td>{{ history.revision.date_created | amDateFormat:'DD.MM.YYYY'}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+            
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="vm.openEdit()">Back</button>
+    </div>
