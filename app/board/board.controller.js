@@ -32,8 +32,14 @@
 
         vm.openCreateCardModal = function(project) {
             ModalProvider.openCreateCardModal(project).result.then(function(card) {
-                vm.addCardToFirstColumn(card);
+                vm.addCardToAppropriateColumn(card);
             }, function() {});
+        };
+
+        vm.addCardToAppropriateColumn = function(card) {
+            var lane = _.find(vm.lanes, function(lane) {return lane.project.id === card.project});
+            var column = _.find(lane.cardsForColumns, function(column) { return column.column.id === card.column});
+            column.cards.push(card);
         };
 
         vm.addCardToFirstColumn = function(card) {
