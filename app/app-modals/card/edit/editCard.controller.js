@@ -5,8 +5,8 @@
         .module('app')
         .controller('EditCardController', EditCardController);
 
-    EditCardController.$inject = ['$rootScope', '$location', 'FlashService', 'CardsService', 'UserService', 'card', 'moment', '$uibModalInstance'];
-    function EditCardController($rootScope, $location, FlashService, CardsService, UserService, card, moment, $uibModalInstance) {
+    EditCardController.$inject = ['$rootScope', '$location', 'FlashService', 'CardsService', 'UserService', 'card', 'moment', '$uibModalInstance','ModalProvider'];
+    function EditCardController($rootScope, $location, FlashService, CardsService, UserService, card, moment, $uibModalInstance,ModalProvider) {
         var vm = this;
         vm.canEdit = (card.is_in_requested && ($rootScope.hasRole('Kanban Master') || $rootScope.hasRole('Product Owner'))) ||
             (!card.is_in_requested && !$rootScope.hasRole('Product Owner')) &&
@@ -58,7 +58,15 @@
 
         vm.close = function() {
             $uibModalInstance.dismiss();
-        }
+        };
+        vm.openHistory = openHistory;
+
+        function openHistory(){
+            ModalProvider.openHistoryCard(vm.cardData);//.result.then(function(data){
+            vm.close();
+            //}, function(error) {
+            //});
+        };
 
     }
 

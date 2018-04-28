@@ -38,6 +38,14 @@
         function getCardTypes(project) {
             return $http.get(envService.read('apiUrl') + 'projects/card_types/?project=' + project.id, AuthenticationService.getHeaders());
         }
+        function getCardHistory(id) {
+            return $http.get(envService.read('apiUrl') + 'projects/card_history/?card=' + id, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting card history'));
+        }
+        function getCardWipViolations(id) {
+            return $http.get(envService.read('apiUrl') + 'projects/wip_violations/?card=' + id, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting card wip violations'));
+        }
 
         // private functions
 
@@ -57,7 +65,10 @@
             getCards: getCards,
             createCard: createCard,
             getCardTypes: getCardTypes,
-            editCard: editCard
+            editCard: editCard,
+            getCardHistory: getCardHistory,
+            getCardWipViolations: getCardWipViolations
+
         };
     }
 
