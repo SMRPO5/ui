@@ -22,7 +22,9 @@
                     });
                 };
 
-                $scope.createProject = function(board) {
+                $scope.createProject = function($event, board) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
                     ModalProvider.createProject(board).result.then(function(data) {
                         $scope.board.projects.push(data);
                     });

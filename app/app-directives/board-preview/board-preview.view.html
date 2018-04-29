@@ -6,8 +6,8 @@
             <span class="edit clickable" ng-click="toggleActions($event)"><i class="fas fa-ellipsis-v"></i></span>
             <div class="btn-group" uib-dropdown is-open="actionsOpened">
               <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                <li role="menuitem"><a href="" ng-click="editBoard(board)">Edit board</a></li>
-                <li role="menuitem"><a href="" ng-click="createProject(board)">Add project</a></li>
+                <li role="menuitem"><a href="" ng-click="editBoard($event, board)">Edit board</a></li>
+                <li role="menuitem"><a href="" ng-click="createProject($event, board)">Add project</a></li>
                 <!--<li role="menuitem"><a href="" ng-click="deleteBoard(board)">Delete project</a></li>-->
               </ul>
             </div>
