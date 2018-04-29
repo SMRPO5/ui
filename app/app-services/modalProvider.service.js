@@ -126,7 +126,7 @@
             });
         }
 
-        function openWIPLimitExceededModal(index, item, column, callback) {
+        function openWIPLimitExceededModal(index, item, column, callback, cancelCallback) {
             return $uibModal.open({
                 templateUrl: 'app-modals/board/wipLimitExceeded/wipLimitExceeded.view.html',
                 controller: 'WIPLimitExceededBoardController',
@@ -137,7 +137,8 @@
                         index: index,
                         item: item,
                         movedToColumn: column,
-                        callback: callback
+                        callback: callback,
+                        cancelCallback: cancelCallback
                     }
                 }
             });

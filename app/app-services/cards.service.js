@@ -34,6 +34,10 @@
             return $http.patch(envService.read('apiUrl') + 'projects/cards/' + id + '/', cardData, AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error updating card'));
         }
+        function removeCard(id) {
+            return $http.delete(envService.read('apiUrl') + 'projects/cards/' + id + '/', AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error deleting card'));
+        }
 
         function getCardTypes(project) {
             return $http.get(envService.read('apiUrl') + 'projects/card_types/?project=' + project.id, AuthenticationService.getHeaders());
@@ -63,6 +67,7 @@
             updateCardColumn: updateCardColumn,
             getCard: getCard,
             getCards: getCards,
+            removeCard: removeCard,
             createCard: createCard,
             getCardTypes: getCardTypes,
             editCard: editCard,

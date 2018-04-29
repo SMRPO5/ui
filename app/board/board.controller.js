@@ -39,7 +39,11 @@
         vm.addCardToAppropriateColumn = function(card) {
             var lane = _.find(vm.lanes, function(lane) {return lane.project.id === card.project});
             var column = _.find(lane.cardsForColumns, function(column) { return column.column.id === card.column});
-            column.cards.push(card);
+            if (column.cards.length > column.maxNumberOfCardsInColumn) {
+                ModalProvider.openWIPLimitExceededModal(0, card, column.column, function() { column.cards.push(card); }, function() {CardsService.removeCard(card.id);});
+            } else {
+                column.cards.push(card);
+            }
         };
 
         vm.addCardToFirstColumn = function(card) {
@@ -93,7 +97,7 @@
                 condition = wipLimitExceeded && !movingToSameColumn;
             }
             if(condition) {
-                ModalProvider.openWIPLimitExceededModal(index, item, column, function() { moveCardToColumn(index, item, column)});
+                ModalProvider.openWIPLimitExceededModal(index, item, column, function() { moveCardToColumn(index, item, column)}, function () {});
                 return false;
             }
             item.column = column.id;// Sets new column id

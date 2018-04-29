@@ -13,6 +13,14 @@
                         $scope.card = data;
                     });
                 };
+
+                 $scope.getClassColor = function() {
+                     if ($scope.card.type.name === 'Silver bullet') {
+                         return 'silver-bullet';
+                     } else {
+                         return 'feature-request'
+                     }
+                 }
             }
         }
     }

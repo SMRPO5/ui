@@ -240,11 +240,16 @@ textarea {
   cursor: pointer;
 }
 .card .header {
-  background-color: #4CAF50;
   border-top-left-radius: 2px;
   border-top-right-radius: 2px;
   font-weight: bold;
   padding: 5px;
+}
+.card .header.feature-request {
+  background-color: #4CAF50;
+}
+.card .header.silver-bullet {
+  background-color: #af4c4c;
 }
 .card .header:hover {
   text-decoration: underline;

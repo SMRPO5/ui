@@ -301,11 +301,18 @@ textarea {
   }
 
   .header {
-    background-color: #4CAF50;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     font-weight: bold;
     padding: 5px;
+
+    &.feature-request {
+      background-color: #4CAF50;
+    }
+
+    &.silver-bullet {
+      background-color: #af4c4c;
+    }
 
     &:hover {
       text-decoration: underline;
