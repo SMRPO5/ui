@@ -5,11 +5,12 @@
         .module('app')
         .controller('EditCardController', EditCardController);
 
-    EditCardController.$inject = ['$rootScope', '$location', 'FlashService', 'CardsService', 'UserService', 'card', 'moment', '$uibModalInstance','ModalProvider'];
-    function EditCardController($rootScope, $location, FlashService, CardsService, UserService, card, moment, $uibModalInstance,ModalProvider) {
+    EditCardController.$inject = ['$rootScope', '$location', 'FlashService', 'CardsService', 'UserService', 'card', 'project', 'moment', '$uibModalInstance', 'ModalProvider'];
+    function EditCardController($rootScope, $location, FlashService, CardsService, UserService, card, project, moment, $uibModalInstance, ModalProvider) {
         var vm = this;
-        vm.canEdit = (card.is_in_requested && ($rootScope.hasRole('Kanban Master') || $rootScope.hasRole('Product Owner'))) ||
-            (!card.is_in_requested && !$rootScope.hasRole('Product Owner')) &&
+        card = card.data;
+        vm.canEdit = (card.is_in_requested && ($rootScope.hasRoleForProject(project, 'Kanban Master') || $rootScope.hasRoleForProject(project, 'Product Owner'))) ||
+            (!card.is_in_requested && !$rootScope.hasRoleForProject(project, 'Product Owner')) &&
             !card.is_in_done;
         vm.cardData = card;
         vm.cardData.deadline = moment(vm.cardData.deadline).toDate();
@@ -36,7 +37,7 @@
                 name: 'Critical'
             }
         ];
-        CardsService.getCardTypes(card.project).then(function(result) {
+        CardsService.getCardTypes(project).then(function(result) {
             if(result.status === 200) {
                 vm.cardTypes = result.data;
             }

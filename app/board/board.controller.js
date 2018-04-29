@@ -32,6 +32,7 @@
 
         vm.openCreateCardModal = function(project) {
             ModalProvider.openCreateCardModal(project).result.then(function(card) {
+                project.has_silver_bullet = true;
                 vm.addCardToAppropriateColumn(card);
             }, function() {});
         };
@@ -101,7 +102,8 @@
                 return false;
             }
             item.column = column.id;// Sets new column id
-            CardsService.updateCardColumn(item.id, column.id);
+            CardsService.updateCardColumn(item.id, column.id).then(function(response) {
+            });
             return item;
         };
 
@@ -125,7 +127,8 @@
                 card.column = movedToColumn.id;
                 oldCardForColumn.cards.splice(oldColumnCardIndex, 1);
                 newCardForColumn.cards.splice(newIndex, 0, card);
-                CardsService.updateCardColumn(card.id, movedToColumn.id);
+                CardsService.updateCardColumn(card.id, movedToColumn.id).then(function(response) {
+                })
             }
         }
 

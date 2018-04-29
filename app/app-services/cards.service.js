@@ -12,7 +12,8 @@
             var data = {
                 column: columnId
             };
-            return $http.patch(envService.read('apiUrl') + 'projects/cards/' + cardId + '/', data, AuthenticationService.getHeaders());
+            return $http.patch(envService.read('apiUrl') + 'projects/cards/' + cardId + '/', data, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error updating column'));
         }
 
         function getCards() {

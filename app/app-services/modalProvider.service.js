@@ -1,7 +1,7 @@
 "use strict";
 (function() {
     /* global angular */
-    function modalProvider($uibModal, $document) {
+    function modalProvider($uibModal, $document, CardsService) {
 
         function openAddGroupModal(ev) {
             return $uibModal.open({
@@ -88,15 +88,16 @@
             });
         }
 
-        function openEditCard(card) {
+        function openEditCard(card, project) {
             return $uibModal.open({
                 controller: 'EditCardController',
                 controllerAs: 'vm',
                 appendTo: angular.element($document[0].querySelector('.modal_container')),
                 templateUrl: 'app-modals/card/edit/editCard.view.html',
                 resolve: {
-                    card: function () {
-                        return card;
+                    card: CardsService.getCard(card.id),
+                    project: function() {
+                        return project;
                     }
                 }
             });
@@ -170,5 +171,5 @@
 
     angular
         .module('app')
-        .service('ModalProvider', ['$uibModal', '$document', modalProvider]);
+        .service('ModalProvider', ['$uibModal', '$document', 'CardsService', modalProvider]);
 })();
