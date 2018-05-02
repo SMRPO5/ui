@@ -16,13 +16,17 @@
                     $scope.actionsOpened = !$scope.actionsOpened;
                 };
 
-                $scope.editBoard = function(board) {
+                $scope.editBoard = function($event, board) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
                     ModalProvider.openEditBoard(board).result.then(function(data){
                         $scope.board = data;
                     });
                 };
 
-                $scope.createProject = function(board) {
+                $scope.createProject = function($event, board) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
                     ModalProvider.createProject(board).result.then(function(data) {
                         $scope.board.projects.push(data);
                     });

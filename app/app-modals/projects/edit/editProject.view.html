@@ -1,21 +1,21 @@
-<div class="modal-header">
-    <h3 class="modal-title">Edit project</h3>
-</div>
-<div class="modal-body">
-    <form name="form" ng-submit="vm.editProject()" role="form">
+<form name="form" ng-submit="vm.editProject()" role="form">
+    <div class="modal-header">
+        <h3 class="modal-title">Edit project</h3>
+    </div>
+    <div class="modal-body">
         <div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
             <label for="name">Project name</label>
-            <input type="text" name="name" id="name" class="form-control" ng-model="vm.name" required />
+            <input ng-disabled="!vm.canEdit" type="text" name="name" id="name" class="form-control" ng-model="vm.name" required />
             <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Project name is required</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.code.$dirty && form.code.$error.required }">
             <label for="code">Project code</label>
-            <input type="text" name="code" id="code" class="form-control" ng-model="vm.code" required />
+            <input ng-disabled="!vm.canEdit" type="text" name="code" id="code" class="form-control" ng-model="vm.code" required />
             <span ng-show="form.code.$dirty && form.code.$error.required" class="help-block">Group code is required</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.customer.$dirty && form.customer.$error.required }">
             <label for="customer">Customer</label>
-            <input type="text" name="customer" id="customer" class="form-control" ng-model="vm.customer" required />
+            <input ng-disabled="!vm.canEdit" type="text" name="customer" id="customer" class="form-control" ng-model="vm.customer" required />
             <span ng-show="form.customer.$dirty && form.customer.$error.required" class="help-block">Customer is required</span>
         </div>
 
@@ -24,7 +24,7 @@
                 <div class="form-group" ng-class="{ 'has-error': form.startDate.$dirty && form.startDate.$error.required }">
                     <label for="startDate">Start date</label></br>
                     <p class="input-group">
-                        <input ng-disabled="vm.hasCards" ng-click="vm.openStartDateDatePicker()" ng-change="vm.startDateChanged()" type="text" id="startDate" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.startDate" is-open="vm.startDateOpened" datepicker-options="vm.startDateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <input ng-disabled="vm.hasCards || !vm.canEdit" ng-click="vm.openStartDateDatePicker()" ng-change="vm.startDateChanged()" type="text" id="startDate" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.startDate" is-open="vm.startDateOpened" datepicker-options="vm.startDateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
                         <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openStartDateDatePicker()">
                             <i class="glyphicon glyphicon-calendar"></i>
@@ -38,7 +38,7 @@
                 <div class="form-group" ng-class="{ 'has-error': form.deadline.$dirty && form.deadline.$error.required }">
                     <label for="deadline">Deadline</label></br>
                     <p class="input-group">
-                        <input ng-click="vm.openDeadlineDatePicker()" ng-change="vm.deadlineChanged()" type="text" id="deadline" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.deadline" is-open="vm.deadlineOpened" datepicker-options="vm.deadlineOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <input ng-disabled="!vm.canEdit" ng-click="vm.openDeadlineDatePicker()" ng-change="vm.deadlineChanged()" type="text" id="deadline" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.deadline" is-open="vm.deadlineOpened" datepicker-options="vm.deadlineOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
                         <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="vm.openDeadlineDatePicker()">
                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -52,18 +52,15 @@
 
         <div class="form-group" ng-class="{ 'has-error': form.devGroup.$dirty  && form.devGroup.$error.required }">
             <label for="devGroup">Developer Group</label>
-            <select required class="form-control" ng-model="vm.devGroup" id="devGroup">
-                <option disabled value=""></option>
-                <option ng-selected="group.id == vm.devGroup" ng-value="group.id" ng-repeat="group in vm.devGroups">{{ group.name }}</option>
+            <select ng-disabled="!vm.canEdit" required class="form-control" ng-model="vm.devGroup.id" id="devGroup">
+                <option>----</option>
+                <option ng-repeat="group in vm.devGroups" ng-selected="group.id === vm.devGroup.id" ng-value="group.id">{{ group.name }}</option>
             </select>
             <span ng-show="form.devGroup.$dirty && form.devGroup.$error.required " class="help-block">Developer group is required</span>
         </div>
-
-        <div class="form-actions">
-            <button type="submit" ng-disabled="vm.dataLoading" class="btn btn-primary">Submit changes</button>
-            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <button type="button" ng-click="vm.deleteProject()" ng-disabled="vm.dataLoading" class="btn btn-primary">Remove project</button>
-            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-        </div>
-    </form>
-</div>
+    </div>
+    <div class="modal-footer" ng-show="vm.canEdit">
+        <button type="submit" ng-disabled="vm.dataLoading" class="btn btn-primary">Submit changes</button>
+        <button type="button" ng-click="vm.deleteProject()" ng-disabled="vm.dataLoading" class="btn btn-primary">Remove project</button>
+    </div>
+</form>

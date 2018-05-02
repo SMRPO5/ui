@@ -1,6 +1,5 @@
+"use strict";
 (function () {
-    'use strict';
-
     angular
         .module('app')
         .controller('WIPLimitExceededBoardController', WIPLimitExceededBoardController);
@@ -17,13 +16,14 @@
                if(response.status === 201) {
                     data.callback();
                     console.log('Reason for violating WIP sent!');
-                    vm.close();
+                    $uibModalInstance.close(response.data);
                }
             });
         };
 
         vm.close = function() {
-            $uibModalInstance.dismiss('close');
+            data.cancelCallback();
+            $uibModalInstance.dismiss();
         }
 
     }

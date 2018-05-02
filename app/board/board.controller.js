@@ -32,8 +32,19 @@
 
         vm.openCreateCardModal = function(project) {
             ModalProvider.openCreateCardModal(project).result.then(function(card) {
-                vm.addCardToFirstColumn(card);
+                project.has_silver_bullet = true;
+                vm.addCardToAppropriateColumn(card);
             }, function() {});
+        };
+
+        vm.addCardToAppropriateColumn = function(card) {
+            var lane = _.find(vm.lanes, function(lane) {return lane.project.id === card.project});
+            var column = _.find(lane.cardsForColumns, function(column) { return column.column.id === card.column});
+            if (column.cards.length > column.maxNumberOfCardsInColumn) {
+                ModalProvider.openWIPLimitExceededModal(0, card, column.column, function() { column.cards.push(card); }, function() {CardsService.removeCard(card.id);});
+            } else {
+                column.cards.push(card);
+            }
         };
 
         vm.addCardToFirstColumn = function(card) {
@@ -87,11 +98,12 @@
                 condition = wipLimitExceeded && !movingToSameColumn;
             }
             if(condition) {
-                ModalProvider.openWIPLimitExceededModal(index, item, column, function() { moveCardToColumn(index, item, column)});
+                ModalProvider.openWIPLimitExceededModal(index, item, column, function() { moveCardToColumn(index, item, column)}, function () {});
                 return false;
             }
             item.column = column.id;// Sets new column id
-            CardsService.updateCardColumn(item.id, column.id);
+            CardsService.updateCardColumn(item.id, column.id).then(function(response) {
+            });
             return item;
         };
 
@@ -115,7 +127,8 @@
                 card.column = movedToColumn.id;
                 oldCardForColumn.cards.splice(oldColumnCardIndex, 1);
                 newCardForColumn.cards.splice(newIndex, 0, card);
-                CardsService.updateCardColumn(card.id, movedToColumn.id);
+                CardsService.updateCardColumn(card.id, movedToColumn.id).then(function(response) {
+                })
             }
         }
 

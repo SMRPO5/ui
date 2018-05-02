@@ -3,6 +3,9 @@
         <h3 class="modal-title" id="modal-title">Create card</h3>
     </div>
     <div class="modal-body row" id="modal-body">
+        <div class="alert alert-danger" ng-show="vm.silverBulletExists">
+            You can't create new Silver bullet card, because Silver bullet already exists!
+        </div>
         <div class="form-group col-xs-12" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" class="form-control" ng-model="vm.cardData.name" required />
@@ -56,6 +59,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.close()">Close</button>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button ng-disabled="vm.silverBulletExists" type="submit" class="btn btn-primary">Create</button>
     </div>
 </form>

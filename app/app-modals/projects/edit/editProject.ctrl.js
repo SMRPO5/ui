@@ -4,6 +4,7 @@
         var vm = this;
 
         vm.hasCards = project.has_cards;
+        vm.canEdit = $rootScope.hasRoleForProject(project, 'Kanban Master');
 
         vm.name = project.name;
         vm.customer = project.buyer_name;
@@ -79,7 +80,7 @@
                 buyer_name: vm.customer,
                 start_date: vm.startDate,
                 estimated_end_date: vm.deadline,
-                dev_group: vm.devGroup,
+                dev_group: vm.devGroup.id,
                 is_active: true
             };
 

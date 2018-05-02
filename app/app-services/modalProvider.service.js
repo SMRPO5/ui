@@ -1,7 +1,7 @@
 "use strict";
 (function() {
     /* global angular */
-    function modalProvider($uibModal, $document) {
+    function modalProvider($uibModal, $document, CardsService) {
 
         function openAddGroupModal(ev) {
             return $uibModal.open({
@@ -88,12 +88,26 @@
             });
         }
 
-        function openEditCard(card) {
+        function openEditCard(card, project) {
             return $uibModal.open({
                 controller: 'EditCardController',
                 controllerAs: 'vm',
                 appendTo: angular.element($document[0].querySelector('.modal_container')),
                 templateUrl: 'app-modals/card/edit/editCard.view.html',
+                resolve: {
+                    card: CardsService.getCard(card.id),
+                    project: function() {
+                        return project;
+                    }
+                }
+            });
+        }
+        function openHistoryCard(card) {
+            return $uibModal.open({
+                controller: 'HistoryCardController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                templateUrl: 'app-modals/card/history/historyCard.view.html',
                 resolve: {
                     card: function () {
                         return card;
@@ -101,7 +115,6 @@
                 }
             });
         }
-
         function openCreateCardModal(project) {
             return $uibModal.open({
                 templateUrl: 'app-modals/card/create/createCard.view.html',
@@ -114,7 +127,7 @@
             });
         }
 
-        function openWIPLimitExceededModal(index, item, column, callback) {
+        function openWIPLimitExceededModal(index, item, column, callback, cancelCallback) {
             return $uibModal.open({
                 templateUrl: 'app-modals/board/wipLimitExceeded/wipLimitExceeded.view.html',
                 controller: 'WIPLimitExceededBoardController',
@@ -125,7 +138,8 @@
                         index: index,
                         item: item,
                         movedToColumn: column,
-                        callback: callback
+                        callback: callback,
+                        cancelCallback: cancelCallback
                     }
                 }
             });
@@ -147,6 +161,7 @@
             openEditProjectModal: openEditProjectModal,
             openCreateCardModal: openCreateCardModal,
             openEditCard: openEditCard,
+            openHistoryCard: openHistoryCard,
             openWIPLimitExceededModal: openWIPLimitExceededModal,
             openAddBoard: openAddBoard,
             createProject: createProject,
@@ -156,5 +171,5 @@
 
     angular
         .module('app')
-        .service('ModalProvider', ['$uibModal', '$document', modalProvider]);
+        .service('ModalProvider', ['$uibModal', '$document', 'CardsService', modalProvider]);
 })();
