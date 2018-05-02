@@ -407,7 +407,7 @@ body {
 }
 
 main {
-  .jumbotron {
+  &.jumbotron {
     padding-bottom: 0px;
   }
 }
