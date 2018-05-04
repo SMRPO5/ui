@@ -53,6 +53,36 @@
             }
         });
 
+        CardsService.getCardHistory(card.id).then(function(response) {
+            if(response.status === 200) {
+                vm.cardHistory = response.data;
+                //console.log(vm.cardHistory);
+            }
+        });
+        CardsService.getCardWipViolations(card.id).then(function(response) {
+            if(response.status === 200) {
+                vm.cardWipViolations = response.data;
+
+                //console.log(vm.cardWipViolations);
+            }
+        });
+        /*
+
+        vm.orderByField = 'comment';
+        vm.reverseSort = false;
+        vm.comment_title = "comment";
+        vm.emai_titlel = "emai";
+        vm.date_created_title = "date_created";
+        vm.setOrderByField = setOrderByField;
+        function setOrderByField(name){
+
+            console.log(name);
+            vm.orderByField = name;
+            vm.reverseSort = !vm.reverseSort;
+            //}, function(error) {
+            //});
+        };*/
+
         $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
 
         vm.editCard = function() {
@@ -66,15 +96,6 @@
         vm.close = function() {
             $uibModalInstance.dismiss();
         };
-        vm.openHistory = openHistory;
-
-        function openHistory(){
-            ModalProvider.openHistoryCard(vm.cardData);//.result.then(function(data){
-            vm.close();
-            //}, function(error) {
-            //});
-        };
-
     }
 
 })();
