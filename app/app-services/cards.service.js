@@ -22,7 +22,7 @@
         }
 
         function getCard(id) {
-            return $http.get(envService.read('apiUrl') + 'projects/cards/' + id, AuthenticationService.getHeaders())
+            return $http.get(envService.read('apiUrl') + 'projects/cards/' + id + '/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting card'));
         }
 
