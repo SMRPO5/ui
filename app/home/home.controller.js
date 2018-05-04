@@ -10,6 +10,8 @@
     function HomeController(UserService, $rootScope, $location, ProjectsService, ModalProvider) {
         var vm = this;
 
+        $rootScope.helpTemplate = 'app-popovers/home-help.popover.html';
+
         UserService.getUsers().then(function(response) {
             if(response.status === 200) {
                 vm.allUsers = response.data;

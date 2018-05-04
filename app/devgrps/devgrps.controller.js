@@ -10,6 +10,8 @@
     function DevGrpsController(DevGrpsService, $rootScope, $scope, $location, ModalProvider) {
         var vm = this;
 
+        $rootScope.helpTemplate = 'app-popovers/devGroup-help.popover.html';
+
         DevGrpsService.getDeveloperGroups().then(function(response) {
             if(response.status === 200) {
                 vm.groups = response.data;

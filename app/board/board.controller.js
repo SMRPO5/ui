@@ -5,10 +5,12 @@
         .module('app')
         .controller('BoardController', BoardController);
 
-    BoardController.$inject = ['$routeParams', 'ProjectsService', 'CardsService', 'ModalProvider'];
+    BoardController.$inject = ['$routeParams', 'ProjectsService', 'CardsService', 'ModalProvider', '$rootScope'];
 
-    function BoardController($routeParams, ProjectsService, CardsService, ModalProvider) {
+    function BoardController($routeParams, ProjectsService, CardsService, ModalProvider, $rootScope) {
         var vm = this;
+
+        $rootScope.helpTemplate = 'app-popovers/board-help.popover.html';
 
         /*
          * Data calls
