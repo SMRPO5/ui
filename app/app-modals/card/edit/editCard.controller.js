@@ -14,6 +14,7 @@
             !card.is_in_done;
         debugger;
         vm.is_feature_and_kanban_master = (card.type.name === 'Feature request' && $rootScope.hasRoleForProject(project, 'Kanban Master'));
+        vm.is_developer = $rootScope.hasRoleForProject(project, 'Developer');
         vm.cardData = card;
         vm.cardData.deadline = moment(vm.cardData.deadline).toDate();
         vm.title = vm.cardData.name;
@@ -42,7 +43,7 @@
         CardsService.getCardTypes(project).then(function(result) {
             if(result.status === 200) {
                 vm.cardTypes = result.data;
-                if (vm.is_feature_and_kanban_master) {
+                if (vm.is_feature_and_kanban_master || vm.is_developer) {
                     vm.cardTypes.push(card.type);
                 }
             }
