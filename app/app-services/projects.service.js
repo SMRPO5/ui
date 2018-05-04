@@ -37,6 +37,10 @@
             return $http.get(envService.read('apiUrl') + 'projects/projects/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting all projects'));
         }
+        function getProject(id) {
+            return $http.get(envService.read('apiUrl') + 'projects/projects/' + id + '/', AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting all projects'));
+        }
 
         function getProjectsForUser(userId) {
             // TODO
@@ -82,6 +86,7 @@
             getLanesForBoard: getLanesForBoard,
             sendReasonForWipViolation: sendReasonForWipViolation,
             getProjects: getProjects,
+            getProject: getProject,
             getProjectsForUser: getProjectsForUser,
             addProject: addProject,
             getColumnsForProject: getColumnsForProject,

@@ -5,10 +5,12 @@
         .module('app')
         .controller('CreateCardController', CreateCardController);
 
-    CreateCardController.$inject = ['$rootScope', 'CardsService', 'UserService', '$uibModalInstance', 'project'];
-    function CreateCardController($rootScope, CardsService, UserService, $uibModalInstance, project) {
+    CreateCardController.$inject = ['$rootScope', 'CardsService', 'ProjectsService', 'UserService', '$uibModalInstance', 'project'];
+    function CreateCardController($rootScope, CardsService, ProjectsService, UserService, $uibModalInstance, project) {
         var vm = this;
-        vm.silverBulletExists = project.has_silver_bullet && $rootScope.hasRoleForProject(project, 'Kanban Master');
+        ProjectsService.getProject(project.id).then(function(response) {
+            vm.silverBulletExists = response.data.has_silver_bullet && $rootScope.hasRoleForProject(project, 'Kanban Master');
+        });
 
         vm.createCard = function createCard() {
             CardsService.createCard(vm.cardData).then(function(result) {
