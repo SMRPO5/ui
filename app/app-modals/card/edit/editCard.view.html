@@ -15,7 +15,7 @@
         </div>
         <div class="form-group col-xs-6" ng-class="{ 'has-error': form.type.$dirty && form.type.$error.required }">
             <label for="type">Card type</label>
-            <select ng-disabled="!vm.canEdit" ng-model="vm.cardData.type.id" id="type" class="form-control" required>
+            <select ng-disabled="!vm.canEdit || vm.is_feature_and_kanban_master" ng-model="vm.cardData.type.id" id="type" class="form-control" required>
                 <option>----</option>
                 <option ng-selected="vm.cardData.type.id == cardType.id" ng-value="cardType.id" ng-repeat="cardType in vm.cardTypes">{{ cardType.name }}</option>
             </select>

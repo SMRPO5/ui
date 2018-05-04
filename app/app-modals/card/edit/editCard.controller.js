@@ -9,9 +9,11 @@
     function EditCardController($rootScope, $location, FlashService, CardsService, UserService, card, project, moment, $uibModalInstance, ModalProvider) {
         var vm = this;
         card = card.data;
-        vm.canEdit = (card.is_in_requested && ($rootScope.hasRoleForProject(project, 'Kanban Master') || $rootScope.hasRoleForProject(project, 'Product Owner'))) ||
+        vm.canEdit = (card.is_in_requested && ($rootScope.hasRoleForProject(project, 'Kanban Master') || $rootScope.hasRoleForProject(project, 'Product Owner') && card.type.name !== 'Silver bullet')) ||
             (!card.is_in_requested && !$rootScope.hasRoleForProject(project, 'Product Owner')) &&
             !card.is_in_done;
+        debugger;
+        vm.is_feature_and_kanban_master = (card.type.name === 'Feature request' && $rootScope.hasRoleForProject(project, 'Kanban Master'));
         vm.cardData = card;
         vm.cardData.deadline = moment(vm.cardData.deadline).toDate();
         vm.title = vm.cardData.name;
@@ -40,6 +42,9 @@
         CardsService.getCardTypes(project).then(function(result) {
             if(result.status === 200) {
                 vm.cardTypes = result.data;
+                if (vm.is_feature_and_kanban_master) {
+                    vm.cardTypes.push(card.type);
+                }
             }
         });
         UserService.getUsers().then(function(result) {
@@ -52,6 +57,7 @@
 
         vm.editCard = function() {
             vm.cardData.assignee = vm.cardData.assignee.id;
+            vm.cardData.type = vm.cardData.type.id;
             CardsService.editCard(card.id, vm.cardData).then(function(response) {
                 $uibModalInstance.close(response.data);
             });
