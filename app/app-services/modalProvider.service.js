@@ -102,19 +102,6 @@
                 }
             });
         }
-        function openHistoryCard(card) {
-            return $uibModal.open({
-                controller: 'HistoryCardController',
-                controllerAs: 'vm',
-                appendTo: angular.element($document[0].querySelector('.modal_container')),
-                templateUrl: 'app-modals/card/history/historyCard.view.html',
-                resolve: {
-                    card: function () {
-                        return card;
-                    }
-                }
-            });
-        }
         function openCreateCardModal(project) {
             return $uibModal.open({
                 templateUrl: 'app-modals/card/create/createCard.view.html',
@@ -161,7 +148,6 @@
             openEditProjectModal: openEditProjectModal,
             openCreateCardModal: openCreateCardModal,
             openEditCard: openEditCard,
-            openHistoryCard: openHistoryCard,
             openWIPLimitExceededModal: openWIPLimitExceededModal,
             openAddBoard: openAddBoard,
             createProject: createProject,

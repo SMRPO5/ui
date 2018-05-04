@@ -1,65 +1,110 @@
-<form name="form" role="form" ng-submit="vm.editCard()">
-    <div class="modal-header">
-        <button ng-click="vm.close()" type="button" class="close">&times;</button>
-        <h3 class="modal-title" id="modal-title">{{ vm.title }}</h3>
-    </div>
-    <div class="modal-body row" id="modal-body">
-        <div class="form-group col-xs-12" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
-            <label for="name">Name</label>
-            <input ng-disabled="!vm.canEdit" type="text" name="name" id="name" class="form-control" ng-model="vm.cardData.name" required />
-            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Card name is required</span>
+<div class="modal-header">
+    <button ng-click="vm.close()" type="button" class="close">&times;</button>
+    <h3 class="modal-title" id="modal-title">{{ vm.title }}</h3>
+</div>   
+<uib-tabset active="activeJustified" justified="true">
+    <uib-tab index="0" heading="Summry">
+        <form name="form" role="form" ng-submit="vm.editCard()">  
+        <div class="modal-body row" id="modal-body">
+            <div class="form-group col-xs-12" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+                <label for="name">Name</label>
+                <input ng-disabled="!vm.canEdit" type="text" name="name" id="name" class="form-control" ng-model="vm.cardData.name" required />
+                <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Card name is required</span>
+            </div>
+            <div class="form-group col-xs-12">
+                <label for="description">Description</label>
+                <textarea ng-disabled="!vm.canEdit" name="description" id="description" class="form-control" ng-model="vm.cardData.description" rows="5" cols="50"></textarea>
+            </div>
+            <div class="form-group col-xs-6" ng-class="{ 'has-error': form.type.$dirty && form.type.$error.required }">
+                <label for="type">Card type</label>
+                <select ng-disabled="!vm.canEdit" ng-model="vm.cardData.type.id" id="type" class="form-control" required>
+                    <option>----</option>
+                    <option ng-selected="vm.cardData.type.id == cardType.id" ng-value="cardType.id" ng-repeat="cardType in vm.cardTypes">{{ cardType.name }}</option>
+                </select>
+                <span ng-show="form.type.$dirty && form.type.$error.required" class="help-block">Type error</span>
+            </div>
+            <div class="form-group col-xs-6" ng-class="{ 'has-error': form.assignee.$dirty }">
+                <label for="assignee">Assignee</label>
+                <select ng-disabled="!vm.canEdit" class="form-control" ng-model="vm.cardData.assignee.id" id="assignee" required>
+                    <option>----</option>
+                    <option ng-selected="user.id == vm.cardData.assignee.id" ng-value="user.id" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
+                </select>
+                <span ng-show="form.assignee.$dirty" class="help-block">Type error</span>
+            </div>
+            <div class="form-group col-xs-6" ng-class="{ 'has-error': form.priority.$dirty && form.priority.$error.required }">
+                <label for="priority">Priority</label>
+                <select ng-disabled="!vm.canEdit" class="form-control" ng-model="vm.cardData.priority" id="priority" required>
+                    <option>----</option>
+                    <option ng-selected="priority.number == vm.cardData.priority" ng-value="priority.number" ng-repeat="priority in vm.priorities">{{ priority.name }}</option>
+                </select>
+                <span ng-show="form.priority.$dirty && form.priority.$error.required" class="help-block">Priority is required</span>
+            </div>
+            <div class="form-group col-xs-6" ng-class="{ 'has-error': form.deadline.$dirty && form.deadline.$error.required }">
+                <label for="deadline">Deadline</label></br>
+                <p class="input-group">
+                    <input ng-disabled="!vm.canEdit" onkeydown="return false" ng-click="vm.deadline_opened = true;" type="text" id="deadline" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.cardData.deadline" is-open="vm.deadline_opened" datepicker-options="vm.deadline_options" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                    <span class="input-group-btn">
+                        <button ng-disabled="!vm.canEdit" type="button" class="btn btn-default" ng-click="vm.deadline_opened = true;">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </button>
+                    </span>
+                </p>
+                <span ng-show="form.deadline.$dirty && form.deadline.$error.required" class="help-block">Deadline is required</span>
+            </div>
+            <div class="form-group col-xs-6" ng-class="{ 'has-error': form.size.$dirty && form.size.$error.required }">
+                <label for="size">Size</label>
+                <input ng-disabled="!vm.canEdit" type="number" name="size" id="size" class="form-control" step="0.1" min="0" max="100" ng-model="vm.cardData.size" required />
+                <span ng-show="form.size.$dirty && form.size.$error.required" class="help-block">Size is required</span>
+            </div>
         </div>
-        <div class="form-group col-xs-12">
-            <label for="description">Description</label>
-            <textarea ng-disabled="!vm.canEdit" name="description" id="description" class="form-control" ng-model="vm.cardData.description" rows="5" cols="50"></textarea>
+        <div class="modal-footer" ng-show="vm.canEdit">
+            <button type="submit" class="btn btn-primary">Save</button>
         </div>
-        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.type.$dirty && form.type.$error.required }">
-            <label for="type">Card type</label>
-            <select ng-disabled="!vm.canEdit" ng-model="vm.cardData.type.id" id="type" class="form-control" required>
-                <option>----</option>
-                <option ng-selected="vm.cardData.type.id == cardType.id" ng-value="cardType.id" ng-repeat="cardType in vm.cardTypes">{{ cardType.name }}</option>
-            </select>
-            <span ng-show="form.type.$dirty && form.type.$error.required" class="help-block">Type error</span>
+        </form>
+    </uib-tab>
+    <uib-tab index="1" heading="History">
+        <div class="modal-body row" id="modal-body">
+            <table class="table table-striped" >
+                <thead>
+                <tr>
+                    <th><button type="button" class="btn btn-link" ng-click="vm.setOrderByField(vm.comment_title)">EVENT</button></th>
+                    <th><button type="button" class="btn btn-link" ng-click="vm.setOrderByField(vm.emai_titlel)">USER</button></th>
+                    <th><button type="button" class="btn btn-link" ng-click="vm.setOrderByField(vm.date_created_title)">DATE</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="history in  vm.cardHistory | orderBy:orderByField:reverseSort">
+                        <td>{{ history.revision.comment }}</td>
+                        <td>{{ history.revision.user.email }}</td>
+                        <td>{{ history.revision.date_created | amDateFormat:'DD.MM.YYYY'}}</td>
+                </tr>
+                <tr ng-repeat="history in  vm.cardWipViolations | orderBy:orderByField:reverseSort">
+                        <td>{{ history.revision.comment }}</td>
+                        <td>{{ history.revision.user.email }}</td>
+                        <td>{{ history.revision.date_created | amDateFormat:'DD.MM.YYYY'}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.assignee.$dirty }">
-            <label for="assignee">Assignee</label>
-            <select ng-disabled="!vm.canEdit" class="form-control" ng-model="vm.cardData.assignee.id" id="assignee" required>
-                <option>----</option>
-                <option ng-selected="user.id == vm.cardData.assignee.id" ng-value="user.id" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
-            </select>
-            <span ng-show="form.assignee.$dirty" class="help-block">Type error</span>
-        </div>
-        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.priority.$dirty && form.priority.$error.required }">
-            <label for="priority">Priority</label>
-            <select ng-disabled="!vm.canEdit" class="form-control" ng-model="vm.cardData.priority" id="priority" required>
-                <option>----</option>
-                <option ng-selected="priority.number == vm.cardData.priority" ng-value="priority.number" ng-repeat="priority in vm.priorities">{{ priority.name }}</option>
-            </select>
-            <span ng-show="form.priority.$dirty && form.priority.$error.required" class="help-block">Priority is required</span>
-        </div>
-        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.deadline.$dirty && form.deadline.$error.required }">
-            <label for="deadline">Deadline</label></br>
-            <p class="input-group">
-                <input ng-disabled="!vm.canEdit" onkeydown="return false" ng-click="vm.deadline_opened = true;" type="text" id="deadline" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.cardData.deadline" is-open="vm.deadline_opened" datepicker-options="vm.deadline_options" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                <span class="input-group-btn">
-                    <button ng-disabled="!vm.canEdit" type="button" class="btn btn-default" ng-click="vm.deadline_opened = true;">
-                        <i class="glyphicon glyphicon-calendar"></i>
-                    </button>
-                </span>
-            </p>
-            <span ng-show="form.deadline.$dirty && form.deadline.$error.required" class="help-block">Deadline is required</span>
-        </div>
-        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.size.$dirty && form.size.$error.required }">
-            <label for="size">Size</label>
-            <input ng-disabled="!vm.canEdit" type="number" name="size" id="size" class="form-control" step="0.1" min="0" max="100" ng-model="vm.cardData.size" required />
-            <span ng-show="form.size.$dirty && form.size.$error.required" class="help-block">Size is required</span>
-        </div>
-        <div class="form-group col-xs-6">
-                <label for="size">History</label>
-            <button type="button" class="btn btn-primary btn-block" ng-click="vm.openHistory()">History</button> 
-        </div>
-    </div>
-    <div class="modal-footer" ng-show="vm.canEdit">
-        <button type="submit" class="btn btn-primary">Save</button>
-    </div>
-</form>
+    </uib-tab>
+    <uib-tab index="2" heading="Wip">
+        <div class="modal-body row" id="modal-body">
+                <table class="table table-striped" >
+                    <thead>
+                        <tr>
+                            <th><button type="button" class="btn btn-link" ng-click="vm.setOrderByField(vm.comment_title)">REASON</button></th>
+                            <th><button type="button" class="btn btn-link" ng-click="vm.setOrderByField(vm.emai_titlel)">USER</button></th>
+                            <th><button type="button" class="btn btn-link" ng-click="vm.setOrderByField(vm.date_created_title)">DATE</button></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="wip in  vm.cardWipViolations | orderBy:orderByField:reverseSort">
+                                <td>{{ wip.reason }}</td>
+                                <td>{{ wip.violation_by.email }}</td>
+                                <td>{{ wip.created_at | amDateFormat:'DD.MM.YYYY'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </uib-tab>
+</uib-tabset>
