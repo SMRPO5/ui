@@ -40,9 +40,9 @@
         };
 
         vm.addCardToAppropriateColumn = function(card) {
-            var lane = _.find(vm.lanes, function(lane) {return lane.project.id === card.project});
+            var lane = _.find(vm.lanes, function(lane) { return lane.project.id === card.project});
             var column = _.find(lane.cardsForColumns, function(column) { return column.column.id === card.column});
-            if (column.cards.length > column.maxNumberOfCardsInColumn) {
+            if (column.cards.length > column.maxNumberOfCardsInColumn && column.maxNumberOfCardsInColumn !== 0) {
                 ModalProvider.openWIPLimitExceededModal(0, card, column.column, function() { column.cards.push(card); }, function() {CardsService.removeCard(card.id);});
             } else {
                 column.cards.push(card);

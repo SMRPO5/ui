@@ -64,11 +64,7 @@
                 vm.cardTypes = result.data;
             }
         });
-        UserService.getUsers().then(function(result) {
-            if(result.status === 200) {
-                vm.users = result.data;
-            }
-        });
+        vm.users = project.dev_group.members;
 
         $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
     }

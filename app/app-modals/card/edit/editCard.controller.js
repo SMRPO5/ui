@@ -40,6 +40,9 @@
                 name: 'Critical'
             }
         ];
+
+        vm.users = project.dev_group.members;
+
         CardsService.getCardTypes(project).then(function(result) {
             if(result.status === 200) {
                 vm.cardTypes = result.data;
@@ -48,12 +51,6 @@
                 }
             }
         });
-        UserService.getUsers().then(function(result) {
-            if(result.status === 200) {
-                vm.users = result.data;
-            }
-        });
-
         CardsService.getCardHistory(card.id).then(function(response) {
             if(response.status === 200) {
                 vm.cardHistory = response.data;
@@ -67,22 +64,6 @@
                 //console.log(vm.cardWipViolations);
             }
         });
-        /*
-
-        vm.orderByField = 'comment';
-        vm.reverseSort = false;
-        vm.comment_title = "comment";
-        vm.emai_titlel = "emai";
-        vm.date_created_title = "date_created";
-        vm.setOrderByField = setOrderByField;
-        function setOrderByField(name){
-
-            console.log(name);
-            vm.orderByField = name;
-            vm.reverseSort = !vm.reverseSort;
-            //}, function(error) {
-            //});
-        };*/
 
         $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
 

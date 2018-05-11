@@ -27,7 +27,7 @@
                     <label for="assignee">Assignee</label>
                     <select ng-disabled="!vm.canEdit" class="form-control" ng-model="vm.cardData.assignee.id" id="assignee" required>
                         <option>----</option>
-                        <option ng-selected="user.id == vm.cardData.assignee.id" ng-value="user.id" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
+                        <option ng-selected="user.user_id == vm.cardData.assignee.id" ng-value="user.user_id" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
                     </select>
                     <span ng-show="form.assignee.$dirty" class="help-block">Type error</span>
                 </div>
