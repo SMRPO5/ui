@@ -8,7 +8,7 @@
     CreateCardController.$inject = ['$rootScope', 'CardsService', 'ProjectsService', 'UserService', '$uibModalInstance', 'project'];
     function CreateCardController($rootScope, CardsService, ProjectsService, UserService, $uibModalInstance, project) {
         var vm = this;
-        ProjectsService.getProject(project.id).then(function(response) {
+        ProjectsService.getBoard(project.board).then(function(response) {
             vm.silverBulletExists = response.data.has_silver_bullet && $rootScope.hasRoleForProject(project, 'Kanban Master');
         });
 
