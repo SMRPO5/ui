@@ -51,10 +51,9 @@
             </p>
             <span ng-show="form.deadline.$dirty && form.deadline.$error.required" class="help-block">Deadline is required</span>
         </div>
-        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.size.$dirty && form.size.$error.required }">
+        <div class="form-group col-xs-6">
             <label for="size">Size</label>
-            <input type="number" name="size" id="size" class="form-control" step="0.1" min="0" max="100" ng-model="vm.cardData.size" required />
-            <span ng-show="form.size.$dirty && form.size.$error.required" class="help-block">Size is required</span>
+            <input type="number" name="size" id="size" class="form-control" step="0.1" min="0" max="100" ng-model="vm.cardData.size" />
         </div>
     </div>
     <div class="modal-footer">
