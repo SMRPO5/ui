@@ -21,8 +21,8 @@ textarea {
 }
 
 .popover {
-  max-width: 500px;
-  width: 500px;
+  max-width: 750px;
+  width: 750px;
 }
 
 .button-wrapper .btn {
@@ -294,6 +294,7 @@ textarea {
   min-width: 200px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
+  border:2px solid transparent;
   margin-bottom: 10px;
 
   .clickable {
@@ -410,4 +411,36 @@ main {
   &.jumbotron {
     padding-bottom: 0px;
   }
+}
+
+
+/* Small modal */
+.modal-small{
+  width:250px;
+}
+
+/*Blinking border for critical cards*/
+@-webkit-keyframes borderBlink {
+  from, to {
+    border-color: transparent
+  }
+  50% {
+    border-color: red
+  }
+}
+@keyframes borderBlink {
+  from, to {
+    border-color: transparent
+  }
+  50% {
+    border-color: red;
+  }
+}
+.borderBlink{
+  border:2px solid red;
+  /* add 'border-color: transparent' if you wish no border to show initially */
+}
+.borderBlink {
+  -webkit-animation: borderBlink 1s step-end infinite;
+  animation: borderBlink 1s step-end infinite;
 }

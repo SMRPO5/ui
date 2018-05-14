@@ -52,6 +52,14 @@
                 .then(handleSuccess, handleError('Error getting card wip violations'));
         }
 
+
+        // Temporary: Notification eMail
+
+        function sendMail(recipient, body) {
+            return $http.post('https://api.elasticemail.com/v2/email/send?apikey=a54a6fbb-b7e6-4f49-83a4-b6b2dff7a5b0&subject=KanBan - Daily notification about cards with approaching deadlines&from=kr3037@student.uni-lj.si&fromName=KanBan Notifications&to=' + recipient + '&bodyHtml=' + body + '&isTransactional=false')
+                .then(handleSuccess, handleError('Error sending eMail'));
+        }
+
         // private functions
 
         function handleSuccess(res) {
@@ -73,7 +81,9 @@
             getCardTypes: getCardTypes,
             editCard: editCard,
             getCardHistory: getCardHistory,
-            getCardWipViolations: getCardWipViolations
+            getCardWipViolations: getCardWipViolations,
+
+            sendMail: sendMail
 
         };
     }

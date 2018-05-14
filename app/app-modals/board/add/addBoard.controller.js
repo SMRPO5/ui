@@ -9,8 +9,11 @@
         var vm = this;
 
         vm.createBoard = function createBoard() {
+
+
+            console.log(vm.board);
             ProjectsService.createBoard(vm.board).then(function(response) {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     $uibModalInstance.close(response.data);
                 }
             });
