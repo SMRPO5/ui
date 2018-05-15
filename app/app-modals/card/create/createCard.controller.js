@@ -10,9 +10,11 @@
         var vm = this;
         ProjectsService.getBoard(project.board).then(function(response) {
             vm.silverBulletExists = response.data.has_silver_bullet && $rootScope.hasRoleForProject(project, 'Kanban Master');
+            vm.isKanabanMasterOnly = $rootScope.hasOnlyRoleForProject(project, 'Kanban Master');
         });
 
         vm.createCard = function createCard() {
+            vm.cardData.type = vm.cardData.type.id;
             CardsService.createCard(vm.cardData).then(function(result) {
                 if (result.status === 201) {
                     $uibModalInstance.close(result.data);
@@ -36,6 +38,9 @@
             deadline: '',
             size: '',
             project: project.id
+        };
+        vm.changed = function() {
+            console.log(vm.cardData.type);
         };
 
         vm.deadlineOptions = {

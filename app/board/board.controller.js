@@ -212,7 +212,7 @@
             var column = _.find(lane.cardsForColumns, function (column) {
                 return column.column.id === card.column
             });
-            if (column.cards.length > column.maxNumberOfCardsInColumn && column.maxNumberOfCardsInColumn !== 0) {
+            if (column.cards.length >= column.maxNumberOfCardsInColumn && column.maxNumberOfCardsInColumn !== 0) {
                 ModalProvider.openWIPLimitExceededModal(0, card, column.column, function () {
                     column.cards.push(card);
                 }, function () {

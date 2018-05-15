@@ -3,7 +3,7 @@
         <h3 class="modal-title" id="modal-title">Create card</h3>
     </div>
     <div class="modal-body row" id="modal-body">
-        <div class="alert alert-danger" ng-show="vm.silverBulletExists">
+        <div class="alert alert-danger" ng-show="(vm.silverBulletExists && vm.cardData.type.name == 'Silver bullet') || (vm.silverBulletExists && vm.isKanabanMasterOnly)">
             You can't create new Silver bullet card, because Silver bullet already exists!
         </div>
         <div class="form-group col-xs-12" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
@@ -17,9 +17,9 @@
         </div>
         <div class="form-group col-xs-6" ng-class="{ 'has-error': form.type.$dirty && form.type.$error.required }">
             <label for="type">Card type</label>
-            <select ng-model="vm.cardData.type" id="type" class="form-control" required>
+            <select ng-change="vm.changed()" ng-model="vm.cardData.type" id="type" class="form-control" required>
                 <option></option>
-                <option value="{{ cardType.id }}" ng-repeat="cardType in vm.cardTypes">{{ cardType.name }}</option>
+                <option ng-value="cardType" ng-repeat="cardType in vm.cardTypes">{{ cardType.name }}</option>
             </select>
             <span ng-show="form.type.$dirty && form.type.$error.required" class="help-block">Type error</span>
         </div>
@@ -58,6 +58,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.close()">Close</button>
-        <button ng-disabled="vm.silverBulletExists" type="submit" class="btn btn-primary">Create</button>
+        <button ng-disabled="(vm.silverBulletExists && vm.cardData.type.name == 'Silver bullet') || (vm.silverBulletExists && vm.isKanabanMasterOnly)"" type="submit" class="btn btn-primary">Create</button>
     </div>
 </form>
