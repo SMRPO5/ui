@@ -27,7 +27,7 @@
             <label for="assignee">Assignee</label>
             <select class="form-control" ng-model="vm.cardData.assignee" id="assignee">
                 <option></option>
-                <option value="{{ user.id }}" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
+                <option value="{{ user.user_id }}" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
             </select>
             <span ng-show="form.assignee.$dirty" class="help-block">Type error</span>
         </div>

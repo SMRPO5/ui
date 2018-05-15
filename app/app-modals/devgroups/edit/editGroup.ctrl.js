@@ -44,21 +44,21 @@
                         //console.log(group);
                         var member = group.members[i];
                         for (var j = 0; j < member.role.length; j++) {
-                            if (member.role[j] === vm.productOwnerID) {
+                            if (member.role[j].id === vm.productOwnerID) {
                                 for (var k = 0; k < allUsers.length; k++) {
                                     if (member.user === allUsers[k].email) {
                                         vm.owner = allUsers[k].email;
                                         //console.log(vm.owner);
                                     }
                                 }
-                            } else if (member.role[j] === vm.kbMasterID) {
+                            } else if (member.role[j].id === vm.kbMasterID) {
                                 for (var k = 0; k < allUsers.length; k++) {
                                     if (member.user === allUsers[k].email) {
                                         vm.kbMaster = allUsers[k].email;
                                         //console.log(vm.owner);
                                     }
                                 }
-                            } else if (member.role[j] === vm.developerID) {
+                            } else if (member.role[j].id === vm.developerID) {
                                 for (var k = 0; k < allUsers.length; k++) {
                                     if (member.user === allUsers[k].email) {
                                         devList.push(allUsers[k]);

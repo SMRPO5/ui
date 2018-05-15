@@ -141,6 +141,16 @@
             });
         }
 
+        function openShowCriticalCardsModal() {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/criticalCards/criticalCards.view.html',
+                controller: 'CriticalCardsController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                size: 'small'
+            });
+        }
+
         return {
             openAddGroupModal: openAddGroupModal,
             openEditGroupModal: openEditGroupModal,
@@ -151,7 +161,8 @@
             openWIPLimitExceededModal: openWIPLimitExceededModal,
             openAddBoard: openAddBoard,
             createProject: createProject,
-            removeProjectModal: removeProjectModal
+            removeProjectModal: removeProjectModal,
+            openShowCriticalCardsModal: openShowCriticalCardsModal
         }
     }
 
