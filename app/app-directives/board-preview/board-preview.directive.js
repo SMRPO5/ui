@@ -19,7 +19,7 @@
                 $scope.editBoard = function($event, board) {
                     $event.preventDefault();
                     $event.stopPropagation();
-                    ModalProvider.openEditBoard(board).result.then(function(data){
+                    ModalProvider.openEditBoardModal(board).result.then(function(data){
                         $scope.board = data;
                     });
                 };
