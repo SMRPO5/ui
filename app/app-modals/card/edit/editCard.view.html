@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group col-xs-6" ng-class="{ 'has-error': form.assignee.$dirty }">
                     <label for="assignee">Assignee</label>
-                    <select ng-disabled="!vm.canEdit" class="form-control" ng-model="vm.cardData.assignee.id" id="assignee" required>
+                    <select ng-disabled="!vm.canEdit" class="form-control" ng-model="vm.cardData.assignee.id" id="assignee">
                         <option>----</option>
                         <option ng-selected="user.user_id == vm.cardData.assignee.id" ng-value="user.user_id" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
                     </select>
