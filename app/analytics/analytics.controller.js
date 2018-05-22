@@ -127,9 +127,8 @@
         });
         FusionCharts['debugger'].enable(true);
         */
-       vm.alertMe = function(index){
+       vm.setIndex = function(index){
         vm.index=index;
-        console.log(index);
        };
         vm.getCardTime = function() {
             if(typeof vm.options.projects != 'undefined'){

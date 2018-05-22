@@ -133,7 +133,7 @@
         <label for="project">Select graphs</label>
         </br>
         <uib-tabset  active="activeJustified" justified="true">
-                <uib-tab  index="0" heading="LeadTime"  select="vm.alertMe(0)">
+                <uib-tab  index="0" heading="LeadTime"  select="vm.setIndex(0)">
                     </br>
                     <div class="col-xs-12" fusioncharts
                     width="600"
@@ -142,7 +142,7 @@
                     dataSource="{{vm.dataSource}}" >
                     </div>
                 </uib-tab>
-                <uib-tab index="1" heading="ColumTime"  select="vm.alertMe(1)">
+                <uib-tab index="1" heading="ColumTime"  select="vm.setIndex(1)">
                     </br>
                         <div class="col-xs-12" fusioncharts
                         width="600"
