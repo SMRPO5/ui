@@ -1,7 +1,7 @@
 ﻿"use strict";
 (function () {
     angular
-        .module('app', ['ngRoute', 'ngCookies', 'environment', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'angularMoment', 'dndLists', 'btorfs.multiselect'])
+        .module('app', ['ngRoute', 'ngCookies', 'environment', 'ui.bootstrap', 'ui.bootstrap.datetimepicker', 'angularMoment', 'dndLists', 'btorfs.multiselect','ng-fusioncharts'])
         .config(config)
         .run(run);
 
@@ -25,7 +25,7 @@
         envServiceProvider.check();
 
         // Uncomment bottom line to connect to production server.
-        // envServiceProvider.set('production');
+        envServiceProvider.set('production');
 
         console.log("ApiUrl: " + envServiceProvider.read('apiUrl'));
 
@@ -70,6 +70,13 @@
             }).when('/projects', {
                 controller: 'ProjectsController',
                 templateUrl: 'projects/projects.view.html',
+                controllerAs: 'vm',
+                resolve: {
+                    onlyLoggedIn: ['$location', '$q', 'AuthenticationService', onlyLoggedIn]
+                }
+            }).when('/analytics', {
+                controller: 'AnalyticsController',
+                templateUrl: 'analytics/analytics.view.html',
                 controllerAs: 'vm',
                 resolve: {
                     onlyLoggedIn: ['$location', '$q', 'AuthenticationService', onlyLoggedIn]

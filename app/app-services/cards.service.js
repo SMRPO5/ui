@@ -43,6 +43,9 @@
         function getCardTypes(project) {
             return $http.get(envService.read('apiUrl') + 'projects/card_types/?project=' + project.id, AuthenticationService.getHeaders());
         }
+        function getAllCardTypes() {
+            return $http.get(envService.read('apiUrl') + 'projects/card_types/' ,AuthenticationService.getHeaders());
+        }
         function getCardHistory(id) {
             return $http.get(envService.read('apiUrl') + 'projects/card_history/?card=' + id, AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error getting card history'));
@@ -60,6 +63,15 @@
                 .then(handleSuccess, handleError('Error sending eMail'));
         }
 
+        function getCardLeadTime(options) {
+            return $http.post(envService.read('apiUrl') + 'projects/cards/', options, AuthenticationService.getHeaders())
+            .then(handleSuccess, handleError('Error creating card'));
+        }
+        function getCardColumnTime(options) {
+            return $http.post(envService.read('apiUrl') + 'projects/cards/', options, AuthenticationService.getHeaders())
+            .then(handleSuccess, handleError('Error creating card'));
+        }
+        
         // private functions
 
         function handleSuccess(res) {
@@ -79,11 +91,13 @@
             removeCard: removeCard,
             createCard: createCard,
             getCardTypes: getCardTypes,
+            getAllCardTypes : getAllCardTypes,
             editCard: editCard,
             getCardHistory: getCardHistory,
             getCardWipViolations: getCardWipViolations,
-
-            sendMail: sendMail
+            sendMail: sendMail,
+            getCardLeadTime:getCardLeadTime,
+            getCardColumnTime:getCardColumnTime
 
         };
     }
