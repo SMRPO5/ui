@@ -74,7 +74,7 @@
         vm.reset = function(){
             //vm.options=vm.defOptions;
             //$scope.formAnalytics.$setPristine();
-            vm.mix = 0;
+            vm.min = 0;
             vm.max = 100;
             vm.options={
                 projects: '',
@@ -109,6 +109,16 @@
         };
         vm.endOptions = {
             minDate: new Date()
+        };
+        vm.setMin = function() {
+            vm.min = vm.options.fromSize;
+            if(vm.options.toSize < vm.min)
+                vm.options.toSize = vm.min;
+        };
+        vm.setMax = function() {
+            vm.max = vm.options.toSize;
+            if(vm.options.fromSize > vm.max)
+                vm.options.fromSize = vm.max;
         };
        vm.updateGraph1 = function(){
             var newDataSource = angular.copy(vm.baseChart); 
