@@ -17,13 +17,11 @@
                 vm.projects = result.data;
             }
         });
-
         CardsService.getAllCardTypes().then(function(result) {
             if(result.status === 200) {
                 vm.cardTypes = result.data;
             }
         });
-
         vm.baseChart = { 
             "chart": {
                 "caption": "Card lead time",
@@ -31,7 +29,8 @@
                 "xaxisname": "Cards",
                 "yaxisname": "Days",
                 "numberprefix": ""
-            },
+            }
+            ,
             "categories": [
                 {
                     "category":{
@@ -39,41 +38,19 @@
                     }
                 }
             ],
-            "trendlines": [
-                {
-                    "line": [
-                        {
-                            "startvalue": vm.leadTimeAvg.toString(),
-                            "color": "FF0000",
-                            "displayvalue": "Avg",
-                            "thickness": "3"
-                        }
-                    ]
-                }
-            ],
             "dataset":[{
                 "seriesname": "None",
                 "renderas": "area",
                 "data": [
                     {
-                        "value": "1"
+                        "value": "0"
                     }]
             }]
-        };/*
-        vm.category= [{
-            "label": "1"
-        }];
-        vm.dataset2 = [{
-            "seriesname": "Actual Revenue",
-            "renderas": "area",
-            "data": [
-                {
-                    "value": "1"
-                }]
-        }];*/
+        };
+
+        vm.dataSource = angular.copy(vm.baseChart);
+        vm.dataSource2 = angular.copy(vm.baseChart);
         vm.reset = function(){
-            //vm.options=vm.defOptions;
-            //$scope.formAnalytics.$setPristine();
             vm.min = 0;
             vm.max = 100;
             vm.options={
@@ -88,8 +65,6 @@
                 fromSize: '',
                 toSize:''
             };
-            vm.dataSource = angular.copy(vm.baseChart);
-            vm.dataSource2 = angular.copy(vm.baseChart);
             console.log(vm.options);
         };
         vm.reset();
@@ -124,7 +99,20 @@
             var newDataSource = angular.copy(vm.baseChart); 
             newDataSource.dataset =vm.dataset2;
             newDataSource.categories[0].category =vm.category;
-            newDataSource.trendlines[0].line[0].startvalue=vm.leadTimeAvg.toString();
+            newDataSource.trendlines = [
+                {
+                    "line": [
+                        {
+                            "startvalue": vm.leadTimeAvg.toString(),
+                            "color": "FF0000",
+                            "displayvalue": "Avg",
+                            "thickness": "3"
+                        }
+                    ]
+                }
+            ];
+            //newDataSource.trendlines[0].line[0].startvalue=vm.leadTimeAvg.toString();
+
             vm.dataSource = newDataSource;
         };
         vm.updateGraph2 = function(){
@@ -183,6 +171,7 @@
             
             vm.leadTimeAvg = vm.leadTimeAvg / vm.cardLeadTime.length;
             vm.category= vm.labels;
+            
             vm.dataset2 = [
                 {            
                     "seriesname": "Profit",
