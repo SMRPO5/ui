@@ -74,6 +74,8 @@
         vm.reset = function(){
             //vm.options=vm.defOptions;
             //$scope.formAnalytics.$setPristine();
+            vm.mix = 0;
+            vm.max = 100;
             vm.options={
                 projects: '',
                 startCreation: '',
@@ -101,11 +103,13 @@
              open6: false
         };
         
-        /*
-        vm.deadlineOptions = {
+        
+        vm.startOptions = {
+            maxDate: new Date()
+        };
+        vm.endOptions = {
             minDate: new Date()
         };
-        */
        vm.updateGraph1 = function(){
             var newDataSource = angular.copy(vm.baseChart); 
             newDataSource.dataset =vm.dataset2;
@@ -138,16 +142,19 @@
             }
             console.log(vm.options);
             /*
+            if(vm.index==0){
             CardsService.getCardLeadTime(vm.options).then(function(result) {
                 if (result.status === 201) {
                    // $uibModalInstance.close(result.data);
                 }
-
+            }else if(vm.index==1){
             CardsService.getCardColumnTime(vm.options).then(function(result) {
                 if (result.status === 201) {
                    // $uibModalInstance.close(result.data);
                 }
-            });*/
+            });
+            }
+            */
             vm.labels = [];
             vm.cardLeadTime = [];
             vm.cardLeadTime2 = [];
