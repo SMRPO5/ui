@@ -3,7 +3,7 @@
         <h3 class="modal-title" id="modal-title">Create card</h3>
     </div>
     <div class="modal-body row" id="modal-body">
-        <div class="alert alert-danger" ng-show="vm.silverBulletExists">
+        <div class="alert alert-danger" ng-show="(vm.silverBulletExists && vm.cardData.type.name == 'Silver bullet') || (vm.silverBulletExists && vm.isKanabanMasterOnly)">
             You can't create new Silver bullet card, because Silver bullet already exists!
         </div>
         <div class="form-group col-xs-12" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
@@ -17,17 +17,17 @@
         </div>
         <div class="form-group col-xs-6" ng-class="{ 'has-error': form.type.$dirty && form.type.$error.required }">
             <label for="type">Card type</label>
-            <select ng-model="vm.cardData.type" id="type" class="form-control" required>
+            <select ng-change="vm.changed()" ng-model="vm.cardData.type" id="type" class="form-control" required>
                 <option></option>
-                <option value="{{ cardType.id }}" ng-repeat="cardType in vm.cardTypes">{{ cardType.name }}</option>
+                <option ng-value="cardType" ng-repeat="cardType in vm.cardTypes">{{ cardType.name }}</option>
             </select>
             <span ng-show="form.type.$dirty && form.type.$error.required" class="help-block">Type error</span>
         </div>
         <div class="form-group col-xs-6" ng-class="{ 'has-error': form.assignee.$dirty }">
             <label for="assignee">Assignee</label>
-            <select class="form-control" ng-model="vm.cardData.assignee" id="assignee" required>
+            <select class="form-control" ng-model="vm.cardData.assignee" id="assignee">
                 <option></option>
-                <option value="{{ user.id }}" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
+                <option value="{{ user.user_id }}" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
             </select>
             <span ng-show="form.assignee.$dirty" class="help-block">Type error</span>
         </div>
@@ -51,14 +51,13 @@
             </p>
             <span ng-show="form.deadline.$dirty && form.deadline.$error.required" class="help-block">Deadline is required</span>
         </div>
-        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.size.$dirty && form.size.$error.required }">
+        <div class="form-group col-xs-6">
             <label for="size">Size</label>
-            <input type="number" name="size" id="size" class="form-control" step="0.1" min="0" max="100" ng-model="vm.cardData.size"c/>
-            <span ng-show="form.size.$dirty && form.size.$error.required" class="help-block">Size is required</span>
+            <input type="number" name="size" id="size" class="form-control" step="0.1" min="0" max="100" ng-model="vm.cardData.size" />
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.close()">Close</button>
-        <button ng-disabled="vm.silverBulletExists" type="submit" class="btn btn-primary">Create</button>
+        <button ng-disabled="(vm.silverBulletExists && vm.cardData.type.name == 'Silver bullet') || (vm.silverBulletExists && vm.isKanabanMasterOnly)"" type="submit" class="btn btn-primary">Create</button>
     </div>
 </form>

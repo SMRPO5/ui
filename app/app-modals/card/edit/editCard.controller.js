@@ -10,10 +10,9 @@
         var vm = this;
         card = card.data;
         vm.canEdit = (card.is_in_requested && ($rootScope.hasRoleForProject(project, 'Kanban Master') || $rootScope.hasRoleForProject(project, 'Product Owner') && card.type.name !== 'Silver bullet')) ||
-            (!card.is_in_requested && !$rootScope.hasRoleForProject(project, 'Product Owner')) &&
+            (!card.is_in_requested && (!$rootScope.hasRoleForProject(project, 'Product Owner') || $rootScope.hasRoleForProject(project, 'Kanban Master'))) &&
             !card.is_in_done;
-        debugger;
-        vm.is_feature_and_kanban_master = (card.type.name === 'Feature request' && $rootScope.hasRoleForProject(project, 'Kanban Master'));
+        vm.is_feature_and_kanban_master = (card.type.name === 'Feature request' && $rootScope.hasRoleForProject(project, 'Kanban Master') && !$rootScope.hasRoleForProject(project, 'Product Owner'));
         vm.is_developer = $rootScope.hasRoleForProject(project, 'Developer');
         vm.cardData = card;
         vm.cardData.deadline = moment(vm.cardData.deadline).toDate();
@@ -40,6 +39,9 @@
                 name: 'Critical'
             }
         ];
+
+        vm.users = project.dev_group.members;
+
         CardsService.getCardTypes(project).then(function(result) {
             if(result.status === 200) {
                 vm.cardTypes = result.data;
@@ -48,12 +50,6 @@
                 }
             }
         });
-        UserService.getUsers().then(function(result) {
-            if(result.status === 200) {
-                vm.users = result.data;
-            }
-        });
-
         CardsService.getCardHistory(card.id).then(function(response) {
             if(response.status === 200) {
                 vm.cardHistory = response.data;
@@ -67,22 +63,6 @@
                 //console.log(vm.cardWipViolations);
             }
         });
-        /*
-
-        vm.orderByField = 'comment';
-        vm.reverseSort = false;
-        vm.comment_title = "comment";
-        vm.emai_titlel = "emai";
-        vm.date_created_title = "date_created";
-        vm.setOrderByField = setOrderByField;
-        function setOrderByField(name){
-
-            console.log(name);
-            vm.orderByField = name;
-            vm.reverseSort = !vm.reverseSort;
-            //}, function(error) {
-            //});
-        };*/
 
         $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
 

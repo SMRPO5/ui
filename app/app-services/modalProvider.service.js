@@ -108,9 +108,7 @@
                 controller: 'CreateCardController',
                 controllerAs: 'vm',
                 appendTo: angular.element($document[0].querySelector('.modal_container')),
-                resolve: {
-                    project: project
-                }
+                v
             });
         }
 
@@ -141,6 +139,29 @@
             });
         }
 
+        function openShowCriticalCardsModal() {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/criticalCards/criticalCards.view.html',
+                controller: 'CriticalCardsController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                size: 'small'
+            });
+        }
+
+        function openEditBoardModal(board) {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/edit/editBoard.view.html',
+                controller: 'EditBoardController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                size: 'lg',
+                resolve: {
+                    board: board
+                }
+            });
+        }
+
         return {
             openAddGroupModal: openAddGroupModal,
             openEditGroupModal: openEditGroupModal,
@@ -151,7 +172,9 @@
             openWIPLimitExceededModal: openWIPLimitExceededModal,
             openAddBoard: openAddBoard,
             createProject: createProject,
-            removeProjectModal: removeProjectModal
+            removeProjectModal: removeProjectModal,
+            openShowCriticalCardsModal: openShowCriticalCardsModal,
+            openEditBoardModal: openEditBoardModal
         }
     }
 

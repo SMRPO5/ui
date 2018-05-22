@@ -25,9 +25,9 @@
                 </div>
                 <div class="form-group col-xs-6" ng-class="{ 'has-error': form.assignee.$dirty }">
                     <label for="assignee">Assignee</label>
-                    <select ng-disabled="!vm.canEdit" class="form-control" ng-model="vm.cardData.assignee.id" id="assignee" required>
+                    <select ng-disabled="!vm.canEdit" class="form-control" ng-model="vm.cardData.assignee.id" id="assignee">
                         <option>----</option>
-                        <option ng-selected="user.id == vm.cardData.assignee.id" ng-value="user.id" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
+                        <option ng-selected="user.user_id == vm.cardData.assignee.id" ng-value="user.user_id" ng-repeat="user in vm.users">{{ user.first_name }} {{ user.last_name }}</option>
                     </select>
                     <span ng-show="form.assignee.$dirty" class="help-block">Type error</span>
                 </div>
@@ -51,10 +51,9 @@
                     </p>
                     <span ng-show="form.deadline.$dirty && form.deadline.$error.required" class="help-block">Deadline is required</span>
                 </div>
-                <div class="form-group col-xs-6" ng-class="{ 'has-error': form.size.$dirty && form.size.$error.required }">
+                <div class="form-group col-xs-6">
                     <label for="size">Size</label>
-                    <input ng-disabled="!vm.canEdit" type="number" name="size" id="size" class="form-control" step="0.1" min="0" max="100" ng-model="vm.cardData.size"/>
-                    <span ng-show="form.size.$dirty && form.size.$error.required" class="help-block">Size is required</span>
+                    <input ng-disabled="!vm.canEdit" type="number" name="size" id="size" class="form-control" step="0.1" min="0" max="100" ng-model="vm.cardData.size" />
                 </div>
             </div>
             <div class="modal-footer" ng-show="vm.canEdit">

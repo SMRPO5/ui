@@ -25,7 +25,7 @@
         envServiceProvider.check();
 
         // Uncomment bottom line to connect to production server.
-        envServiceProvider.set('production');
+        // envServiceProvider.set('production');
 
         console.log("ApiUrl: " + envServiceProvider.read('apiUrl'));
 
@@ -100,6 +100,21 @@
             for (var i = 0; i < dev_group.members.length; i ++) {
                 var member = dev_group.members[i];
                 if (user.email === member.user && _.some(member.role, {name: role})) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        $rootScope.hasOnlyRoleForProject = function(project, role){
+            if(!$rootScope.isLoggedIn()){
+                return false;
+            }
+            var user = LocalStorage.getUser();
+            var dev_group = project.dev_group;
+            for (var i = 0; i < dev_group.members.length; i ++) {
+                var member = dev_group.members[i];
+                if (user.email === member.user && _.some(member.role, {name: role}) && member.role.length === 1) {
                     return true;
                 }
             }
