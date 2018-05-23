@@ -107,8 +107,7 @@
                 templateUrl: 'app-modals/card/create/createCard.view.html',
                 controller: 'CreateCardController',
                 controllerAs: 'vm',
-                appendTo: angular.element($document[0].querySelector('.modal_container')),
-                v
+                appendTo: angular.element($document[0].querySelector('.modal_container'))
             });
         }
 
@@ -162,6 +161,19 @@
             });
         }
 
+        function openCreateColumnModal(board) {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/createColumn/createColumn.view.html',
+                controller: 'CreateColumnController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                size: 'medium',
+                resolve: {
+                    board: board
+                }
+            });
+        }
+
         return {
             openAddGroupModal: openAddGroupModal,
             openEditGroupModal: openEditGroupModal,
@@ -174,7 +186,8 @@
             createProject: createProject,
             removeProjectModal: removeProjectModal,
             openShowCriticalCardsModal: openShowCriticalCardsModal,
-            openEditBoardModal: openEditBoardModal
+            openEditBoardModal: openEditBoardModal,
+            openCreateColumnModal: openCreateColumnModal
         }
     }
 

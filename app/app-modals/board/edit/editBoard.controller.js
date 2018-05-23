@@ -4,8 +4,8 @@
         .module('app')
         .controller('EditBoardController', EditBoardController);
 
-    EditBoardController.$inject = ['$rootScope', '$uibModalInstance', 'board'];
-    function EditBoardController($rootScope, $uibModalInstance, board) {
+    EditBoardController.$inject = ['$rootScope', '$uibModalInstance', 'ModalProvider', 'board'];
+    function EditBoardController($rootScope, $uibModalInstance, ModalProvider, board) {
         var vm = this;
         var allColumns = [];
         _.each(board.columns, function(column) {
@@ -27,6 +27,12 @@
 
         vm.editBoard = function() {
             // TODO
+        };
+
+        vm.createColumn = function() {
+            ModalProvider.openCreateColumnModal(board).result.then(function(data){
+                $scope.board = data;
+            });
         };
 
         vm.close = function() {

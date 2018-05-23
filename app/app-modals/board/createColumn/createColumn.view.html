@@ -1,0 +1,51 @@
+<form name="form" role="form" ng-submit="vm.createColumn()">
+    <div class="modal-header">
+        <button ng-click="vm.close()" type="button" class="close">&times;</button>
+        <h3 class="modal-title" id="modal-title">Create column</h3>
+    </div>
+    <div class="modal-body row" id="modal-body">
+        <div class="form-group col-xs-12" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" class="form-control" ng-model="vm.column.name" required />
+            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Column name is required</span>
+        </div>
+        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.order.$dirty && form.order.$error.required }">
+            <label for="order">Order</label>
+            <input type="number" name="order" id="order" class="form-control" ng-model="vm.column.order" required />
+            <span ng-show="form.order.$dirty && form.order.$error.required" class="help-block">Order is required</span>
+        </div>
+        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.card_limit.$dirty && form.card_limit.$error.required }">
+            <label for="card_limit">Card limit</label>
+            <input type="number" name="card_limit" id="card_limit" class="form-control" ng-model="vm.column.card_limit" required />
+            <span ng-show="form.card_limit.$dirty && form.card_limit.$error.required" class="help-block">Card limit required</span>
+        </div>
+        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.acceptance_ready_column.$dirty && form.acceptance_ready_column.$error.required }">
+            <label for="first_boundary_column">First boundary column</label><br>
+            <button type="button" id="first_boundary_column" class="btn btn-primary" ng-model="vm.column.first_boundary_column" uib-btn-checkbox>
+                Toggle
+            </button>
+        </div>
+        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.acceptance_ready_column.$dirty && form.acceptance_ready_column.$error.required }">
+            <label for="second_boundary_column">Second boundary column</label><br>
+            <button type="button" id="second_boundary_column" class="btn btn-primary" ng-model="vm.column.second_boundary_column" uib-btn-checkbox>
+                Toggle
+            </button>
+        </div>
+        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.acceptance_ready_column.$dirty && form.acceptance_ready_column.$error.required }">
+            <label for="high_priority_column">High priority column</label><br>
+            <button type="button" id="high_priority_column" class="btn btn-primary" ng-model="vm.column.high_priority_column" uib-btn-checkbox>
+                Toggle
+            </button>
+        </div>
+        <div class="form-group col-xs-6" ng-class="{ 'has-error': form.acceptance_ready_column.$dirty && form.acceptance_ready_column.$error.required }">
+            <label for="acceptance_ready_column">Acceptance ready column</label><br>
+            <button type="button" id="acceptance_ready_column" class="btn btn-primary" ng-model="vm.column.acceptance_ready_column" uib-btn-checkbox>
+                Toggle
+            </button>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+</form>

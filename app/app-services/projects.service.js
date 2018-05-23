@@ -68,6 +68,11 @@
                 .then(handleSuccess, handleError('Error getting columns'));
         }
 
+        function createColumn(column) {
+            return $http.post(envService.read('apiUrl') + 'projects/columns/', column, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error creating column'));
+        }
+
         // private functions
 
         function handleSuccess(res) {
@@ -92,7 +97,8 @@
             getColumnsForProject: getColumnsForProject,
             removeProject: removeProject,
             editProject: editProject,
-            createBoard: createBoard
+            createBoard: createBoard,
+            createColumn: createColumn
         }
     }
 

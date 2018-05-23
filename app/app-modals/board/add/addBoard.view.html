@@ -7,7 +7,7 @@
         <div class="form-group col-xs-6" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" class="form-control" ng-model="vm.board.name" required />
-            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Card name is required</span>
+            <span ng-show="form.name.$dirty && form.name.$error.required" class="help-block">Board name is required</span>
         </div>
         <div class="form-group col-xs-6" ng-class="{ 'has-error': form.dAttr.$dirty && form.dAttr.$error.required }">
             <label for="dAttr">Card deadline notification (d)</label>
