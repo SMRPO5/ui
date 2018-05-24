@@ -22,6 +22,7 @@
 
         vm.createColumn = function() {
             ModalProvider.openCreateColumnModal(vm.board).result.then(function(column){
+                debugger;
                 vm.board.columns.push(column);
                 generateAllColumnTypes(vm.board);
             });

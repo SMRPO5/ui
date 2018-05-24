@@ -30,7 +30,7 @@
                 board_name: board.name,
                 columns: board.columns
             };
-            return $http.patch(envService.read('apiUrl') + 'projects/boards/' + board.id + '/', data, AuthenticationService.getHeaders())
+            return $http.post(envService.read('apiUrl') + 'projects/board_update/', data, AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error editing board'));
         }
 
