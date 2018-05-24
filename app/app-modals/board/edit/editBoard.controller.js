@@ -32,6 +32,9 @@
         };
 
         vm.deleteColumn = function(column, isParentColumn) {
+            if(!column.canDelete) {
+                return;
+            }
             ProjectsService.deleteColumn(column).then(function() {
                 if(isParentColumn) {
                     _.remove(vm.board.columns, function(col){
@@ -76,10 +79,13 @@
             var clonedAllCols = _.filter(allColumns, function(col) {
                 return col.id !== columns[index].id;
             });
+            var canDelete = columns[index].has_cards || columns[index].subcolumns.length === 0;
             columns[index].allowedTypes = _.map(clonedAllCols, function(c) {
                 return getColumnType(c);
             });
             columns[index].type = getColumnType(columns[index]);
+            columns[index].canDelete = canDelete;
+            columns[index].tooltip = !canDelete ? 'Cards or subcolumns are present. Cannot delete!': '';
         }
 
     }
