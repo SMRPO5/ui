@@ -4,34 +4,26 @@
         .module('app')
         .controller('EditBoardController', EditBoardController);
 
-    EditBoardController.$inject = ['$rootScope', '$uibModalInstance', 'ModalProvider', 'board'];
-    function EditBoardController($rootScope, $uibModalInstance, ModalProvider, board) {
+    EditBoardController.$inject = ['$rootScope', '$uibModalInstance', 'ModalProvider', 'ProjectsService', 'board'];
+    function EditBoardController($rootScope, $uibModalInstance, ModalProvider, ProjectsService, board) {
         var vm = this;
         var allColumns = [];
-        _.each(board.columns, function(column) {
-            allColumns.push(column);
-            _.each(column.subcolumns, function(subcolumn) {
-                allColumns.push(subcolumn);
-            });
-        });
-
-        board.columns.forEach(function(column, index) {
-            generateTypes(allColumns, board.columns, index);
-
-            board.columns[index].subcolumns.forEach(function(subcolumn, subcolumnIndex) {
-                generateTypes(allColumns, board.columns[index].subcolumns, subcolumnIndex);
-            });
-        });
-
         vm.board = board;
 
+        generateAllColumnTypes(vm.board);
+
         vm.editBoard = function() {
-            // TODO
+            ProjectsService.editBoard(vm.board).then(function(response) {
+                if(response.status === 200) {
+                    $uibModalInstance.close(response.data);
+                }
+            });
         };
 
         vm.createColumn = function() {
-            ModalProvider.openCreateColumnModal(board).result.then(function(data){
-                $scope.board = data;
+            ModalProvider.openCreateColumnModal(vm.board).result.then(function(column){
+                vm.board.columns.push(column);
+                generateAllColumnTypes(vm.board);
             });
         };
 
@@ -40,6 +32,25 @@
         };
 
         $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
+
+        function generateAllColumnTypes(currentBoard) {
+            allColumns = [];
+
+            _.each(currentBoard.columns, function(column) {
+                allColumns.push(column);
+                _.each(column.subcolumns, function(subcolumn) {
+                    allColumns.push(subcolumn);
+                });
+            });
+
+            currentBoard.columns.forEach(function(column, index) {
+                generateTypes(allColumns, currentBoard.columns, index);
+
+                currentBoard.columns[index].subcolumns.forEach(function(subcolumn, subcolumnIndex) {
+                    generateTypes(allColumns, currentBoard.columns[index].subcolumns, subcolumnIndex);
+                });
+            });
+        }
 
         function getColumnType(column) {
             return column.id + "-" + column.name;

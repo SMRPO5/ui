@@ -11,7 +11,7 @@
         vm.column = {
             name: "",
             board: board.id,
-            order: 0,
+            order: board.columns[board.columns.length - 1].order + 1,
             card_limit: 0,
             first_boundary_column: false,
             second_boundary_column: false,
@@ -25,7 +25,7 @@
             console.log(vm.column);
 
             ProjectsService.createColumn(vm.column).then(function(response) {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     $uibModalInstance.close(response.data);
                 }
             });

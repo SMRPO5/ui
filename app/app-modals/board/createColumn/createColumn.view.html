@@ -11,7 +11,7 @@
         </div>
         <div class="form-group col-xs-6" ng-class="{ 'has-error': form.order.$dirty && form.order.$error.required }">
             <label for="order">Order</label>
-            <input type="number" name="order" id="order" class="form-control" ng-model="vm.column.order" required />
+            <input type="number" name="order" id="order" class="form-control" ng-model="vm.column.order" required disabled/>
             <span ng-show="form.order.$dirty && form.order.$error.required" class="help-block">Order is required</span>
         </div>
         <div class="form-group col-xs-6" ng-class="{ 'has-error': form.card_limit.$dirty && form.card_limit.$error.required }">

@@ -24,6 +24,16 @@
                 .then(handleSuccess, handleError('Error getting boards'));
         }
 
+        function editBoard(board) {
+            var data = {
+                board: board.id,
+                board_name: board.name,
+                columns: board.columns
+            };
+            return $http.patch(envService.read('apiUrl') + 'projects/boards/' + board.id + '/', data, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error editing board'));
+        }
+
         function sendReasonForWipViolation(cardId, columnId, reason) {
             var data = {
                 card: cardId,
@@ -98,7 +108,8 @@
             removeProject: removeProject,
             editProject: editProject,
             createBoard: createBoard,
-            createColumn: createColumn
+            createColumn: createColumn,
+            editBoard: editBoard
         }
     }
 
