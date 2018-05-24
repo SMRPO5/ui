@@ -20,7 +20,7 @@
                     $event.preventDefault();
                     $event.stopPropagation();
                     ModalProvider.openEditBoardModal(board).result.then(function(data){
-                        $scope.board = data;
+                        //$scope.board = data;
                     });
                 };
 

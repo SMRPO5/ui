@@ -83,6 +83,11 @@
                 .then(handleSuccess, handleError('Error creating column'));
         }
 
+        function deleteColumn(column) {
+            return $http.delete(envService.read('apiUrl') + 'projects/columns/' + column.id + '/', AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error creating column'));
+        }
+
         // private functions
 
         function handleSuccess(res) {
@@ -109,6 +114,7 @@
             editProject: editProject,
             createBoard: createBoard,
             createColumn: createColumn,
+            deleteColumn: deleteColumn,
             editBoard: editBoard
         }
     }

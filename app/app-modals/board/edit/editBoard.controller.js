@@ -14,7 +14,7 @@
 
         vm.editBoard = function() {
             ProjectsService.editBoard(vm.board).then(function(response) {
-                if(response.status === 200) {
+                if(response.status === 201) {
                     $uibModalInstance.close(response.data);
                 }
             });
@@ -22,7 +22,6 @@
 
         vm.createColumn = function() {
             ModalProvider.openCreateColumnModal(vm.board).result.then(function(column){
-                debugger;
                 vm.board.columns.push(column);
                 generateAllColumnTypes(vm.board);
             });
@@ -30,6 +29,22 @@
 
         vm.close = function() {
             $uibModalInstance.dismiss();
+        };
+
+        vm.deleteColumn = function(column, isParentColumn) {
+            ProjectsService.deleteColumn(column).then(function() {
+                if(isParentColumn) {
+                    _.remove(vm.board.columns, function(col){
+                        return col.id === column.id;
+                    });
+                } else {
+                    _.each(vm.board.columns, function(parentColumn, parentIndex) {
+                        _.remove(vm.board.columns[parentIndex], function(col){
+                            return col.id === column.id;
+                        });
+                    });
+                }
+            });
         };
 
         $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
