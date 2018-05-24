@@ -16,6 +16,10 @@
             return $http.get(envService.read('apiUrl') + 'projects/boards/' + boardId, AuthenticationService.getHeaders());
         }
 
+        function copyBoard(boardId) {
+            return $http.post(envService.read('apiUrl') + 'projects/board_copy/' + boardId + '/', {}, AuthenticationService.getHeaders());
+        }
+
         function getLanesForBoard(boardId) {
             return $http.get(envService.read('apiUrl') + 'projects/lanes/?project__board=' + boardId, AuthenticationService.getHeaders());
         }
@@ -115,7 +119,8 @@
             createBoard: createBoard,
             createColumn: createColumn,
             deleteColumn: deleteColumn,
-            editBoard: editBoard
+            editBoard: editBoard,
+            copyBoard: copyBoard
         }
     }
 
