@@ -107,7 +107,12 @@
                 templateUrl: 'app-modals/card/create/createCard.view.html',
                 controller: 'CreateCardController',
                 controllerAs: 'vm',
-                appendTo: angular.element($document[0].querySelector('.modal_container'))
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                resolve: {
+                    project: function() {
+                        return project;
+                    }
+                }
             });
         }
 

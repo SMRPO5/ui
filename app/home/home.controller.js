@@ -27,6 +27,10 @@
                  vm.boards.push(data);
             });
         };
+
+        $rootScope.$on('board_added', function(event, args) {
+            vm.boards.push(args.data);
+        });
     }
 
 })();
