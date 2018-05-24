@@ -13,13 +13,17 @@
                 <li ng-repeat="column in vm.board.columns" dnd-draggable="column" dnd-moved="vm.board.columns.splice($index, 1)" dnd-type="column.type">
                     <div class="board-column">
                         <div class="board-column-header">
-                            {{ column.name }}
+                            {{ column.name }}&nbsp;
+                            <span class="pull-right"><i class="fas fa-times clickable" ng-click="vm.remove()"></i></span>
                         </div>
                         <div class="board-column-body">
                             <ul class="list-inline" dnd-list="column.subcolumns" dnd-allowed-types="column.allowedTypes">
                                 <li ng-repeat="subcolumn in column.subcolumns" dnd-draggable="subcolumn" dnd-moved="column.subcolumns.splice($index, 1)" dnd-type="subcolumn.type">
-                                    <div class="board-column-header">
-                                        {{ subcolumn.name }}
+                                    <div class="board-column">
+                                        <div class="board-column-header">
+                                            {{ subcolumn.name }}&nbsp;
+                                            <span class="pull-right"><i class="fas fa-times clickable" ng-click="vm.remove()"></i></span>
+                                        </div>
                                     </div>
                                 </li>
                                 <li class="dndPlaceholder board-column-placeholder">

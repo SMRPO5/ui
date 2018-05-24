@@ -460,13 +460,19 @@ main {
 
   .board-column {
     min-width: 50px;
-    height: 50px;
+    min-height: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border: 1px solid black;
     margin: 2px;
 
     .board-column-header {
+      background-color: #428bca;
       padding: 2px 5px;
       text-align: center;
+      margin-bottom: 2px;
+      .clickable {
+        cursor: pointer;
+      }
     }
   }
 }
