@@ -118,13 +118,9 @@
             editProject: editProject,
             createBoard: createBoard,
             createColumn: createColumn,
-<<<<<<< HEAD
             deleteColumn: deleteColumn,
-            editBoard: editBoard
-=======
             editBoard: editBoard,
             copyBoard: copyBoard
->>>>>>> Implement copy
         }
     }
 
