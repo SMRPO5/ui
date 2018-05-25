@@ -87,6 +87,13 @@
                 .then(handleSuccess, handleError('Error creating column'));
         }
 
+        function editColumn(column) {
+            var columnData = Object.assign({}, column);
+            delete columnData.subcolumns;// Subcolumns must not be present!
+            return $http.patch(envService.read('apiUrl') + 'projects/columns/' + column.id + '/', columnData, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error creating column'));
+        }
+
         function deleteColumn(column) {
             return $http.delete(envService.read('apiUrl') + 'projects/columns/' + column.id + '/', AuthenticationService.getHeaders())
                 .then(handleSuccess, handleError('Error creating column'));
@@ -119,6 +126,7 @@
             createBoard: createBoard,
             createColumn: createColumn,
             deleteColumn: deleteColumn,
+            editColumn: editColumn,
             editBoard: editBoard,
             copyBoard: copyBoard
         }

@@ -20,10 +20,6 @@
         };
 
         vm.createColumn = function() {
-
-            console.log("Creating column");
-            console.log(vm.column);
-
             ProjectsService.createColumn(vm.column).then(function(response) {
                 if (response.status === 201) {
                     $uibModalInstance.close(response.data);

@@ -1,7 +1,7 @@
-<form name="form" role="form" ng-submit="vm.createColumn()">
+<form name="form" role="form" ng-submit="vm.editColumn()">
     <div class="modal-header">
         <button ng-click="vm.close()" type="button" class="close">&times;</button>
-        <h3 class="modal-title" id="modal-title">Create column</h3>
+        <h3 class="modal-title" id="modal-title">Edit column</h3>
     </div>
     <div class="modal-body row" id="modal-body">
         <div class="form-group col-xs-6" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
@@ -41,6 +41,6 @@
 
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </div>
 </form>

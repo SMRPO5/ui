@@ -179,6 +179,36 @@
             });
         }
 
+        function openEditColumnModal(board, column) {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/editColumn/editColumn.view.html',
+                controller: 'EditColumnController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                size: 'medium',
+                resolve: {
+                    board: board,
+                    column: column
+                }
+            });
+        }
+
+        function openSetBoundaryColumnsModal(board, column) {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/setBoundaryColumns/setBoundaryColumns.view.html',
+                controller: 'SetBoundaryColumnsController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                backdrop: 'static',
+                keyboard: false,
+                size: 'medium',
+                resolve: {
+                    board: board,
+                    deletedColumn: column
+                }
+            });
+        }
+
         return {
             openAddGroupModal: openAddGroupModal,
             openEditGroupModal: openEditGroupModal,
@@ -192,7 +222,9 @@
             removeProjectModal: removeProjectModal,
             openShowCriticalCardsModal: openShowCriticalCardsModal,
             openEditBoardModal: openEditBoardModal,
-            openCreateColumnModal: openCreateColumnModal
+            openCreateColumnModal: openCreateColumnModal,
+            openEditColumnModal: openEditColumnModal,
+            openSetBoundaryColumnsModal: openSetBoundaryColumnsModal
         }
     }
 

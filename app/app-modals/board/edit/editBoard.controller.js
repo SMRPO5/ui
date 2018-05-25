@@ -31,11 +31,23 @@
             $uibModalInstance.dismiss();
         };
 
+        vm.editColumn = function(column) {
+            ModalProvider.openEditColumnModal(vm.board, column).result.then(function(editedColumn) {
+                column = editedColumn;
+            });
+        };
+
         vm.deleteColumn = function(column, isParentColumn) {
             if(!column.canDelete) {
                 return;
             }
             ProjectsService.deleteColumn(column).then(function() {
+                if(column.first_boundary_column || column.second_boundary_column ||
+                    column.high_priority_column || column.acceptance_ready_column) {
+                    ModalProvider.openSetBoundaryColumnsModal(vm.board, column).result.then(function(updatedBoard) {
+                        vm.board = updatedBoard;
+                    });
+                }
                 if(isParentColumn) {
                     _.remove(vm.board.columns, function(col){
                         return col.id === column.id;
@@ -85,7 +97,7 @@
             });
             columns[index].type = getColumnType(columns[index]);
             columns[index].canDelete = canDelete;
-            columns[index].tooltip = !canDelete ? 'Cards or subcolumns are present. Cannot delete!': '';
+            columns[index].tooltip = !canDelete ? 'Cards or subcolumns are present. Cannot delete!': 'Delete column.';
         }
 
     }

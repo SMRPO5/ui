@@ -1,0 +1,42 @@
+<form name="form" role="form" ng-submit="vm.setBoundaryColumns()">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Set new boundary column</h3>
+    </div>
+    <div class="modal-body row" id="modal-body">
+        <div ng-if="vm.showFirstBoundaryColumnSelector" class="form-group col-xs-6" ng-class="{ 'has-error': form.first_boundary_column.$dirty && form.first_boundary_column.$error.required }">
+            <label for="first_boundary_column">First boundary column</label>
+            <select ng-model="vm.first_boundary_column" id="first_boundary_column" class="form-control" required>
+                <option></option>
+                <option ng-value="column" ng-repeat="column in vm.columns">{{ column.name }}</option>
+            </select>
+            <span ng-show="form.first_boundary_column.$dirty && form.first_boundary_column.$error.required" class="help-block">First boundary column is required</span>
+        </div>
+        <div ng-if="vm.showSecondBoundaryColumnSelector"  class="form-group col-xs-6" ng-class="{ 'has-error': form.second_boundary_column.$dirty && form.second_boundary_column.$error.required }">
+            <label for="second_boundary_column">Second boundary column</label>
+            <select ng-model="vm.second_boundary_column" id="second_boundary_column" class="form-control" required>
+                <option></option>
+                <option ng-value="column" ng-repeat="column in vm.columns">{{ column.name }}</option>
+            </select>
+            <span ng-show="form.second_boundary_column.$dirty && form.second_boundary_column.$error.required" class="help-block">Second boundary column is required</span>
+        </div>
+        <div ng-if="vm.showHighPriorityColumnSelector"  class="form-group col-xs-6" ng-class="{ 'has-error': form.high_priority_column.$dirty && form.high_priority_column.$error.required }">
+            <label for="high_priority_column">High priority column</label>
+            <select ng-model="vm.high_priority_column" id="high_priority_column" class="form-control" required>
+                <option></option>
+                <option ng-value="column" ng-repeat="column in vm.columns">{{ column.name }}</option>
+            </select>
+            <span ng-show="form.high_priority_column.$dirty && form.high_priority_column.$error.required" class="help-block">High priority column is required</span>
+        </div>
+        <div  ng-if="vm.showAcceptanceReadyColumnSelector" class="form-group col-xs-6" ng-class="{ 'has-error': form.acceptance_ready_column.$dirty && form.acceptance_ready_column.$error.required }">
+            <label for="acceptance_ready_column">Acceptance ready column</label>
+            <select ng-model="vm.acceptance_ready_column" id="acceptance_ready_column" class="form-control" required>
+                <option></option>
+                <option ng-value="column" ng-repeat="column in vm.columns">{{ column.name }}</option>
+            </select>
+            <span ng-show="form.acceptance_ready_column.$dirty && form.acceptance_ready_column.$error.required" class="help-block">Acceptance ready column is required</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
