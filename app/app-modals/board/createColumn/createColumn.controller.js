@@ -7,11 +7,12 @@
     CreateColumnController.$inject = ['$rootScope', 'ProjectsService', '$uibModalInstance', 'board'];
     function CreateColumnController($rootScope, ProjectsService, $uibModalInstance, board) {
         var vm = this;
+        var order = angular.isUndefined(board.columns[board.columns.length - 1]) ? 0 : board.columns[board.columns.length - 1].order + 1
 
         vm.column = {
             name: "",
             board: board.id,
-            order: board.columns[board.columns.length - 1].order + 1,
+            order: order,
             card_limit: 0,
             first_boundary_column: false,
             second_boundary_column: false,
