@@ -11,7 +11,7 @@
         </div>
         <div class="board-columns col-xs-12">
             <ul class="list-inline" dnd-list="vm.board.columns">
-                <li ng-repeat="column in vm.board.columns" dnd-draggable="column" dnd-moved="vm.board.columns.splice($index, 1)" dnd-type="column.type">
+                <li ng-repeat="column in vm.board.columns" dnd-draggable="column" dnd-moved="vm.columnMoved(column, undefined, $index)" dnd-type="column.type">
                     <div class="board-column">
                         <div class="board-column-header">
                             {{ column.name }}&nbsp;
@@ -22,11 +22,12 @@
                         </div>
                         <div class="board-column-body">
                             <ul class="list-inline" dnd-list="column.subcolumns" dnd-allowed-types="column.allowedTypes">
-                                <li ng-repeat="subcolumn in column.subcolumns" dnd-draggable="subcolumn" dnd-moved="column.subcolumns.splice($index, 1)" dnd-type="subcolumn.type">
+                                <li ng-repeat="subcolumn in column.subcolumns" dnd-draggable="subcolumn" dnd-moved="vm.columnMoved(column, subcolumn, $index)" dnd-type="subcolumn.type">
                                     <div class="board-column">
                                         <div class="board-column-header">
                                             {{ subcolumn.name }}&nbsp;
                                             <span class="pull-right">
+                                                <i uib-tooltip="Edit column" class="fas fa-pencil-alt clickable" ng-click="vm.editColumn(subcolumn)"></i>
                                                 <i uib-tooltip="{{ subcolumn.tooltip }}" ng-class="subcolumn.canDelete ? 'fas fa-times clickable': 'fas fa-times clickable disableds'" ng-click="vm.deleteColumn(subcolumn, false)"></i>
                                             </span>
                                         </div>
