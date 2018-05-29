@@ -78,11 +78,6 @@
                         <td>{{ history.revision.user.email }}</td>
                         <td>{{ history.revision.date_created | amDateFormat:'DD.MM.YYYY'}}</td>
                 </tr>
-                <tr ng-repeat="history in  vm.cardWipViolations | orderBy:orderByField:reverseSort">
-                        <td>{{ history.revision.comment }}</td>
-                        <td>{{ history.revision.user.email }}</td>
-                        <td>{{ history.revision.date_created | amDateFormat:'DD.MM.YYYY'}}</td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -98,7 +93,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="wip in  vm.cardWipViolations | orderBy:orderByField:reverseSort">
+                        <tr ng-repeat="wip in vm.cardWipViolations | orderBy:orderByField:reverseSort">
                                 <td>{{ wip.reason }}</td>
                                 <td>{{ wip.violation_by.email }}</td>
                                 <td>{{ wip.created_at | amDateFormat:'DD.MM.YYYY'}}</td>

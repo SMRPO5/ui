@@ -1,6 +1,6 @@
 "use strict";
 (function() {
-    function boardDirective($rootScope, $location, ModalProvider) {
+    function boardDirective($rootScope, $location, ModalProvider, ProjectsService) {
         return {
             scope: {
                 board: '=board'
@@ -19,8 +19,8 @@
                 $scope.editBoard = function($event, board) {
                     $event.preventDefault();
                     $event.stopPropagation();
-                    ModalProvider.openEditBoard(board).result.then(function(data){
-                        $scope.board = data;
+                    ModalProvider.openEditBoardModal(board).result.then(function(data){
+                        //$scope.board = data;
                     });
                 };
 
@@ -29,6 +29,14 @@
                     $event.stopPropagation();
                     ModalProvider.createProject(board).result.then(function(data) {
                         $scope.board.projects.push(data);
+                    });
+                };
+
+                $scope.copyBoard = function($event, board) {
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    ProjectsService.copyBoard(board.id).then(function(response) {
+                        $rootScope.$broadcast('board_added', response)
                     });
                 };
 
@@ -57,5 +65,5 @@
 
     angular
         .module('app')
-        .directive('boardPreview', ['$rootScope', '$location', 'ModalProvider', boardDirective]);
+        .directive('boardPreview', ['$rootScope', '$location', 'ModalProvider', 'ProjectsService', boardDirective]);
 })();

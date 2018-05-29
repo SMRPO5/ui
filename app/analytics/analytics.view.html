@@ -1,0 +1,165 @@
+<!--<h1>Analytics</h1>
+
+<p>Click on a project to view and edit the project. You can add a new project <button type="button" class="btn btn-default" ng-click="vm.createProject($event)">here</button>.</p>
+
+<div class="button-wrapper row" ng-repeat="project in vm.projects">
+    <span class="col-xs-3">
+        <button type="button" class="btn btn-default btn-block" ng-click="vm.openProjectModal($event, $index)">{{project.name}}</button>
+    </span>
+    <span class="col-xs-9"/>-->
+<div class="row">
+    <div class="col-xs-4">
+    <form name="formAnalytics"  role="form" ng-submit="vm.getCardTime()">
+        <div class="modal-body row">
+            <div class="modal-header">
+                </br>
+                <label for="project">Update graph</label>
+                </br>
+                <!--<h3 class="modal-title" id="modal-title">Create card</h3>-->
+                <button type="button" class="btn btn-default" ng-click="vm.reset()">Reset</button>
+                <button  type="submit" class="btn btn-primary">Update</button>
+            </div>
+            <!--<div class="modal-body row" id="modal-body">-->
+            <div class="form-group col-xs-12" ng-class="{ 'has-error': form.project.$dirty}">
+                <label for="project">Projects</label>
+                <multiselect ng-required="true" required  ng-model="vm.options.projects" id="project" options="vm.projects" id-prop="id" display-prop="name">
+                </multiselect>
+                <span ng-show="form.project.$dirty" class="help-block">Project is required</span>
+            </div>
+            <div class="form-group col-xs-12">
+                <div class = "row">
+                    <div class="form-group col-xs-6">
+                        <label for="creation date">Start creation date</label></br>
+                        <p class="input-group">
+                            <input type="text" id="StartCreation" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.startCreation" is-open="vm.popup.open1" datepicker-options="vm.startOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="vm.popup.open1 = true">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="form-group col-xs-6" >
+                        <label for="creation date">End creation date</label></br>
+                        <p class="input-group">
+                            <input type="text" id="EndCreation" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.endCreation" is-open="vm.popup.open2" datepicker-options="vm.endOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.popup.open2 = true">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12">
+                <div class = "row">
+                    <div class="form-group col-xs-6">
+                        <label for="startFinished date">Card finished date start</label></br>
+                        <p class="input-group">
+                            <input type="text" id="startFinished" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.startFinished" is-open="vm.popup.open3" datepicker-options="vm.startOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.popup.open3 = true">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="form-group col-xs-6" >
+                        <label for="endFinished date">Card finished date end</label></br>
+                        <p class="input-group">
+                            <input type="text" id="endFinished" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.endFinished" is-open="vm.popup.open4" datepicker-options="vm.endOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.popup.open4 = true">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12">
+                <div class = "row">
+                    <div class="form-group col-xs-6">
+                        <label for="startDevelopment date">Card development start</label></br>
+                        <p class="input-group">
+                            <input type="text" id="startDevelopment" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.startDevelopment" is-open="vm.popup.open5" datepicker-options="vm.startOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.popup.open5 = true">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="form-group col-xs-6" >
+                        <label for="endDevelopment date">Card development end</label></br>
+                        <p class="input-group">
+                            <input type="text" id="endDevelopment" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.endDevelopment" is-open="vm.popup.open6" datepicker-options="vm.endOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.popup.open6 = true">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12">
+                <div class = "row">
+                    <div class="form-group col-xs-6">
+                        <label for="FromSize">From size</label>
+                        <input type="number" name="size" id="size" class="form-control" step="0.1" min="0" max="{{vm.max}}" ng-change="vm.setMin()" ng-model="vm.options.fromSize"c/>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label for="ToSize">To size</label>
+                        <input type="number" name="size" id="size" class="form-control" step="0.1" min="{{vm.min}}" max="100" ng-change="vm.setMax()" ng-model="vm.options.toSize"c/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-xs-12">
+                <label for="type">Card type</label>
+                <select ng-model="vm.options.type" id="type" class="form-control" required>
+                    <option ng-value="-1">All</option>
+                    <option ng-value="cardType.id" ng-repeat="cardType in vm.cardTypes">{{ cardType.name }}</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    </div>
+    <div class="col-xs-8" >
+        </br>
+        </br>
+        </br>
+        <label for="project">Select graphs</label>
+        </br>
+        <uib-tabset  active="activeJustified" justified="true">
+                <uib-tab  index="0" heading="LeadTime"  select="vm.setIndex(0)">
+                    </br>
+                    <div class="col-xs-12" fusioncharts
+                    width="800"
+                    height="500"
+                    type="mscombi2d"
+                    dataSource="{{vm.dataSource}}" >
+                    </div>
+                </uib-tab>
+                <uib-tab index="1" heading="ColumnTime"  select="vm.setIndex(1)">
+                    </br>
+                        <div class="col-xs-12" fusioncharts
+                        width="800"
+                        height="500"
+                        type="mscombi2d"
+                        dataSource="{{vm.dataSource2}}" >
+                        </div>
+                </uib-tab>
+                <uib-tab index="2" heading="WIP Violations"  select="vm.setIndex(2)">
+                    </br>
+                    <div class="col-xs-12" fusioncharts
+                         width="800"
+                         height="500"
+                         type="mscombi2d"
+                         dataSource="{{vm.dataSource3}}" >
+                    </div>
+                </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

@@ -12,7 +12,8 @@
         vm.canEdit = (card.is_in_requested && ($rootScope.hasRoleForProject(project, 'Kanban Master') || $rootScope.hasRoleForProject(project, 'Product Owner') && card.type.name !== 'Silver bullet')) ||
             (!card.is_in_requested && (!$rootScope.hasRoleForProject(project, 'Product Owner') || $rootScope.hasRoleForProject(project, 'Kanban Master'))) &&
             !card.is_in_done;
-        vm.is_feature_and_kanban_master = (card.type.name === 'Feature request' && $rootScope.hasRoleForProject(project, 'Kanban Master') && !$rootScope.hasRoleForProject(project, 'Product Owner'));
+        //debugger;
+        vm.is_feature_and_kanban_master = (card.type.name === 'Feature request' && $rootScope.hasRoleForProject(project, 'Kanban Master'));
         vm.is_developer = $rootScope.hasRoleForProject(project, 'Developer');
         vm.cardData = card;
         vm.cardData.deadline = moment(vm.cardData.deadline).toDate();

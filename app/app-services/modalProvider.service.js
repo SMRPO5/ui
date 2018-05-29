@@ -109,7 +109,9 @@
                 controllerAs: 'vm',
                 appendTo: angular.element($document[0].querySelector('.modal_container')),
                 resolve: {
-                    project: project
+                    project: function() {
+                        return project;
+                    }
                 }
             });
         }
@@ -151,6 +153,62 @@
             });
         }
 
+        function openEditBoardModal(board) {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/edit/editBoard.view.html',
+                controller: 'EditBoardController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                size: 'lg',
+                resolve: {
+                    board: board
+                }
+            });
+        }
+
+        function openCreateColumnModal(board) {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/createColumn/createColumn.view.html',
+                controller: 'CreateColumnController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                size: 'medium',
+                resolve: {
+                    board: board
+                }
+            });
+        }
+
+        function openEditColumnModal(board, column) {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/editColumn/editColumn.view.html',
+                controller: 'EditColumnController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                size: 'medium',
+                resolve: {
+                    board: board,
+                    column: column
+                }
+            });
+        }
+
+        function openSetBoundaryColumnsModal(board, column) {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/setBoundaryColumns/setBoundaryColumns.view.html',
+                controller: 'SetBoundaryColumnsController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                backdrop: 'static',
+                keyboard: false,
+                size: 'medium',
+                resolve: {
+                    board: board,
+                    deletedColumn: column
+                }
+            });
+        }
+
         return {
             openAddGroupModal: openAddGroupModal,
             openEditGroupModal: openEditGroupModal,
@@ -162,7 +220,11 @@
             openAddBoard: openAddBoard,
             createProject: createProject,
             removeProjectModal: removeProjectModal,
-            openShowCriticalCardsModal: openShowCriticalCardsModal
+            openShowCriticalCardsModal: openShowCriticalCardsModal,
+            openEditBoardModal: openEditBoardModal,
+            openCreateColumnModal: openCreateColumnModal,
+            openEditColumnModal: openEditColumnModal,
+            openSetBoundaryColumnsModal: openSetBoundaryColumnsModal
         }
     }
 

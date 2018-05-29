@@ -440,7 +440,44 @@ main {
   border:2px solid red;
   /* add 'border-color: transparent' if you wish no border to show initially */
 }
+
 .borderBlink {
   -webkit-animation: borderBlink 1s step-end infinite;
   animation: borderBlink 1s step-end infinite;
+}
+
+.board-columns {
+
+  ul {
+    list-style-type: none;
+    padding: 0px;
+    min-height: 30px;
+
+    li {
+      vertical-align: top;
+    }
+  }
+
+  .board-column {
+    min-width: 50px;
+    min-height: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 1px solid black;
+    margin: 2px;
+
+    .board-column-header {
+      background-color: #428bca;
+      padding: 2px 5px;
+      text-align: center;
+      margin-bottom: 2px;
+      .clickable {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.fa.disabled, .fas.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
