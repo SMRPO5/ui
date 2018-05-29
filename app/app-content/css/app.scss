@@ -6,6 +6,15 @@ a {
   cursor: pointer;
 }
 
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
 textarea {
   resize: vertical;
 }
@@ -13,6 +22,21 @@ textarea {
 .nav .active {
   color: #fff !important;
   background-color: transparent !important;
+}
+
+.large-modal .modal-dialog {
+  width: 90%;
+}
+
+.my-modal-popup{
+
+    @media (min-width: 1px){
+
+        .modal-lg {
+            width: 90%;
+        }
+    }
+
 }
 
 .main_container {
@@ -227,7 +251,6 @@ textarea {
   }
 
   .header {
-    cursor: pointer;
     text-align: center;
     background-color: #64afa0;
     border-top-left-radius: 2px;
@@ -235,8 +258,11 @@ textarea {
     font-weight: bold;
     padding: 5px;
 
-    &:hover {
-      text-decoration: underline;
+    &.hover {
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
 
     .open-board {
@@ -480,4 +506,8 @@ main {
 .fa.disabled, .fas.disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+ul[dnd-list] .dndDraggingSource {
+    display: none;
 }

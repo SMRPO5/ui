@@ -159,7 +159,7 @@
                 controller: 'EditBoardController',
                 controllerAs: 'vm',
                 appendTo: angular.element($document[0].querySelector('.modal_container')),
-                size: 'lg',
+                windowClass: 'large-modal',
                 resolve: {
                     board: board
                 }
