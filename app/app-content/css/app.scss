@@ -341,6 +341,10 @@ textarea {
       background-color: #af4c4c;
     }
 
+    &.rejected-card-type {
+      background-color: #a80fa8;
+    }
+
     &:hover {
       text-decoration: underline;
     }

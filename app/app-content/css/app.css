@@ -271,6 +271,9 @@ textarea {
 .card .header.silver-bullet {
   background-color: #af4c4c;
 }
+.card .header.rejected-card-type {
+  background-color: #a80fa8;
+}
 .card .header:hover {
   text-decoration: underline;
 }

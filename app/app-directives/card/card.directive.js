@@ -18,6 +18,8 @@
                  $scope.getClassColor = function() {
                      if ($scope.card.type.name === 'Silver bullet') {
                          return 'silver-bullet';
+                     } else if ($scope.card.type.name === 'Rejected') {
+                            return 'rejected-card-type';
                      } else {
                          return 'feature-request'
                      }
