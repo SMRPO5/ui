@@ -1,4 +1,37 @@
 ﻿<div class="row">
+    <div class="col-xs-12">
+        <div class="board-preview">
+            <div class="header">
+                <span>Projects</span>
+                <div class="actions pull-right">
+                    <span ng-click="createProject($event)" style="padding-right: 5px; cursor: pointer" class="clickable">Create Project</span>
+                </div>
+            </div>
+            <div data-simplebar class="body simplebar-vertical-only">
+                <div class="row">
+                    <div class="col-xs-6" ng-repeat="project in vm.projects">
+                        <div class="project-preview" ng-click="hasRole('Kanban Master') && vm.editProject($index, project)">
+                            <div class="project-header" ng-class="{'clickable': hasRole('Kanban Master')}">
+                                {{ project.name }}
+                            </div>
+                            <div class="project-body row">
+                                <div class="col-xs-6">
+                                    <span>Start date: {{ project.start_date | amDateFormat:'DD.MM.YYYY' }}</span>
+                                </div>
+                                <div class="col-xs-6">
+                                    <span class="pull-right">End date: {{ project.estimated_end_date | amDateFormat:'DD.MM.YYYY' }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <hr/>
+        <div style="text-align: center; padding-bottom: 10px;"><b>BOARDS</b></div>
+    </div>
     <div class="col-xs-6" ng-repeat="board in vm.boards">
         <board-preview board="board"></board-preview>
     </div>

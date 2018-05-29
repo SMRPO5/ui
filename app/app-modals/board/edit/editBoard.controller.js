@@ -54,11 +54,27 @@
                     });
                 } else {
                     _.each(vm.board.columns, function(parentColumn, parentIndex) {
-                        _.remove(vm.board.columns[parentIndex], function(col){
+                        _.remove(vm.board.columns[parentIndex].subcolumns, function(col){
                             return col.id === column.id;
                         });
                     });
                 }
+            });
+        };
+
+        vm.columnMoved = function(column, subcolumn, index) {
+            if(subcolumn === undefined) {
+                vm.board.columns.splice(index, 1);
+            } else {
+                column.subcolumns.splice(index, 1);
+                subcolumn.parent = null;
+            }
+            // Bottom code makes sure that column.canDelete updates for column and subcolumn after every move...
+            _.each(vm.board.columns, function(column) {
+                recheckIfColumnCanBeDeleted(column);
+                _.each(column.subcolumns, function(subcolumn) {
+                    recheckIfColumnCanBeDeleted(subcolumn);
+                });
             });
         };
 
@@ -91,13 +107,17 @@
             var clonedAllCols = _.filter(allColumns, function(col) {
                 return col.id !== columns[index].id;
             });
-            var canDelete = columns[index].has_cards || columns[index].subcolumns.length === 0;
             columns[index].allowedTypes = _.map(clonedAllCols, function(c) {
                 return getColumnType(c);
             });
             columns[index].type = getColumnType(columns[index]);
-            columns[index].canDelete = canDelete;
-            columns[index].tooltip = !canDelete ? 'Cards or subcolumns are present. Cannot delete!': 'Delete column.';
+            recheckIfColumnCanBeDeleted(columns[index]);
+        }
+
+        function recheckIfColumnCanBeDeleted(column) {
+            var canDelete = !column.has_cards && ((column.subcolumns.length === 0 && column.parent === null) || column.parent !== null);
+            column.canDelete = canDelete;
+            column.tooltip = !canDelete ? 'Cards or subcolumns are present. Cannot delete!': 'Delete column.';
         }
 
     }
