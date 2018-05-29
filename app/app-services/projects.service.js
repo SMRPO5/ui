@@ -13,7 +13,7 @@
         }
 
         function getBoard(boardId) {
-            return $http.get(envService.read('apiUrl') + 'projects/boards/' + boardId, AuthenticationService.getHeaders());
+            return $http.get(envService.read('apiUrl') + 'projects/boards/' + boardId + '/', AuthenticationService.getHeaders());
         }
 
         function copyBoard(boardId) {
