@@ -333,7 +333,6 @@
                     for (var j = 0; j < column.subcolumns.length; j++) {
                         var subcolumn = column.subcolumns[j];
                         columns[subcolumn.id] = subcolumn;
-
                     }
                     columnOrder = columnOrder.concat(column.subcolumns);
                     numberOfColumns += column.subcolumns.length;
@@ -384,6 +383,9 @@
                     var cardForColumn = lane.cardsForColumns.find(function (cardsForColumn) {
                         return cardsForColumn.column.id === card.column;
                     });
+                    if(cardForColumn === undefined) {
+                        console.log("Card is in parent column, but should not be!", card);
+                    }
                     cardForColumn.cards.push(card);
                 }
                 lanesWithFilteredCards.push(lane);
@@ -407,27 +409,34 @@
         }
 
         function generateColumnTypes(lane, columns) {
-
+            var isProductOwner = $rootScope.hasRoleForProject(lane.project, 'Product Owner');
+            var isKanbanMaster = $rootScope.hasRoleForProject(lane.project, 'Kanban Master');
             for (var i = 0; i < columns.length; i++) {
                 var currentColumn = columns[i];
                 var previousColumn = i > 0 ? columns[i - 1] : undefined;
                 var nextColumn = i < columns.length ? columns[i + 1] : undefined;
                 var currentColumnType = getColumnForType(lane, currentColumn);
                 var allowedColumnTypes = [];
-                if (previousColumn !== undefined) {
-                    allowedColumnTypes.push(getColumnForType(lane, previousColumn));
+                if(isProductOwner || isKanbanMaster) {
+                    allowedColumnTypes = _.map(columns, function(column) {
+                        return getColumnForType(lane, column);
+                    });
+                } else {
+                    if (previousColumn !== undefined) {
+                        allowedColumnTypes.push(getColumnForType(lane, previousColumn));
+                    }
+                    if (nextColumn !== undefined) {
+                        allowedColumnTypes.push(getColumnForType(lane, nextColumn));
+                    }
+                    allowedColumnTypes.push(currentColumnType);
                 }
-                if (nextColumn !== undefined) {
-                    allowedColumnTypes.push(getColumnForType(lane, nextColumn));
-                }
-                allowedColumnTypes.push(currentColumnType);
+
                 vm.columnTypes[lane.project.id][currentColumn.id] = {
                     type: currentColumnType,
                     allowedTypes: allowedColumnTypes
                 }
             }
         }
-
     }
 
 })();
