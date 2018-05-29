@@ -43,6 +43,10 @@
                 $scope.editProject = function($index, project) {
                     ModalProvider.openEditProjectModal(project).result.then(function(data) {
                         $scope.board.projects[$index] = data;
+                        if (project.board !== data.board) {
+                            $scope.board.projects.splice($index, 1);
+                            $rootScope.$broadcast('project_added', data);
+                        }
                     }, function(error){});
                 };
 
@@ -58,7 +62,13 @@
                     $event.preventDefault();
                     $event.stopPropagation();
                     $location.path('/board/' + board.id);
-                }
+                };
+
+                $rootScope.$on('project_added', function(event, project) {
+                    if ($scope.board.id === project.board) {
+                        $scope.board.projects.push(project);
+                    }
+                });
             }
         }
     }

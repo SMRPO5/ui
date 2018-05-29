@@ -198,7 +198,7 @@
                             console.log(body);
 
                             // Uncomment bottom line to actually sent eMails to those addresses
-                            //CardsService.sendMail(kbMastri[o], body);
+                            CardsService.sendMail(kbMastri[o], body);
                         }
                     }
                 }

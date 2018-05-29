@@ -23,6 +23,71 @@
         });
 
 
+
+        vm.suitableBoards = [];
+
+        ProjectsService.getBoards().then(function(result){
+            if(result.status === 200) {
+
+                var thisProjectBoard = null;
+
+                var boards = result.data;
+
+                for (var i = 0 ; i < boards.length ; i++){
+                    for (var j = 0 ; j < boards[i].projects.length; j++){
+                        if (boards[i].projects[j].id === project.id){
+                            thisProjectBoard = boards[i].columns;
+                            vm.pBoard = boards[i];
+                        }
+                    }
+                }
+
+
+                    //console.log(boards);
+                    //console.log(thisProjectBoard);
+
+
+
+                    for (var i = 0 ; i < boards.length ; i++){
+                        var suitable = true;
+                        var tabla = boards[i];
+
+                        var max = Math.max(tabla.columns.length, thisProjectBoard.length);
+
+                        if (tabla.columns.length === thisProjectBoard.length){
+                            for (var j = 0 ; j < tabla.columns.length ; j++){
+                                var stolpec = tabla.columns[j];
+                                var podstolpci = stolpec.subcolumns;
+
+                                if (stolpec.name === thisProjectBoard[j].name){
+                                    if (podstolpci.length === thisProjectBoard[j].subcolumns.length) {
+
+                                        for (var k = 0; k < podstolpci.length; k++) {
+                                            var podstolpec = podstolpci[k];
+                                            if (podstolpec.name !== thisProjectBoard[j].subcolumns[k].name) {
+                                                suitable = false;
+                                            }
+                                        }
+                                    }
+                                } else{
+                                    suitable = false;
+                                }
+                            }
+                        } else {
+                            suitable = false;
+                        }
+
+                        //console.log(suitable);
+                        if (suitable) {
+                            vm.suitableBoards.push(boards[i]);
+                        }
+                    }
+            }
+        });
+
+        //console.log(vm.suitableBoards);
+
+
         vm.hide = function() {
             //$mdDialog.hide();
         };
@@ -74,6 +139,8 @@
 
         vm.editProject = function() {
 
+            //console.log(vm.pBoard);
+
             var projectData = {
                 name: vm.name,
                 codename: vm.code,
@@ -81,7 +148,8 @@
                 start_date: vm.startDate,
                 estimated_end_date: vm.deadline,
                 dev_group: vm.devGroup.id,
-                is_active: true
+                is_active: true,
+                board: vm.pBoard.id
             };
 
             //console.log("Edit Project!");

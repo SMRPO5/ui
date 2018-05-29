@@ -9,6 +9,8 @@
     function HomeController(UserService, $scope, $rootScope, $location, ProjectsService, ModalProvider) {
         var vm = this;
 
+        console.log(vm);
+
         $rootScope.helpTemplate = 'app-popovers/home-help.popover.html';
 
         UserService.getUsers().then(function(response) {
