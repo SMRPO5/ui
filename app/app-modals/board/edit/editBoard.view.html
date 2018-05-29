@@ -21,7 +21,7 @@
                             </span>
                         </div>
                         <div class="board-column-body">
-                            <ul class="list-inline" dnd-list="column.subcolumns" dnd-allowed-types="column.allowedTypes">
+                            <ul class="list-inline" dnd-list="column.subcolumns" dnd-allowed-types="column.allowedTypes" dnd-horizontal-list="true">
                                 <li ng-repeat="subcolumn in column.subcolumns" dnd-draggable="subcolumn" dnd-moved="vm.columnMoved(column, subcolumn, $index)" dnd-type="subcolumn.type">
                                     <div class="board-column">
                                         <div class="board-column-header">

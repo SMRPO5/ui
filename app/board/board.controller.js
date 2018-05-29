@@ -291,6 +291,9 @@
         function moveCardToColumn(newIndex, card, movedToColumn) {
             for (var i = 0; i < vm.lanes.length; i++) {
                 var lane = vm.lanes[i];
+                if(lane.project.id !== card.project) {
+                    continue;
+                }
                 var oldCardForColumn = lane.cardsForColumns.find(function (cardsForColumn) {
                     return cardsForColumn.column.id === card.column;
                 });
@@ -308,8 +311,7 @@
                 card.column = movedToColumn.id;
                 oldCardForColumn.cards.splice(oldColumnCardIndex, 1);
                 newCardForColumn.cards.splice(newIndex, 0, card);
-                CardsService.updateCardColumn(card.id, movedToColumn.id).then(function (response) {
-                })
+                CardsService.updateCardColumn(card.id, movedToColumn.id).then(function (response) {});
             }
         }
 
