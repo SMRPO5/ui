@@ -18,7 +18,7 @@
         ProjectsService.getBoards().then(function (response) {
             if (response.status === 200) {
                 vm.boards = response.data;
-                vm.selectedBoard = $routeParams.boardId !== undefined ? $routeParams.boardId : vm.boards[0].id;
+                vm.selectedBoard = $routeParams.boardId !== undefined ? parseInt($routeParams.boardId) : vm.boards[0].id;
                 console.log('Successfully fetched boards!', vm.boards);
                 vm.onBoardChange();
             }
@@ -413,24 +413,34 @@
         function generateColumnTypes(lane, columns) {
             var isProductOwner = $rootScope.hasRoleForProject(lane.project, 'Product Owner');
             var isKanbanMaster = $rootScope.hasRoleForProject(lane.project, 'Kanban Master');
+            var isProductOwnerOrKanbanMaster = isProductOwner || isKanbanMaster;
+            var columnsToHighPriorityColumnIncludingHighPriorityColumn = _.dropRightWhile(columns, function(column) {
+                return !column.high_priority_column;
+            });
+            var columnsAfterAcceptanceReadyColumnIncludingAcceptanceReadyColumn = _.dropWhile(columns, function(column) {
+                return !column.acceptance_ready_column;
+            });
+            var columnsAfterAcceptanceReadyColumnIncludingAcceptanceReadyColumnAllowedTypes = _.map(columnsAfterAcceptanceReadyColumnIncludingAcceptanceReadyColumn, function(column) {
+                return getColumnForType(lane, column);
+            });
+
             for (var i = 0; i < columns.length; i++) {
                 var currentColumn = columns[i];
                 var previousColumn = i > 0 ? columns[i - 1] : undefined;
                 var nextColumn = i < columns.length ? columns[i + 1] : undefined;
                 var currentColumnType = getColumnForType(lane, currentColumn);
                 var allowedColumnTypes = [];
-                if(isProductOwner || isKanbanMaster) {
-                    allowedColumnTypes = _.map(columns, function(column) {
-                        return getColumnForType(lane, column);
-                    });
-                } else {
-                    if (previousColumn !== undefined) {
-                        allowedColumnTypes.push(getColumnForType(lane, previousColumn));
-                    }
-                    if (nextColumn !== undefined) {
-                        allowedColumnTypes.push(getColumnForType(lane, nextColumn));
-                    }
-                    allowedColumnTypes.push(currentColumnType);
+
+                if (previousColumn !== undefined) {
+                    allowedColumnTypes.push(getColumnForType(lane, previousColumn));
+                }
+                if (nextColumn !== undefined) {
+                    allowedColumnTypes.push(getColumnForType(lane, nextColumn));
+                }
+                allowedColumnTypes.push(currentColumnType);
+
+                if(isProductOwnerOrKanbanMaster && _.indexOf(columnsToHighPriorityColumnIncludingHighPriorityColumn, currentColumn) !== -1) {
+                    allowedColumnTypes = _.concat(allowedColumnTypes, columnsAfterAcceptanceReadyColumnIncludingAcceptanceReadyColumnAllowedTypes);
                 }
 
                 vm.columnTypes[lane.project.id][currentColumn.id] = {
