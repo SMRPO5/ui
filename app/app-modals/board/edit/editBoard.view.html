@@ -21,7 +21,7 @@
                             </span>
                         </div>
                         <div class="board-column-body">
-                            <ul class="list-inline" dnd-list="column.subcolumns" dnd-allowed-types="column.allowedTypes">
+                            <ul class="list-inline" dnd-list="column.subcolumns" dnd-allowed-types="column.allowedTypes" dnd-horizontal-list="true">
                                 <li ng-repeat="subcolumn in column.subcolumns" dnd-draggable="subcolumn" dnd-moved="vm.columnMoved(column, subcolumn, $index)" dnd-type="subcolumn.type">
                                     <div class="board-column">
                                         <div class="board-column-header">
@@ -34,14 +34,14 @@
                                     </div>
                                 </li>
                                 <li class="dndPlaceholder board-column-placeholder">
-                                    Drop subcolumn here!
+                                    Drop <br /> subcolumn <br /> here!
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li class="dndPlaceholder board-column-placeholder">
-                    Drop column here!
+                    Drop <br /> column <br /> here!
                 </li>
             </ul>
         </div>
