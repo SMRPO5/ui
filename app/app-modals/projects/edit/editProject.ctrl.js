@@ -43,23 +43,26 @@
                 }
 
 
-                    //console.log(boards);
-                    //console.log(thisProjectBoard);
+                //console.log(boards);
+                //console.log(thisProjectBoard);
 
 
+                for (var i = 0 ; i < boards.length ; i++) {
+                    if (thisProjectBoard === null) {
+                        vm.suitableBoards.push(boards[i]);
+                    } else {
 
-                    for (var i = 0 ; i < boards.length ; i++){
                         var suitable = true;
                         var tabla = boards[i];
 
                         var max = Math.max(tabla.columns.length, thisProjectBoard.length);
 
-                        if (tabla.columns.length === thisProjectBoard.length){
-                            for (var j = 0 ; j < tabla.columns.length ; j++){
+                        if (tabla.columns.length === thisProjectBoard.length) {
+                            for (var j = 0; j < tabla.columns.length; j++) {
                                 var stolpec = tabla.columns[j];
                                 var podstolpci = stolpec.subcolumns;
 
-                                if (stolpec.name === thisProjectBoard[j].name){
+                                if (stolpec.name === thisProjectBoard[j].name) {
                                     if (podstolpci.length === thisProjectBoard[j].subcolumns.length) {
 
                                         for (var k = 0; k < podstolpci.length; k++) {
@@ -69,7 +72,7 @@
                                             }
                                         }
                                     }
-                                } else{
+                                } else {
                                     suitable = false;
                                 }
                             }
@@ -78,10 +81,11 @@
                         }
 
                         //console.log(suitable);
-                        if (suitable) {
+                        if (suitable || thisProjectBoard === null) {
                             vm.suitableBoards.push(boards[i]);
                         }
                     }
+                }
             }
         });
 
