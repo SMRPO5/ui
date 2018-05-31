@@ -22,6 +22,11 @@
 
         vm.createColumn = function() {
             ModalProvider.openCreateColumnModal(vm.board).result.then(function(column){
+                var hasToggledAnyOption = column.first_boundary_column || column.second_boundary_column ||
+                    column.high_priority_column ||  column.acceptance_ready_column;
+                if(hasToggledAnyOption) {
+                    removeToggledOptionsToAllColumnsButSpecifiedOne(column);
+                }
                 vm.board.columns.push(column);
                 generateAllColumnTypes(vm.board);
             });
@@ -33,6 +38,11 @@
 
         vm.editColumn = function(column) {
             ModalProvider.openEditColumnModal(vm.board, column).result.then(function(editedColumn) {
+                var hasToggledAnyOption = editedColumn.first_boundary_column || editedColumn.second_boundary_column ||
+                    editedColumn.high_priority_column ||  editedColumn.acceptance_ready_column;
+                if(hasToggledAnyOption) {
+                    removeToggledOptionsToAllColumnsButSpecifiedOne(editedColumn);
+                }
                 column = editedColumn;
             });
         };
@@ -79,6 +89,65 @@
         };
 
         $rootScope.helpTemplate = 'app-popovers/login-help.popover.html';
+
+        function updateColumToggledOptionsIfRequired(column, comparingColumn) {
+            var highPriorityColumnSetForBoth = column.high_priority_column && comparingColumn.high_priority_column;
+            var firstBoundaryColumnSetForBoth = column.first_boundary_column && comparingColumn.first_boundary_column;
+            var secondBoundaryColumnSetForBoth = column.second_boundary_column && comparingColumn.second_boundary_column;
+            var acceptanceReadyColumnSetForBoth = column.acceptance_ready_column && comparingColumn.acceptance_ready_column;
+            var updatedComparingColumn = comparingColumn;
+
+            if(highPriorityColumnSetForBoth) {
+                updatedComparingColumn.high_priority_column = false;
+            }
+            if(firstBoundaryColumnSetForBoth) {
+                updatedComparingColumn.first_boundary_column = false;
+            }
+            if(secondBoundaryColumnSetForBoth) {
+                updatedComparingColumn.second_boundary_column = false;
+            }
+            if(acceptanceReadyColumnSetForBoth) {
+                updatedComparingColumn.acceptance_ready_column = false;
+            }
+
+            return {
+                anyOfToggledOptionsIsTrueOnBoth: highPriorityColumnSetForBoth || firstBoundaryColumnSetForBoth ||
+                    secondBoundaryColumnSetForBoth || acceptanceReadyColumnSetForBoth,
+                updatedComparingColumn: updatedComparingColumn
+            }
+        }
+
+        function removeToggledOptionsToAllColumnsButSpecifiedOne(specifiedColumn) {
+            var columnsToUpdate = [];
+            _.each(vm.board.columns, function(column) {
+                if(specifiedColumn.id === column.id) {
+                    return;
+                }
+
+                var updatedData = updateColumToggledOptionsIfRequired(specifiedColumn, column);
+
+                if(updatedData.anyOfToggledOptionsIsTrueOnBoth) {
+                    columnsToUpdate.push(updatedData.updatedComparingColumn);
+                }
+                _.each(column.subcolumns, function(subcolumn) {
+                    if(specifiedColumn.id === subcolumn.id) {
+                        return;
+                    }
+
+                    var updatedData = updateColumToggledOptionsIfRequired(specifiedColumn, subcolumn);
+
+                    if(updatedData.anyOfToggledOptionsIsTrueOnBoth) {
+                        columnsToUpdate.push(updatedData.updatedComparingColumn);
+                    }
+                });
+            });
+            debugger;
+            _.each(columnsToUpdate, function(column) {
+                ProjectsService.editColumn(column).then(function(response) {
+                    console.log('Column updated!', response.data);
+                });
+            });
+        }
 
         function generateAllColumnTypes(currentBoard) {
             allColumns = [];
