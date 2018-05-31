@@ -34,6 +34,18 @@
         vm.editProject = function($index, project) {
             ModalProvider.openEditProjectModal(project).result.then(function(data) {
                 vm.projects[$index] = data;
+                if (project.board !== data.board) {
+                    vm.projects.splice($index, 1);
+                    $rootScope.$broadcast('project_added', data);
+                }
+            }, function(error){});
+        };
+
+        vm.removeProject = function($event, $index, project) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            ModalProvider.removeProjectModal(project).result.then(function() {
+                vm.projects.splice($index, 1);
             }, function(error){});
         };
 

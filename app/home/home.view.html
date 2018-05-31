@@ -13,6 +13,9 @@
                         <div class="project-preview" ng-click="hasRole('Kanban Master') && vm.editProject($index, project)">
                             <div class="project-header" ng-class="{'clickable': hasRole('Kanban Master')}">
                                 {{ project.name }}
+                                <div class="actions pull-right">
+                                    <i ng-show="hasRole('Kanban Master')" class="remove fas fa-times" ng-click="vm.removeProject($event, $index, project)"></i>
+                                </div>
                             </div>
                             <div class="project-body row">
                                 <div class="col-xs-6">

@@ -161,8 +161,6 @@
 
             ProjectsService.editProject(project.id, projectData).then(function (result) {
                 $uibModalInstance.close(result.data);
-                if (result.status === 201) {
-                }
             });
         };
 
