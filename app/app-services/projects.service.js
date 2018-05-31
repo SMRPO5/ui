@@ -81,6 +81,9 @@
                 .then(handleSuccess, handleError('Error editing group'));
         }
 
+        function getColumn(id) {
+            return $http.get(envService.read('apiUrl') + 'projects/columns/' + id + '/',  AuthenticationService.getHeaders());
+        }
 
         function getColumnsForProject(projectId) {
             return $http.get(envService.read('apiUrl') + 'projects/columns/?parent_only=True&ordering=order&lane__project=' + projectId, AuthenticationService.getHeaders())
@@ -134,7 +137,8 @@
             deleteColumn: deleteColumn,
             editColumn: editColumn,
             editBoard: editBoard,
-            copyBoard: copyBoard
+            copyBoard: copyBoard,
+            getColumn: getColumn
         }
     }
 

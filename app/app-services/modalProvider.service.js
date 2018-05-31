@@ -134,6 +134,22 @@
             });
         }
 
+        function openWIPLimitExceededEditColumnModal(cards, callback, cancelCallback) {
+            return $uibModal.open({
+                templateUrl: 'app-modals/board/wipLimitExceededEditColumn/wipLimitExceededEditColumn.view.html',
+                controller: 'WIPLimitExceededEditColumnController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                resolve: {
+                    data: {
+                        cards: cards,
+                        callback: callback,
+                        cancelCallback: cancelCallback
+                    }
+                }
+            });
+        }
+
         function openAddBoard() {
             return $uibModal.open({
                 templateUrl: 'app-modals/board/add/addBoard.view.html',
@@ -217,6 +233,7 @@
             openCreateCardModal: openCreateCardModal,
             openEditCard: openEditCard,
             openWIPLimitExceededModal: openWIPLimitExceededModal,
+            openWIPLimitExceededEditColumnModal: openWIPLimitExceededEditColumnModal,
             openAddBoard: openAddBoard,
             createProject: createProject,
             removeProjectModal: removeProjectModal,
