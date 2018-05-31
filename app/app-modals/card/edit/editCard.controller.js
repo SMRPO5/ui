@@ -46,7 +46,7 @@
         CardsService.getCardTypes(project).then(function(result) {
             if(result.status === 200) {
                 vm.cardTypes = result.data;
-                if (vm.is_feature_and_kanban_master || vm.is_developer) {
+                if (vm.is_feature_and_kanban_master || vm.is_developer || card.type.name === 'Rejected') {
                     vm.cardTypes.push(card.type);
                 }
             }

@@ -279,11 +279,31 @@
                 ModalProvider.openWIPLimitExceededModal(index, item, column, function () {
                     moveCardToColumn(index, item, column)
                 }, function () {
+
                 });
                 return false;
             }
+            if (column.column_type === 1 && item.is_in_done) {
+                item.type.name = 'Rejected';
+            }
             item.column = column.id;// Sets new column id
+            if (column.column_type === 3) {
+                item.is_in_done = true;
+                item.is_in_requested = false;
+                item.is_in_progress = false;
+            }
+            if (column.column_type === 2) {
+                item.is_in_done = false;
+                item.is_in_requested = true;
+                item.is_in_progress = false;
+            }
+            if (column.column_type === 1) {
+                item.is_in_done = false;
+                item.is_in_requested = false;
+                item.is_in_progress = true;
+            }
             CardsService.updateCardColumn(item.id, column.id).then(function (response) {
+                console.log(response);
             });
             return item;
         };
@@ -308,7 +328,25 @@
                         break;
                     }
                 }
+                if (movedToColumn.column_type === 1 && card.is_in_done) {
+                    card.type.name = 'Rejected';
+                }
                 card.column = movedToColumn.id;
+                if (movedToColumn.column_type === 3) {
+                    card.is_in_done = true;
+                    card.is_in_requested = false;
+                    card.is_in_progress = false;
+                }
+                if (movedToColumn.column_type === 2) {
+                    card.is_in_done = false;
+                    card.is_in_requested = true;
+                    card.is_in_progress = false;
+                }
+                if (movedToColumn.column_type === 1) {
+                    card.is_in_done = false;
+                    card.is_in_requested = false;
+                    card.is_in_progress = true;
+                }
                 oldCardForColumn.cards.splice(oldColumnCardIndex, 1);
                 newCardForColumn.cards.splice(newIndex, 0, card);
                 CardsService.updateCardColumn(card.id, movedToColumn.id).then(function (response) {});
