@@ -22,9 +22,15 @@
             <!--<div class="modal-body row" id="modal-body">-->
             <div class="form-group col-xs-12" ng-class="{ 'has-error': form.project.$dirty}">
                 <label for="project">Projects</label>
-                <multiselect ng-required="true" required  ng-model="vm.options.projects" id="project" options="vm.projects" id-prop="id" display-prop="name">
+                <!--<multiselect ng-required="true" required  ng-model="vm.options.projects" id="project" options="vm.projects" id-prop="id" display-prop="name">
                 </multiselect>
                 <span ng-show="form.project.$dirty" class="help-block">Project is required</span>
+            -->
+            <select ng-model="vm.options.project" id="project" class="form-control" ng-change="vm.getColumns()" required>
+                    <option ng-value="" >---</option>
+                    <option ng-value="project.id" ng-repeat="project in vm.projects">{{ project.name }}</option>
+                </select>
+                <span ng-show="form.project.$dirty && form.project.$error.required" class="help-block">Project is required</span>
             </div>
             <div class="form-group col-xs-12">
                 <div class = "row">
@@ -134,7 +140,16 @@
         </br>
         <uib-tabset  active="activeJustified" justified="true">
                 <uib-tab  index="0" heading="LeadTime"  select="vm.setIndex(0)">
-                    </br>
+
+                <label for="start column">Start column</label></br>
+                <div class = "row">
+                <div class="form-group col-xs-6">
+                <select ng-model="vm.options.start_column" id="start_column" class="form-control">
+                        <option ng-value="">---</option>
+                        <option ng-value="column.id" ng-repeat="column in vm.columns">{{ column.name }}</option>
+                    </select>
+                </div>
+                </div>
                     <div class="col-xs-12" fusioncharts
                     width="800"
                     height="500"

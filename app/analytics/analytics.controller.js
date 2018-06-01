@@ -22,6 +22,7 @@
                 vm.cardTypes = result.data;
             }
         });
+        
         vm.baseChart = {
             "chart": {
                 "caption": "Card lead time",
@@ -54,16 +55,18 @@
             vm.min = 0;
             vm.max = 100;
             vm.options = {
-                projects: '',
-                startCreation: '',
-                endCreation: '',
-                startFinished: '',
-                endFinished: '',
-                startDevelopment: '',
-                endDevelopment: '',
+                project: '',
+                start_column:'',
+                end_column:'',
+                start_creation: '',
+                end_creation: '',
+                start_finished: '',
+                end_finished: '',
+                start_development: '',
+                end_development: '',
                 type: -1,
-                fromSize: '',
-                toSize: ''
+                from_size: '',
+                to_size: '',
             };
             console.log(vm.options);
         };
@@ -84,6 +87,16 @@
         };
         vm.endOptions = {
             minDate: new Date()
+        };
+        vm.columns = [];
+        vm.getColumns= function () {
+            ProjectsService.getColumnsForProject(vm.options.project).then(function (result) {
+                if (result.status === 200) {
+                    
+                    vm.columns = result.data;
+                    console.log(result.data);
+                };
+            });
         };
         vm.setMin = function () {
             vm.min = vm.options.fromSize;
@@ -150,6 +163,7 @@
 
                 });*/
                 var result = {data : []};
+                
                 vm.leadTimeAvg = 0;
                 result.data = [12,41,13,5,6,7,11,88,9,33,21];
                 var y = [];
