@@ -25,10 +25,10 @@
         
         vm.baseChart = {
             "chart": {
-                "caption": "Card lead time",
+                "caption": "None",
                 "subcaption": "",
-                "xaxisname": "Cards",
-                "yaxisname": "Days",
+                "xaxisname": "",
+                "yaxisname": "",
                 "numberprefix": ""
             }
             ,
@@ -110,7 +110,9 @@
         };
         vm.updateGraph1 = function () {
             var newDataSource = angular.copy(vm.baseChart);
-            newDataSource.caption = 'Lead card time';
+            newDataSource.chart.caption = 'Lead card time';
+            newDataSource.chart.yaxisname = 'Number of days';
+            newDataSource.chart.xaxisname = 'Cards';
             newDataSource.dataset = vm.dataset2;
             newDataSource.categories[0].category = vm.category2;
             newDataSource.trendlines = [
@@ -129,7 +131,9 @@
         };
         vm.updateGraph2 = function () {
             var newDataSource = angular.copy(vm.baseChart);
-            newDataSource.caption = 'Column card time';
+            newDataSource.chart.caption = ' Numbers of cards per column';
+            newDataSource.chart.yaxisname = 'Number of cards';
+            newDataSource.chart.xaxisname = 'Dates';
             newDataSource.dataset = vm.dataset3;
             newDataSource.categories[0].category = vm.category3;
             vm.dataSource2 = newDataSource;

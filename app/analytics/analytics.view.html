@@ -27,7 +27,6 @@
                 <span ng-show="form.project.$dirty" class="help-block">Project is required</span>
             -->
             <select ng-model="vm.options.project" id="project" class="form-control" ng-change="vm.getColumns()" required>
-                    <option ng-value="" >---</option>
                     <option ng-value="project.id" ng-repeat="project in vm.projects">{{ project.name }}</option>
                 </select>
                 <span ng-show="form.project.$dirty && form.project.$error.required" class="help-block">Project is required</span>
