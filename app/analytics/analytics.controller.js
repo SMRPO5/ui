@@ -58,17 +58,31 @@
                 project: '',
                 start_column:'',
                 end_column:'',
-                start_creation: '',
-                end_creation: '',
-                start_finished: '',
-                end_finished: '',
-                start_development: '',
-                end_development: '',
-                type: -1,
+                start_creation_date: '',
+                end_creation_date: '',
+                start_finished_date: '',
+                end_finished_date: '',
+                start_development_date: '',
+                end_development_date: '',
+                type: '-1',
                 from_size: '',
                 to_size: '',
             };
             console.log(vm.options);
+        };
+
+        vm.removeNil = function (){
+            var data_send = {};
+            for (var key in vm.options) {
+                // check if the property/key is defined in the object itself, not in parent
+                if (vm.options.hasOwnProperty(key)) {       
+                    if(vm.options[key] != '' && vm.options[key] != null && vm.options[key] != '-1'  ){
+                        data_send[key] = vm.options[key];
+                    }    
+                }
+            }
+            //console.log(data_send);
+            return data_send;
         };
         vm.reset();
         vm.defOptions = angular.copy(vm.options);
@@ -109,17 +123,18 @@
                 vm.options.from_size = vm.max;
         };
         vm.blockDate1 = function () {
-            return (vm.options.start_finished == '' && vm.options.end_finished == '' 
-                    && vm.options.start_development == '' && vm.options.end_development == '');
+            return (vm.options.start_finished_date == '' && vm.options.end_finished_date == '' 
+                    && vm.options.start_development_date == '' && vm.options.end_development_date == '');
         };
         vm.blockDate2 = function () {
-            return (vm.options.start_creation == '' && vm.options.end_creation == '' 
-                    && vm.options.start_development == '' && vm.options.end_development == '');
+            return (vm.options.start_creation_date == '' && vm.options.end_creation_date == '' 
+                    && vm.options.start_development_date == '' && vm.options.end_development_date == '');
         };
         vm.blockDate3 = function () {
-            return (vm.options.start_finished == '' && vm.options.end_finished == '' 
-                    && vm.options.start_creation == '' && vm.options.end_creation == '');
+            return (vm.options.start_finished_date == '' && vm.options.end_finished_date == '' 
+                    && vm.options.start_creation_date == '' && vm.options.end_creation_date == '');
         };
+
         vm.updateGraph1 = function () {
             var newDataSource = angular.copy(vm.baseChart);
             newDataSource.chart.caption = 'Lead card time';
@@ -172,12 +187,17 @@
             console.log(vm.options);
 
             if (vm.index == 0) {
+                var data_send = vm.removeNil();
+
                 /*CardsService.getCardLeadTime(vm.options).then(function (result) {
                     if (result.status === 201) {
                         // $uibModalInstance.close(result.data);
                     }
 
                 });*/
+                
+                
+                console.log(data_send);
                 var result = {data : [],};
                 var result2 = [  
                     {id:1 , start_data:"2018-05-20T17:46:17.820309Z",end_data:"2018-05-31T17:46:17.820309Z" } ,
@@ -257,7 +277,7 @@
                 });*/
             }
         };
-    }
+    };
     function formatDate(date) {
         var d = new Date(date);
         var month = '' + (d.getMonth() + 1);
@@ -268,5 +288,5 @@
         if (day.length < 2) day = '0' + day;
         return [day, month].join('-');
        // return [day, month,year].join('-');
-    }
+    };
 })();
