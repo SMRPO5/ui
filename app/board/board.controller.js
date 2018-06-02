@@ -308,6 +308,35 @@
             return item;
         };
 
+        vm.collapsedColumns = [];
+
+        vm.isColumnCollapsed = function(id) {
+            return _.indexOf(vm.collapsedColumns, id) > -1;
+        };
+
+        vm.columnClicked = function(column, isParentColumn) {
+            var hasSubcolumns = isParentColumn && column.subcolumns.length > 0;
+            var isCollapsed = vm.isColumnCollapsed(column.id);
+
+            if(isCollapsed) {
+                vm.collapsedColumns = _.without(vm.collapsedColumns, column.id);
+                if(hasSubcolumns) {
+                    var subcolumnIds = _.map(column.subcolumns, function(subcolumn) {
+                        return subcolumn.id;
+                    });
+                    vm.collapsedColumns = _.difference(vm.collapsedColumns, subcolumnIds);
+                }
+            } else {
+                vm.collapsedColumns.push(column.id);
+                if(hasSubcolumns) {
+                    var subcolumnIds = _.map(column.subcolumns, function(subcolumn) {
+                        return subcolumn.id;
+                    });
+                    vm.collapsedColumns = _.concat(vm.collapsedColumns, subcolumnIds);
+                }
+            }
+        };
+
         function moveCardToColumn(newIndex, card, movedToColumn) {
             for (var i = 0; i < vm.lanes.length; i++) {
                 var lane = vm.lanes[i];

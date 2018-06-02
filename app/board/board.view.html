@@ -37,13 +37,23 @@
                     <th class="color-header" colspan="{{ parentColumn.colSpan }}" style="border-color: blue;" ng-repeat="parentColumn in vm.parentColumns"></th>
                 </tr>
                 <tr>
-                    <th rowspan="{{ parentColumn.rowSpan }}" colspan="{{ parentColumn.colSpan }}" ng-repeat="parentColumn in vm.parentColumns">
-                        {{ parentColumn.name }} [{{ vm.getNumberOfCardsInColumn(parentColumn) }} / {{ parentColumn.card_limit }}]
+                    <th rowspan="{{ parentColumn.rowSpan }}" colspan="{{ parentColumn.colSpan }}" ng-repeat="parentColumn in vm.parentColumns" ng-click="vm.columnClicked(parentColumn, true)" ng-class="{'column-collapsed': vm.isColumnCollapsed(parentColumn.id)}">
+                        <div ng-if="!vm.isColumnCollapsed(parentColumn.id)" class="lane-header-normal">
+                            {{ parentColumn.name }} [{{ vm.getNumberOfCardsInColumn(parentColumn) }} / {{ parentColumn.card_limit }}]
+                        </div>
+                        <div ng-if="vm.isColumnCollapsed(parentColumn.id)" class="lane-header-collapsed">
+                            [{{ vm.getNumberOfCardsInColumn(parentColumn) }}]
+                        </div>
                     </th>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="1" ng-repeat="childColumn in vm.childColumns">
-                        {{ childColumn.name }} [{{ vm.getNumberOfCardsInColumn(childColumn) }} / 0]
+                    <th rowspan="1" colspan="1" ng-repeat="childColumn in vm.childColumns" ng-click="vm.columnClicked(childColumn, false)" ng-class="{'column-collapsed': vm.isColumnCollapsed(childColumn.id)}">
+                        <div ng-if="!vm.isColumnCollapsed(childColumn.id)" class="lane-header-normal">
+                            {{ childColumn.name }} [{{ vm.getNumberOfCardsInColumn(childColumn) }} / 0]
+                        </div>
+                        <div ng-if="vm.isColumnCollapsed(childColumn.id)" class="lane-header-collapsed">
+                            [{{ vm.getNumberOfCardsInColumn(childColumn) }}]
+                        </div>
                     </th>
                 </tr>
             </thead>
@@ -61,15 +71,23 @@
                 <!-- TODO SILVER BULLET HERE -->
                 <tr ng-repeat-end>
                     <td class="lane-column-content" ng-repeat="columnCards in lane.cardsForColumns">
-                        <div class="lane-cell-header">{{ columnCards.cards.length }}<span class="slash-separator">/</span>{{ columnCards.maxNumberOfCardsInColumn }}</div>
-                        <ul class="lane-card-container" dnd-list="columnCards.cards" dnd-allowed-types="vm.columnTypes[lane.project.id][columnCards.column.id].allowedTypes" dnd-drop="vm.checkIfCardCanBeMoved(index, item, columnCards.column)">
-                            <li ng-repeat="card in columnCards.cards" dnd-draggable="card" dnd-type="vm.columnTypes[lane.project.id][columnCards.column.id].type" dnd-moved="columnCards.cards.splice($index, 1)" dnd-dragstart="vm.cardDraggingStarted(card)">
-                                <card card="card" project="lane.project">{{ card.name }}</card>
-                            </li>
-                            <li class="dndPlaceholder card_placeholder" style="height: {{ vm.cardPlaceholderHeight }}px;">
-                                Drop card here!
-                            </li>
-                        </ul>
+                        <div ng-if="!vm.isColumnCollapsed(columnCards.column.id)" class="lane-column-normal">
+                            <div class="lane-cell-header">{{ columnCards.cards.length }}<span class="slash-separator">/</span>{{ columnCards.maxNumberOfCardsInColumn }}</div>
+                            <ul class="lane-card-container" dnd-list="columnCards.cards" dnd-allowed-types="vm.columnTypes[lane.project.id][columnCards.column.id].allowedTypes" dnd-drop="vm.checkIfCardCanBeMoved(index, item, columnCards.column)">
+                                <li ng-repeat="card in columnCards.cards" dnd-draggable="card" dnd-type="vm.columnTypes[lane.project.id][columnCards.column.id].type" dnd-moved="columnCards.cards.splice($index, 1)" dnd-dragstart="vm.cardDraggingStarted(card)">
+                                    <card card="card" project="lane.project">{{ card.name }}</card>
+                                </li>
+                                <li class="dndPlaceholder card_placeholder" style="height: {{ vm.cardPlaceholderHeight }}px;">
+                                    Drop card here!
+                                </li>
+                            </ul>
+                        </div>
+                        <div ng-if="vm.isColumnCollapsed(columnCards.column.id)" class="lane-column-collapsed">
+                            <div class="lane-cell-header">[{{ columnCards.cards.length }}]</div>
+                            <div class="vertical-name">
+                                <span ng-repeat="letter in columnCards.column.name track by $index">{{ letter }} <br></span>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </tbody>

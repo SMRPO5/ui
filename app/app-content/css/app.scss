@@ -149,9 +149,12 @@ textarea {
           border-radius: 3px;
           background-color: #f9f9f9;
           text-align: center;
+          /* Seems this is not required, further testing needed if everything works a-ok...
           min-width: 200px;
+          */
           border: 1px solid #e6ebf4;
           padding: 2px;
+          cursor: pointer;
 
           &.color-header {
             border: 2px solid;
@@ -514,4 +517,15 @@ main {
 
 ul[dnd-list] .dndDraggingSource {
     display: none;
+}
+
+.column-collapsed {
+  width: 38px !important;
+  min-width: 38px !important;
+  max-width: 38px !important;
+}
+
+.vertical-name {
+  text-align: center;
+  padding-top: 10px;
 }
