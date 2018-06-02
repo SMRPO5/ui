@@ -141,7 +141,7 @@
                     }
                 });
             });
-            debugger;
+
             _.each(columnsToUpdate, function(column) {
                 ProjectsService.editColumn(column).then(function(response) {
                     console.log('Column updated!', response.data);
