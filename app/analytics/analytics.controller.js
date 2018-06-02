@@ -205,26 +205,27 @@
                         // $uibModalInstance.close(result.data);
                     }
                 });*/
-
-                var result = {data : [],name : [],projects:[]};
-                vm.leadTimeAvg = 0;
-                result.projects = ["nproject1","project2"]
-                result.data = [[12,41,13,5,6,7,11,88,9,33,21],[33,11,55,56,6,88,99,88,4,66,0]];
-                result.name = ['fss','fss2','fss3','fss4','fss5','fss6','fss7','fss8','fss9','fss11','fss12'];
+                var result = [  
+                    {name:"Next", cart_count:[1,1,1,2,6] ,  datas:["2018-05-26T17:46:17.820309Z","2018-05-28T17:46:17.820309Z","2018-05-31T17:46:17.820309Z","2018-06-02T17:46:17.820309Z","2018-06-04T17:46:17.820309Z"]},
+                    {name:"Backlog", cart_count:[6,0,9,2,3] ,  datas:["2018-05-26T17:46:17.820309Z","2018-05-28T17:46:17.820309Z","2018-05-31T17:46:17.820309Z","2018-06-02T17:46:17.820309Z","2018-06-04T17:46:17.820309Z"]},
+                    {name:"Dev", cart_count:[5,3,2,2,5] ,  datas:["2018-05-26T17:46:17.820309Z","2018-05-28T17:46:17.820309Z","2018-05-31T17:46:17.820309Z","2018-06-02T17:46:17.820309Z","2018-06-04T17:46:17.820309Z"]},
+                    {name:"Done", cart_count:[6,4,9,2,8] ,  datas:["2018-05-26T17:46:17.820309Z","2018-05-28T17:46:17.820309Z","2018-05-31T17:46:17.820309Z","2018-06-02T17:46:17.820309Z","2018-06-04T17:46:17.820309Z"]}
+                ];
                 
                 var x = [];
-                for (var i = 0; i < result.name.length; i++) {
-                    x.push({"label": result.name[i]});
+                for (var i = 0; i < result[0].datas.length; i++) {
+                    x.push({"label": formatDate(result[0].datas[i])});
                 }
                 var dataY = [];
-                for (var j = 0; j < result.data.length; j++) {
+                for (var j = 0; j < result.length; j++) {
                     var y = [];
-                    for (var i = 0; i < result.data[j].length; i++) {
-                        y.push({"value": result.data[j][i].toString()});
+                    for (var i = 0; i < result[j].cart_count.length; i++) {
+                        y.push({"value": result[j].cart_count[i].toString()});
                     }
-                    dataY.push({"seriesname": result.projects[j],"renderas": "line", "data":y});
+                    //dataY.push({"seriesname": result[j].name,"renderas": "area", "data":y});
+                    dataY.push({"seriesname": result[j].name,"renderas": "line", "data":y});
+                
                 }
-               
                 vm.category3 = x;
                 vm.dataset3 = dataY;
                 console.log(vm.dataset3);
@@ -239,49 +240,17 @@
                     }
                 });*/
             }
-/*
-            vm.labels = [];
-            vm.cardLeadTime = [];
-            vm.cardLeadTime2 = [];
-            vm.cardLeadTime3 = [];
-            vm.leadTimeAvg = 0;
-            for (var i = 0; i < 10; i++) {
-                vm.labels.push({"label": i.toString()});
-                var tmp = Math.floor(Math.random() * 15) + 1;
-                vm.cardLeadTime.push({"value": tmp.toString()});
-                vm.leadTimeAvg += tmp;
-                tmp = Math.floor(Math.random() * 15) + 1;
-                vm.cardLeadTime2.push({"value": tmp.toString()});
-                tmp = Math.floor(Math.random() * 15) + 1;
-                vm.cardLeadTime3.push({"value": tmp.toString()});
-
-            }
-
-            vm.leadTimeAvg = vm.leadTimeAvg / vm.cardLeadTime.length;
-            vm.category = vm.labels;
-
-            vm.dataset2 = [
-                {
-                    "seriesname": "Profit",
-                    "renderas": "area",
-                    "showvalues": "0",
-                    "data": vm.cardLeadTime
-                },
-                {
-                    "seriesname": "Actual Revenue",
-                    "data": vm.cardLeadTime
-                },
-                {
-                    "seriesname": "Projected Revenue",
-                    "renderas": "line",
-                    "showvalues": "0",
-                    "data": vm.cardLeadTime
-                }
-            ];
-            vm.dataset2.push({"seriesname": "stolpec", "renderas": "line", "data": vm.cardLeadTime2});
-            vm.dataset2.push({"seriesname": "stolpec", "renderas": "line", "data": vm.cardLeadTime3});
-            vm.updateGraph1();
-            */
         };
+    }
+    function formatDate(date) {
+        var d = new Date(date);
+        var month = '' + (d.getMonth() + 1);
+        var day = '' + d.getDate();
+        var year = d.getFullYear();
+    
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        return [day, month].join('-');
+       // return [day, month,year].join('-');
     }
 })();
