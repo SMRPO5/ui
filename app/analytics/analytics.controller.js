@@ -108,6 +108,18 @@
             if (vm.options.from_size > vm.max)
                 vm.options.from_size = vm.max;
         };
+        vm.blockDate1 = function () {
+            return (vm.options.start_finished == '' && vm.options.end_finished == '' 
+                    && vm.options.start_development == '' && vm.options.end_development == '');
+        };
+        vm.blockDate2 = function () {
+            return (vm.options.start_creation == '' && vm.options.end_creation == '' 
+                    && vm.options.start_development == '' && vm.options.end_development == '');
+        };
+        vm.blockDate3 = function () {
+            return (vm.options.start_finished == '' && vm.options.end_finished == '' 
+                    && vm.options.start_creation == '' && vm.options.end_creation == '');
+        };
         vm.updateGraph1 = function () {
             var newDataSource = angular.copy(vm.baseChart);
             newDataSource.chart.caption = 'Lead card time';
