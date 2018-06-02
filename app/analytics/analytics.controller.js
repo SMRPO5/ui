@@ -183,7 +183,7 @@
                     
                     // calculate whole days
                     var days = Math.floor(delta / 86400);
-                    console.log(result2[i].id);
+                    //console.log(result2[i].id);
                     x.push({"label": result2[i].id.toString()});
                     y.push({"value": days.toString()});
                     vm.leadTimeAvg += days;
