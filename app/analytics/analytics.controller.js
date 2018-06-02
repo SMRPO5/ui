@@ -195,8 +195,6 @@
                     }
 
                 });*/
-                
-                
                 console.log(data_send);
                 var result = {data : [],};
                 var result2 = [  
@@ -235,12 +233,14 @@
                 vm.updateGraph1();
 
             } else if (vm.index == 1) {
+                var data_send = vm.removeNil();
                 /*
                 CardsService.getCardColumnTime(vm.options).then(function (result) {
                     if (result.status === 201) {
                         // $uibModalInstance.close(result.data);
                     }
                 });*/
+                console.log(data_send);
                 var result = [  
                     {name:"Next", cart_count:[1,1,1,2,6] ,  datas:["2018-05-26T17:46:17.820309Z","2018-05-28T17:46:17.820309Z","2018-05-31T17:46:17.820309Z","2018-06-02T17:46:17.820309Z","2018-06-04T17:46:17.820309Z"]},
                     {name:"Backlog", cart_count:[6,0,9,2,3] ,  datas:["2018-05-26T17:46:17.820309Z","2018-05-28T17:46:17.820309Z","2018-05-31T17:46:17.820309Z","2018-06-02T17:46:17.820309Z","2018-06-04T17:46:17.820309Z"]},
