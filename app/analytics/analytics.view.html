@@ -17,10 +17,10 @@
                 </br>
                 <!--<h3 class="modal-title" id="modal-title">Create card</h3>-->
                 <button type="button" class="btn btn-default" ng-click="vm.reset()">Reset</button>
-                <button  type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
             <!--<div class="modal-body row" id="modal-body">-->
-            <div class="form-group col-xs-12" ng-class="{ 'has-error': form.project.$dirty}">
+            <div class="form-group col-xs-12" ng-class="{ 'has-error': form.project.$dirty && form.project.$error.required }">
                 <label for="project">Projects</label>
                 <!--<multiselect ng-required="true" required  ng-model="vm.options.projects" id="project" options="vm.projects" id-prop="id" display-prop="name">
                 </multiselect>
@@ -32,6 +32,24 @@
                 </select>
                 <span ng-show="form.project.$dirty && form.project.$error.required" class="help-block">Project is required</span>
             </div>
+            <div class="form-group col-xs-12">    
+            <div class = "row">
+                <div class="form-group col-xs-6">
+                    <label for="start column">Start column</label></br>
+                    <select ng-disabled=(vm.index==2) ng-model="vm.options.start_column" id="start_column" class="form-control">
+                        <option ng-value="">---</option>
+                        <option ng-value="column.id" ng-repeat="column in vm.columns">{{ column.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-6">
+                        <label for="end column">End column</label></br>
+                        <select ng-disabled=(vm.index==2) ng-model="vm.options.end_column" id="end_column" class="form-control">
+                            <option ng-value="">---</option>
+                            <option ng-value="column.id" ng-repeat="column in vm.columns">{{ column.name }}</option>
+                        </select>
+                </div>
+            </div>
+        </div>
             <div class="form-group col-xs-12">
                 <div class = "row">
                     <div class="form-group col-xs-6">
@@ -140,16 +158,6 @@
         </br>
         <uib-tabset  active="activeJustified" justified="true">
                 <uib-tab  index="0" heading="LeadTime"  select="vm.setIndex(0)">
-
-                <label for="start column">Start column</label></br>
-                <div class = "row">
-                <div class="form-group col-xs-6">
-                <select ng-model="vm.options.start_column" id="start_column" class="form-control">
-                        <option ng-value="">---</option>
-                        <option ng-value="column.id" ng-repeat="column in vm.columns">{{ column.name }}</option>
-                    </select>
-                </div>
-                </div>
                     <div class="col-xs-12" fusioncharts
                     width="800"
                     height="500"
