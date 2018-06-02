@@ -54,7 +54,7 @@
                     <div class="form-group col-xs-6">
                         <label for="creation date">Start creation date</label></br>
                         <p class="input-group">
-                            <input ng-disabled="(vm.index==1 && !vm.blockDate1())" type="text" id="StartCreation" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.start_creation_date" is-open="vm.popup.open1" datepicker-options="vm.startOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <input ng-disabled="(vm.index==1 && !vm.blockDate1())" type="text" id="StartCreation" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.start_creation_date" is-open="vm.popup.open1" ng-change="vm.datesStartCreation()" datepicker-options="vm.startOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
                             <span class="input-group-btn">
                             <button type="button" class="btn btn-default" ng-click="vm.popup.open1 = true">
                                 <i class="glyphicon glyphicon-calendar"></i>
@@ -65,7 +65,7 @@
                     <div class="form-group col-xs-6" >
                         <label for="creation date">End creation date</label></br>
                         <p class="input-group">
-                            <input ng-disabled="(vm.index==1 && !vm.blockDate1())" type="text" id="EndCreation" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.end_creation_date" is-open="vm.popup.open2" datepicker-options="vm.endOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <input ng-disabled="(vm.index==1 && !vm.blockDate1())" type="text" id="EndCreation" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.end_creation_date" is-open="vm.popup.open2"  datepicker-options="vm.endOptions1" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="vm.popup.open2 = true">
                                     <i class="glyphicon glyphicon-calendar"></i>
@@ -80,7 +80,7 @@
                     <div class="form-group col-xs-6">
                         <label for="startFinished date">Card finished date start</label></br>
                         <p class="input-group">
-                            <input ng-disabled="(vm.index==1 && !vm.blockDate2())" type="text" id="startFinished" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.start_finished_date" is-open="vm.popup.open3" datepicker-options="vm.startOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <input ng-disabled="(vm.index==1 && !vm.blockDate2())" type="text" id="startFinished" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.start_finished_date" is-open="vm.popup.open3" ng-change="vm.datesStartFinished()" datepicker-options="vm.startOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="vm.popup.open3 = true">
                                     <i class="glyphicon glyphicon-calendar"></i>
@@ -91,7 +91,7 @@
                     <div class="form-group col-xs-6" >
                         <label for="endFinished date">Card finished date end</label></br>
                         <p class="input-group">
-                            <input ng-disabled="(vm.index==1 && !vm.blockDate2())" type="text" id="endFinished" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.end_finished_date" is-open="vm.popup.open4" datepicker-options="vm.endOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <input ng-disabled="(vm.index==1 && !vm.blockDate2())" type="text" id="endFinished" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.end_finished_date" is-open="vm.popup.open4" datepicker-options="vm.endOptions2" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="vm.popup.open4 = true">
                                     <i class="glyphicon glyphicon-calendar"></i>
@@ -106,7 +106,7 @@
                     <div class="form-group col-xs-6">
                         <label for="startDevelopment date">Card development start</label></br>
                         <p class="input-group">
-                            <input ng-disabled="(vm.index==1 && !vm.blockDate3())" type="text" id="startDevelopment" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.start_development_date" is-open="vm.popup.open5" datepicker-options="vm.startOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <input ng-disabled="(vm.index==1 && !vm.blockDate3())" type="text" id="startDevelopment" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.start_development_date" is-open="vm.popup.open5" ng-change="vm.datesStartDevelopment()" datepicker-options="vm.startOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="vm.popup.open5 = true">
                                     <i class="glyphicon glyphicon-calendar"></i>
@@ -117,7 +117,7 @@
                     <div class="form-group col-xs-6" >
                         <label for="endDevelopment date">Card development end</label></br>
                         <p class="input-group">
-                            <input ng-disabled="(vm.index==1 && !vm.blockDate3())" type="text" id="endDevelopment" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.end_development_date" is-open="vm.popup.open6" datepicker-options="vm.endOptions" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
+                            <input ng-disabled="(vm.index==1 && !vm.blockDate3())" type="text" id="endDevelopment" onkeydown="return false" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="vm.options.end_development_date" is-open="vm.popup.open6" datepicker-options="vm.endOptions3" ng-required="false" close-text="Close" alt-input-formats="altInputFormats" />
                             <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="vm.popup.open6 = true">
                                     <i class="glyphicon glyphicon-calendar"></i>

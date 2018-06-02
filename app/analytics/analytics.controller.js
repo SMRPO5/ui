@@ -94,14 +94,36 @@
             open5: false,
             open6: false
         };
-
-
         vm.startOptions = {
             maxDate: new Date()
         };
-        vm.endOptions = {
-            minDate: new Date()
+        vm.endOptions1 = {
+            minDate: vm.options.start_creation_date
         };
+        vm.endOptions3 = {
+            minDate: vm.options.start_development_date
+        };
+        vm.endOptions2 = {
+            minDate: vm.options.start_finished_date
+        };
+        vm.datesStartCreation = function () {
+            vm.endOptions1.minDate =  vm.options.start_creation_date;
+            if(vm.options.start_creation_date > vm.options.end_creation_date && vm.options.end_creation_date != ''){
+                vm.options.end_creation_date = vm.options.start_creation_date
+            }
+        }
+        vm.datesStartFinished = function () {
+            vm.endOptions2.minDate =  vm.options.start_finished_date;
+            if(vm.options.start_finished_date > vm.options.end_finished_date && vm.options.end_finished_date != ''){
+                vm.options.end_finished_date = vm.options.start_finished_date
+            }
+        }
+        vm.datesStartDevelopment = function () {
+            vm.endOptions3.minDate =  vm.options.start_development_date;
+            if(vm.options.start_development_date > vm.options.end_development_date && vm.options.end_development_date != ''){
+                vm.options.end_development_date = vm.options.start_development_date
+            }
+        }
         vm.columns = [];
         vm.getColumns= function () {
             ProjectsService.getColumnsForProject(vm.options.project).then(function (result) {
