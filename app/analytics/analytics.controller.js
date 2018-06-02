@@ -99,14 +99,14 @@
             });
         };
         vm.setMin = function () {
-            vm.min = vm.options.fromSize;
-            if (vm.options.toSize < vm.min)
-                vm.options.toSize = vm.min;
+            vm.min = vm.options.from_size;
+            if (vm.options.to_size < vm.min)
+                vm.options.to_size = vm.min;
         };
         vm.setMax = function () {
-            vm.max = vm.options.toSize;
-            if (vm.options.fromSize > vm.max)
-                vm.options.fromSize = vm.max;
+            vm.max = vm.options.to_size;
+            if (vm.options.from_size > vm.max)
+                vm.options.from_size = vm.max;
         };
         vm.updateGraph1 = function () {
             var newDataSource = angular.copy(vm.baseChart);
@@ -163,7 +163,11 @@
 
                 });*/
                 var result = {data : []};
-                
+                /*var result2 = [  {id:1 , start_data:"2018-05-29T17:46:17.820309Z",  end_data:"2018-05-31T17:46:17.820309Z" } ];
+                console.log(vm.options.end_creation);
+                var d1 = new Date(vm.options.end_creation);
+                var d2 = new Date(vm.options.start_creation);
+                console.log(	d1.getTime() - d2.getTime());*/
                 vm.leadTimeAvg = 0;
                 result.data = [12,41,13,5,6,7,11,88,9,33,21];
                 var y = [];
