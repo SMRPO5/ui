@@ -128,7 +128,6 @@
         vm.getColumns= function () {
             ProjectsService.getColumnsForProject(vm.options.project).then(function (result) {
                 if (result.status === 200) {
-                    
                     vm.columns = result.data;
                     console.log(result.data);
                 };
@@ -215,50 +214,50 @@
                 CardsService.getCardLeadTime(data_send).then(function (result) {
                     if (result.status === 200) {
                         // $uibModalInstance.close(result.data);
-                        console.log(result);
-
-
+                        var result2 = result.data;
+                        console.log(result2);
+                        /*
+                        var result = {data : [],};
+                        var result2 = [  
+                            {id:1 , start_date:"2018-05-20T17:46:17.820309Z",end_date:"2018-05-31T17:46:17.820309Z" } ,
+                            {id:4 , start_date:"2018-05-27T17:46:17.820309Z",end_date:"2018-05-31T17:46:17.820309Z" } ,
+                            {id:3 , start_date:"2018-05-24T17:46:17.820309Z",end_date:"2018-05-31T17:46:17.820309Z" } ,
+                            {id:6 , start_date:"2018-05-21T17:46:17.820309Z",end_date:"2018-05-31T17:46:17.820309Z" } ,
+                            {id:5 , start_date:"2018-05-25T17:46:17.820309Z",end_date:"2018-05-31T17:46:17.820309Z" } ,
+                            {id:7 , start_date:"2018-05-23T17:46:17.820309Z",end_date:"2018-05-29T17:46:17.820309Z" } ,
+                        ];*/
+                        vm.leadTimeAvg = 0;
+                        var y = [];
+                        var x = [];
+                        for (var i = 0; i < result2.length; i++) {
+                            //console.log(result2[i].end_date);
+                            if(result2[i].end_date != null){
+                                //console.log(i);
+                                var d1 = new Date( result2[i].end_date);//vm.options.end_creation);
+                                var d2 = new Date( result2[i].start_date);//vm.options.start_creation);
+                                
+                                // get total seconds between the times
+                                var delta = Math.abs(d1 - d2) / 1000;
+                                
+                                // calculate whole days
+                                var days = Math.floor(delta / 86400);
+                                //console.log(result2[i].id);
+                                x.push({"label": result2[i].id.toString()});
+                                y.push({"value": days.toString()});
+                                vm.leadTimeAvg += days;
+                            }
+                        }
+                        vm.category2 = x;
+                        vm.leadTimeAvg /= result2.length;
+                        vm.dataset2 = 
+                        [{
+                            "seriesname": "Lead card time",
+                            "data": y
+                        }];
+                        console.log(vm.dataset2);
+                        vm.updateGraph1();
                     }
-
-
                 });
-                console.log(data_send);
-                var result = {data : [],};
-                var result2 = [  
-                    {id:1 , start_data:"2018-05-20T17:46:17.820309Z",end_data:"2018-05-31T17:46:17.820309Z" } ,
-                    {id:4 , start_data:"2018-05-27T17:46:17.820309Z",end_data:"2018-05-31T17:46:17.820309Z" } ,
-                    {id:3 , start_data:"2018-05-24T17:46:17.820309Z",end_data:"2018-05-31T17:46:17.820309Z" } ,
-                    {id:6 , start_data:"2018-05-21T17:46:17.820309Z",end_data:"2018-05-31T17:46:17.820309Z" } ,
-                    {id:5 , start_data:"2018-05-25T17:46:17.820309Z",end_data:"2018-05-31T17:46:17.820309Z" } ,
-                    {id:7 , start_data:"2018-05-23T17:46:17.820309Z",end_data:"2018-05-29T17:46:17.820309Z" } ,
-                ];
-                vm.leadTimeAvg = 0;
-                var y = [];
-                var x = [];
-                for (var i = 0; i < result2.length; i++) {
-                    var d1 = new Date( result2[i].end_data);//vm.options.end_creation);
-                    var d2 = new Date( result2[i].start_data);//vm.options.start_creation);
-                    
-                    // get total seconds between the times
-                    var delta = Math.abs(d1 - d2) / 1000;
-                    
-                    // calculate whole days
-                    var days = Math.floor(delta / 86400);
-                    //console.log(result2[i].id);
-                    x.push({"label": result2[i].id.toString()});
-                    y.push({"value": days.toString()});
-                    vm.leadTimeAvg += days;
-                }
-                vm.category2 = x;
-                vm.leadTimeAvg /= result2.length;
-                vm.dataset2 = 
-                [{
-                    "seriesname": "Lead card time",
-                    "data": y
-                }];
-                console.log(vm.dataset2);
-                vm.updateGraph1();
-
             } else if (vm.index == 1) {
                 var data_send = vm.removeNil();
                 /*
