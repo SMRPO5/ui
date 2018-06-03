@@ -64,8 +64,8 @@
         }
 
         function getCardLeadTime(options) {
-            return $http.post(envService.read('apiUrl') + 'projects/cards/', options, AuthenticationService.getHeaders())
-            .then(handleSuccess, handleError('Error creating card'));
+            return $http.post(envService.read('apiUrl') + 'projects/analytics_lead_time/', options, AuthenticationService.getHeaders())
+            .then(handleSuccess, handleError('Error getting lead time'));
         }
         function getCardColumnTime(options) {
             return $http.post(envService.read('apiUrl') + 'projects/cards/', options, AuthenticationService.getHeaders())

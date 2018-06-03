@@ -198,6 +198,7 @@
             vm.index = index;
         };
         vm.getCardTime = function () {
+            /*
             if (typeof vm.options.projects != 'undefined') {
                 var newProject = [];
                 for (var i = 0; i < vm.options.projects.length; i++) {
@@ -205,18 +206,22 @@
                 }
 
                 vm.options.projects = newProject;
-            }
-            console.log(vm.options);
+            }*/
+            //console.log(vm.options);
 
             if (vm.index == 0) {
                 var data_send = vm.removeNil();
-
-                /*CardsService.getCardLeadTime(vm.options).then(function (result) {
-                    if (result.status === 201) {
+                console.log(data_send);
+                CardsService.getCardLeadTime(data_send).then(function (result) {
+                    if (result.status === 200) {
                         // $uibModalInstance.close(result.data);
+                        console.log(result);
+
+
                     }
 
-                });*/
+
+                });
                 console.log(data_send);
                 var result = {data : [],};
                 var result2 = [  
