@@ -27,22 +27,23 @@
                 <span ng-show="form.project.$dirty" class="help-block">Project is required</span>
             -->
             <select ng-model="vm.options.project" id="project" class="form-control" ng-change="vm.getColumns()" required>  <!--ng-options="project.id as project.name for project in vm.projects"-->
+                    <option ng-show="(vm.index==2)" ng-value="">---</option>
                     <option ng-value="project.id" ng-repeat="project in vm.projects">{{ project.name }}</option>
                 </select>
                 <span ng-show="form.project.$dirty && form.project.$error.required" class="help-block">Project is required</span>
             </div>
             <div class="form-group col-xs-12">    
             <div class = "row">
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-6" ng-hide="(vm.index==2)" >
                     <label for="start column">Start column</label></br>
-                    <select ng-disabled="(vm.index==2)" ng-model="vm.options.start_column" id="start_column" class="form-control">
+                    <select ng-model="vm.options.start_column" id="start_column" class="form-control">
                         <option ng-value="">---</option>
                         <option ng-value="column.id" ng-repeat="column in vm.columns">{{ column.name }}</option>
                     </select>
                 </div>
-                <div class="form-group col-xs-6">
+                <div class="form-group col-xs-6" ng-hide="(vm.index==2)" >
                         <label for="end column">End column</label></br>
-                        <select ng-disabled="(vm.index==2)" ng-model="vm.options.end_column" id="end_column" class="form-control">
+                        <select ng-model="vm.options.end_column" id="end_column" class="form-control">
                             <option ng-value="">---</option>
                             <option ng-value="column.id" ng-repeat="column in vm.columns">{{ column.name }}</option>
                         </select>
@@ -174,12 +175,15 @@
                         </div>
                 </uib-tab>
                 <uib-tab index="2" heading="WIP Violations"  select="vm.setIndex(2)">
-                    </br>
-                    <div class="col-xs-12" fusioncharts
-                         width="800"
-                         height="500"
-                         type="mscombi2d"
-                         dataSource="{{vm.dataSource3}}" >
+                    <h3 ng-hide="vm.wipFilter"><b>Press "Update" to display WIP violations.</b></h3>
+                    <h3 ng-show="vm.wipNoResults"><b>There are no WIP violations that match your search.</b></h3>
+                    <div ng-repeat="v in vm.listViolations">
+                        <h3><b>{{v.card_name}} (ID: {{v.card_id}})</b></h3>
+                        <h5><b>Violation date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{v.violation_date}}</b></h5>
+                        <h5><b>Column: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{v.column_name}}</b></h5>
+                        <h5><b>User:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{v.user}}</b></h5>
+                        <h5><b>Reason for violation:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{v.reason}}</b></h5>
+                    <hr>
                     </div>
                 </uib-tab>
         </uib-tabset>

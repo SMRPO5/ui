@@ -22,6 +22,9 @@
                 vm.cardTypes = result.data;
             }
         });
+
+        vm.wipFilter = false;
+        vm.wipNoResults = false;
         
         vm.baseChart = {
             "chart": {
@@ -52,6 +55,9 @@
         vm.dataSource = angular.copy(vm.baseChart);
         vm.dataSource2 = angular.copy(vm.baseChart);
         vm.reset = function () {
+            vm.wipFilter = false;
+            vm.listViolations = [];
+
             vm.min = 0;
             vm.max = 100;
             vm.options = {
@@ -194,6 +200,10 @@
         FusionCharts['debugger'].enable(true);
         */
         vm.setIndex = function (index) {
+            if (index === 2){
+                vm.wipFilter = false;
+                vm.listViolations = [];
+            }
             vm.index = index;
         };
         vm.getCardTime = function () {
@@ -208,7 +218,7 @@
             }*/
             //console.log(vm.options);
 
-            if (vm.index == 0) {
+            if (vm.index === 0) {
                 var data_send = vm.removeNil();
                 console.log(data_send);
                 CardsService.getCardLeadTime(data_send).then(function (result) {
@@ -258,7 +268,7 @@
                         vm.updateGraph1();
                     }
                 });
-            } else if (vm.index == 1) {
+            } else if (vm.index === 1) {
                 var data_send = vm.removeNil();
                 /*
                 CardsService.getCardColumnTime(vm.options).then(function (result) {
@@ -293,14 +303,114 @@
                 console.log(vm.dataset3);
                 vm.updateGraph2();
 
-            } else if (vm.index == 2) {
+            } else if (vm.index === 2) {
 
-                console.log(vm.options);
-                /*CardsService.getCardColumnTime(vm.options).then(function (result) {
-                    if (result.status === 201) {
-                        // $uibModalInstance.close(result.data);
+                vm.wipFilter = true;
+
+                vm.listViolations = [
+                    {card_id: 0,
+                        card_name: 'Kartica 1',
+                        violation_date: '2018-06-02 16:05',               // (oziroma kakršnikoli format je že, mora bit pa tud čas zraven)
+                        column_name: 'Coding',                                     // v katerem stolpcu se je zgodila kršitev
+                        user: 'admin@mail.com',                                    // uporabnik ki je kršil WIP
+                        reason: 'Urgent request'                                     // razlog
+                    },
+                    {card_id: 1,
+                        card_name: 'Kartica 2',
+                        violation_date: '2018-06-02 17:05',               // (oziroma kakršnikoli format je že, mora bit pa tud čas zraven)
+                        column_name: 'Coding',                                     // v katerem stolpcu se je zgodila kršitev
+                        user: 'admin@mail.com',                                    // uporabnik ki je kršil WIP
+                        reason: 'Another urgent request'                     // razlog
                     }
-                });*/
+                ];
+
+
+                var first = true;
+
+                var req = "";
+
+                if (vm.options.project !== '' && typeof vm.options.project != 'undefined'){
+                    if (first){
+                        first = false;
+                        req = req + 'card__project__in:[' + vm.options.project + ']';
+                    } else {
+                        req = req + '&card__project__in:[' + vm.options.project + ']';
+                    }
+                }
+
+                if (vm.options.start_creation_date !== '' && typeof vm.options.start_creation_date != 'undefined'){
+                    if (first){
+                        first = false;
+                        req = req + 'card__created_at__gt=' + vm.options.start_creation_date;
+                    } else {
+                        req = req + '&card__created_at__gt=' + vm.options.start_creation_date;
+                    }
+                }
+
+                if (vm.options.end_creation_date !== '' && typeof vm.options.end_creation_date != 'undefined'){
+                    if (first){
+                        first = false;
+                        req = req + 'card__created_at__lt=' + vm.options.end_creation_date;
+                    } else {
+                        req = req + '&card__created_at__lt=' + vm.options.end_creation_date;
+                    }
+                }
+
+                if (vm.options.from_size !== '' && typeof vm.options.from_size != 'undefined' && ((!vm.options.from_size) !== true)){
+                    console.log(vm.options.from_size);
+                    if (first){
+                        first = false;
+                        req = req + 'card__size__gt=' + vm.options.from_size;
+                    } else {
+                        req = req + '&card__size__gt=' + vm.options.from_size;
+                    }
+                }
+
+                if (vm.options.to_size !== '' && typeof vm.options.to_size != 'undefined' && ((!vm.options.from_size) !== true)){
+                    if (first){
+                        first = false;
+                        req = req + 'card__size__lt=' + vm.options.to_size;
+                    } else {
+                        req = req + '&card__size__lt=' + vm.options.to_size;
+                    }
+                }
+
+                if (vm.options.type != -1){
+                    if (first){
+                        first = false;
+                        req = req + 'card__type__in:[' + vm.options.type + ']';
+                    } else {
+                        req = req + '&card__type__in:[' + vm.options.type + ']';
+                    }
+                }
+
+
+/*
+                var card__created_at__gt = null;
+                var card__created_at__lt = null;
+                var card__size__lt = null;
+                var card__size__gt = null;
+                var card__type__in = [1, 2, 3, 4];           // ne includaš tega fields če hočš vse tipe
+                var card__project__in = [1, 2, 3];           // isto kot zgoraj
+
+*/              console.log(req);
+
+
+                CardsService.getWipViolations(req).then(function (result) {
+                    if (result.status === 200) {
+                        console.log(result.data);
+
+                        //Uncomment for real data
+                        /*
+                        vm.listViolations = result.data;
+                        if (vm.listViolations.length === 0){
+                            vm.wipNoResults = true;
+                        } else {
+                            vm.wipNoResults = false;
+                        }
+                        */
+                    }
+                });
             }
         };
     };

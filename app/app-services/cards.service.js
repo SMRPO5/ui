@@ -69,8 +69,15 @@
         }
         function getCardColumnTime(options) {
             return $http.post(envService.read('apiUrl') + 'projects/cards/', options, AuthenticationService.getHeaders())
-            .then(handleSuccess, handleError('Error creating card'));
+                .then(handleSuccess, handleError('Error creating card'));
         }
+
+        function getWipViolations(options) {
+            return $http.get(envService.read('apiUrl') + 'projects/wip_violations/?' + options, AuthenticationService.getHeaders())
+                .then(handleSuccess, handleError('Error getting WIP violations'));
+        }
+
+
         
         // private functions
 
@@ -97,7 +104,8 @@
             getCardWipViolations: getCardWipViolations,
             sendMail: sendMail,
             getCardLeadTime:getCardLeadTime,
-            getCardColumnTime:getCardColumnTime
+            getCardColumnTime:getCardColumnTime,
+            getWipViolations:getWipViolations
 
         };
     }

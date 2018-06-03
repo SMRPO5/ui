@@ -225,6 +225,24 @@
             });
         }
 
+        function openCardDeleteReasonModal(index, item, column, callback, cancelCallback) {
+            return $uibModal.open({
+                templateUrl: 'app-modals/card/deleteReason/deleteCardReason.view.html',
+                controller: 'CardDeleteReasonController',
+                controllerAs: 'vm',
+                appendTo: angular.element($document[0].querySelector('.modal_container')),
+                resolve: {
+                    data: {
+                        index: index,
+                        item: item,
+                        movedToColumn: column,
+                        callback: callback,
+                        cancelCallback: cancelCallback
+                    }
+                }
+            });
+        }
+
         return {
             openAddGroupModal: openAddGroupModal,
             openEditGroupModal: openEditGroupModal,
@@ -241,7 +259,8 @@
             openEditBoardModal: openEditBoardModal,
             openCreateColumnModal: openCreateColumnModal,
             openEditColumnModal: openEditColumnModal,
-            openSetBoundaryColumnsModal: openSetBoundaryColumnsModal
+            openSetBoundaryColumnsModal: openSetBoundaryColumnsModal,
+            openCardDeleteReasonModal: openCardDeleteReasonModal
         }
     }
 
