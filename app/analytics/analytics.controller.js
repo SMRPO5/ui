@@ -271,6 +271,7 @@
                             vm.updateGraph1();
                         }
                         else{
+                            vm.leadTimeAvg = 0;
                             vm.category2 = [0];
                             vm.dataset2 = 
                             [{
