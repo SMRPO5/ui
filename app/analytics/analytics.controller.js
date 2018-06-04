@@ -161,7 +161,9 @@
             return (vm.options.start_finished_date == '' && vm.options.end_finished_date == '' 
                     && vm.options.start_creation_date == '' && vm.options.end_creation_date == '');
         };
-
+        vm.req = function () {
+            return (vm.project != '' && vm.start_column != ''&& vm.end_column != '');
+        };
         vm.updateGraph1 = function () {
             var newDataSource = angular.copy(vm.baseChart);
             newDataSource.chart.caption = 'Lead card time';
