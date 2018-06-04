@@ -9,6 +9,9 @@
     function EditCardController($rootScope, $location, FlashService, CardsService, UserService, card, project, moment, $uibModalInstance, ModalProvider) {
         var vm = this;
         card = card.data;
+
+        console.log($rootScope);
+
         vm.canEdit = (card.is_in_requested && ($rootScope.hasRoleForProject(project, 'Kanban Master') || $rootScope.hasRoleForProject(project, 'Product Owner') && card.type.name !== 'Silver bullet')) ||
             (!card.is_in_requested && (!$rootScope.hasRoleForProject(project, 'Product Owner') || $rootScope.hasRoleForProject(project, 'Kanban Master'))) &&
             !card.is_in_done;
@@ -73,6 +76,21 @@
             CardsService.editCard(card.id, vm.cardData).then(function(response) {
                 $uibModalInstance.close(response.data);
             });
+        };
+
+
+        vm.removeCard = function(){
+            ModalProvider.openCardDeleteReasonModal().result.then(function(data){
+                CardsService.removeCard(card.id).then(function(response) {
+                    //$uibModalInstance.close(response.data);
+                    location.reload(); // Ne me kregat, ni blo časa se ukvarjat s tem :)
+                });
+            }, function(error) {
+
+            });
+
+
+
         };
 
         vm.close = function() {
