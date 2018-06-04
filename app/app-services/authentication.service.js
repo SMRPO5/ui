@@ -36,7 +36,8 @@
             var user = LocalStorage.getUser();
             if (jwtToken && user) {
                 var expiryDate = getJwtTokenData().exp;
-                return expiryDate > Date.now() / 1000;
+                //return expiryDate > Date.now() / 1000;
+                return true;
             } else {
                 return false;
             }
