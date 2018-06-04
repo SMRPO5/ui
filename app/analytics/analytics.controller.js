@@ -236,37 +236,49 @@
                             {id:5 , start_date:"2018-05-25T17:46:17.820309Z",end_date:"2018-05-31T17:46:17.820309Z" } ,
                             {id:7 , start_date:"2018-05-23T17:46:17.820309Z",end_date:"2018-05-29T17:46:17.820309Z" } ,
                         ];*/
-                        vm.leadTimeAvg = 0;
-                        var y = [];
-                        var x = [];
-                        for (var i = 0; i < result2.length; i++) {
-                            //console.log(result2[i].end_date);
-                            if(result2[i].end_date != null){
-                                //console.log(i);
-                                var d1 = new Date( result2[i].end_date);//vm.options.end_creation);
-                                var d2 = new Date( result2[i].start_date);//vm.options.start_creation);
-                                
-                                // get total seconds between the times
-                                var delta = Math.abs(d1 - d2) / 1000;
-                                
-                                // calculate whole days
-                                var days = Math.floor(delta / 86400);
-                                //console.log(result2[i].id);
-                                x.push({"label": result2[i].id.toString()});
-                                y.push({"value": days.toString()});
-                                vm.leadTimeAvg += days;
+                        if(result2.length > 0){
+                            vm.leadTimeAvg = 0;
+                            var y = [];
+                            var x = [];
+                            for (var i = 0; i < result2.length; i++) {
+                                //console.log(result2[i].end_date);
+                                if(result2[i].end_date != null){
+                                    //console.log(i);
+                                    var d1 = new Date( result2[i].end_date);//vm.options.end_creation);
+                                    var d2 = new Date( result2[i].start_date);//vm.options.start_creation);
+                                    
+                                    // get total seconds between the times
+                                    var delta = Math.abs(d1 - d2) / 1000;
+                                    
+                                    // calculate whole days
+                                    var days = Math.floor(delta / 86400);
+                                    //console.log(result2[i].id);
+                                    x.push({"label": result2[i].id.toString()});
+                                    y.push({"value": days.toString()});
+                                    vm.leadTimeAvg += days;
+                                }
                             }
+                            vm.category2 = x;
+                            vm.leadTimeAvg /= result2.length;
+                            vm.dataset2 = 
+                            [{
+                                "seriesname": "Lead card time",
+                                "data": y
+                            }];
+                            console.log(vm.dataset2);
+                            vm.updateGraph1();
                         }
-                        vm.category2 = x;
-                        vm.leadTimeAvg /= result2.length;
-                        vm.dataset2 = 
-                        [{
-                            "seriesname": "Lead card time",
-                            "data": y
-                        }];
-                        console.log(vm.dataset2);
-                        vm.updateGraph1();
+                        else{
+                            vm.category2 = [0];
+                            vm.dataset2 = 
+                            [{
+                                "seriesname": "Lead card time",
+                                "data": [0]
+                            }];
+                            vm.updateGraph1();
+                        }
                     }
+                    
                 });
             } else if (vm.index === 1) {
                 var data_send = vm.removeNil();
