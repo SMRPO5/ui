@@ -43,20 +43,6 @@
         };
 
         vm.openShowCriticalCardsModal = function (board) {
-
-            //console.log($rootScope.sent);
-
-            // TEMP ZA FAKE PROŽENJE POŠILJANJA MAILA
-
-            if (typeof $rootScope.sent == 'undefined'){
-                vm.sendMail();
-            }
-
-            $rootScope.sent = true;
-
-            // END TEMP ZA FAKE PROŽENJE POŠILJANJA MAILA
-
-
             ModalProvider.openShowCriticalCardsModal().result.then(function (data) {
                 console.log('Showing critical cards (' + data + ' days)...');
 
@@ -213,8 +199,8 @@
                             console.log('Sending mail to: ' + kbMastri[o]);
                             console.log(body);
 
-                            // Uncomment bottom line to actually sent eMails to those addresses
-                            CardsService.sendMail(kbMastri[o], body);
+                            // This function does not work, you have to implement it in CardsService
+                            // CardsService.sendMail(kbMastri[o], body);
                         }
                     }
                 }
