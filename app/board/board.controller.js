@@ -24,6 +24,8 @@
             }
         });
 
+
+
         vm.onBoardChange = function () {
             var board = vm.boards.find(function (board) {
                 return board.id === parseInt(vm.selectedBoard);
@@ -41,6 +43,20 @@
         };
 
         vm.openShowCriticalCardsModal = function (board) {
+
+            //console.log($rootScope.sent);
+
+            // TEMP ZA FAKE PROŽENJE POŠILJANJA MAILA
+
+            if (typeof $rootScope.sent == 'undefined'){
+                vm.sendMail();
+            }
+
+            $rootScope.sent = true;
+
+            // END TEMP ZA FAKE PROŽENJE POŠILJANJA MAILA
+
+
             ModalProvider.openShowCriticalCardsModal().result.then(function (data) {
                 console.log('Showing critical cards (' + data + ' days)...');
 
