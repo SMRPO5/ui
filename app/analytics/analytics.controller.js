@@ -255,6 +255,7 @@
                             vm.leadTimeAvg = 0;
                             var y = [];
                             var x = [];
+                            var nn = 0;
                             for (var i = 0; i < result2.length; i++) {
                                 //console.log(result2[i].end_date);
                                 if (result2[i].end_date != null) {
@@ -271,10 +272,11 @@
                                     x.push({"label": result2[i].id.toString()});
                                     y.push({"value": days.toString()});
                                     vm.leadTimeAvg += days;
+                                    nn = nn +1;
                                 }
                             }
                             vm.category2 = x;
-                            vm.leadTimeAvg /= result2.length;
+                            vm.leadTimeAvg /= nn;
                             vm.dataset2 =
                                 [{
                                     "seriesname": "Lead card time",
